@@ -817,6 +817,8 @@
     <string name="status_bar_hide_recent">Hide recent button</string>
     <string name="status_bar_hide_back">Hide back button</string>
     <string name="status_bar_hide_menu">Hide menu button</string>
+    <string name="status_bar_recents_title">Recent apps</string>
+    <string name="status_bar_recent_thumbnails">Large thumbnails</string>
 
     <!-- Lock screen #CM -->
     <string name="lock_screen_title">Lock screen</string>

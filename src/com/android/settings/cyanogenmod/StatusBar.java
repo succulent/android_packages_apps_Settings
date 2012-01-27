@@ -48,6 +48,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String STATUS_BAR_HIDE_MENU = "status_bar_hide_menu";
 
+    private static final String STATUS_BAR_RECENT_THUMBNAILS = "status_bar_recent_thumbnails";
+
     private ListPreference mStatusBarAmPm;
 
     private ListPreference mStatusBarBattery;
@@ -66,6 +68,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private CheckBoxPreference mStatusBarHideMenu;
 
+    private CheckBoxPreference mStatusBarRecentThumbnails;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +87,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarHideRecent = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_HIDE_RECENT);
         mStatusBarHideBack = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_HIDE_BACK);
         mStatusBarHideMenu = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_HIDE_MENU);
+        mStatusBarRecentThumbnails = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_RECENT_THUMBNAILS);
 
         mStatusBarClock.setChecked((Settings.System.getInt(getActivity().getApplicationContext()
                 .getContentResolver(),
@@ -98,6 +103,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 Settings.System.HIDE_SOFT_BACK_BUTTON, 0) == 1));
         mStatusBarHideMenu.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.HIDE_SOFT_MENU_BUTTON, 0) == 1));
+        mStatusBarRecentThumbnails.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.LARGE_RECENT_THUMBNAILS, 0) == 1));
 
         try {
             if (Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(), 
@@ -173,6 +180,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarHideMenu.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.HIDE_SOFT_MENU_BUTTON, value ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarRecentThumbnails) {
+            value = mStatusBarRecentThumbnails.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LARGE_RECENT_THUMBNAILS, value ? 1 : 0);
             return true;
         }
         return false;
