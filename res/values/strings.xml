@@ -738,6 +738,11 @@
     <!-- Notification Drawer #CM -->
     <string name="notification_drawer_title">Notification drawer</string>
 
+    <!-- Combined Bar #CM -->
+    <string name="combined_bar_title">Combined Bar</string>
+    <string name="combined_bar_auto_hide_title">Auto Hide</string>
+    <string name="combined_bar_auto_hide_summary">Allow Combined Bar to hide when showing a fullscreen app</string>
+
     <!-- Power Widget #CM -->
     <string name="power_widget_title">Power widget</string>
     <string name="title_expanded_widget">Show power widget</string>
@@ -2397,6 +2402,11 @@
     <string name="use_location_title">Location &amp; Google search</string>
     <!-- [CHAR_LIMIT=100] Security & location settings screen, setting check box summary for Google search -->
     <string name="use_location_summary">Let Google use your location to improve search results and other services</string>
+    <!-- GPS Source selection -->
+    <string name="location_gps_source_title">GPS source</string>
+    <string name="location_gps_source_summary">Use external bluetooth gps mouse instead of internal as location provider</string>
+    <string name="location_gps_source_notification_title">Alert</string>
+    <string name="location_gps_source_notification">GPS source has been switched! GPS will be disabled. Please re-enable before use!</string>
 
     <!-- About --> <skip />
     <!-- Main settings screen, setting title for the user to go into the About phone screen -->
