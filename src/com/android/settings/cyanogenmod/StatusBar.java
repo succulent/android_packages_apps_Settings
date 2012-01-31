@@ -40,16 +40,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String STATUS_BAR_CM_SIGNAL = "status_bar_cm_signal";
 
-    private static final String STATUS_BAR_HIDE_HOME = "status_bar_hide_home";
-
-    private static final String STATUS_BAR_HIDE_RECENT = "status_bar_hide_recent";
-
-    private static final String STATUS_BAR_HIDE_BACK = "status_bar_hide_back";
-
-    private static final String STATUS_BAR_HIDE_MENU = "status_bar_hide_menu";
-
-    private static final String STATUS_BAR_RECENT_THUMBNAILS = "status_bar_recent_thumbnails";
-
     private ListPreference mStatusBarAmPm;
 
     private ListPreference mStatusBarBattery;
@@ -59,16 +49,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mStatusBarClock;
 
     private CheckBoxPreference mStatusBarBrightnessControl;
-
-    private CheckBoxPreference mStatusBarHideHome;
-
-    private CheckBoxPreference mStatusBarHideRecent;
-
-    private CheckBoxPreference mStatusBarHideBack;
-
-    private CheckBoxPreference mStatusBarHideMenu;
-
-    private CheckBoxPreference mStatusBarRecentThumbnails;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,28 +63,12 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarAmPm = (ListPreference) prefSet.findPreference(STATUS_BAR_AM_PM);
         mStatusBarBattery = (ListPreference) prefSet.findPreference(STATUS_BAR_BATTERY);
         mStatusBarCmSignal = (ListPreference) prefSet.findPreference(STATUS_BAR_CM_SIGNAL);
-        mStatusBarHideHome = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_HIDE_HOME);
-        mStatusBarHideRecent = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_HIDE_RECENT);
-        mStatusBarHideBack = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_HIDE_BACK);
-        mStatusBarHideMenu = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_HIDE_MENU);
-        mStatusBarRecentThumbnails = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_RECENT_THUMBNAILS);
 
         mStatusBarClock.setChecked((Settings.System.getInt(getActivity().getApplicationContext()
                 .getContentResolver(),
         		Settings.System.STATUS_BAR_CLOCK, 1) == 1));
         mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
         		Settings.System.STATUS_BAR_BRIGHTNESS_TOGGLE, 0) == 1));
-
-        mStatusBarHideHome.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                Settings.System.HIDE_SOFT_HOME_BUTTON, 0) == 1));
-        mStatusBarHideRecent.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                Settings.System.HIDE_SOFT_RECENT_BUTTON, 0) == 1));
-        mStatusBarHideBack.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                Settings.System.HIDE_SOFT_BACK_BUTTON, 0) == 1));
-        mStatusBarHideMenu.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                Settings.System.HIDE_SOFT_MENU_BUTTON, 0) == 1));
-        mStatusBarRecentThumbnails.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                Settings.System.LARGE_RECENT_THUMBNAILS, 0) == 1));
 
         try {
             if (Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(), 
@@ -150,7 +114,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         boolean value;
-
         if (preference == mStatusBarClock) {
             value = mStatusBarClock.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
@@ -160,31 +123,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarBrightnessControl.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_BRIGHTNESS_TOGGLE, value ? 1 : 0);
-            return true;
-        } else if (preference == mStatusBarHideHome) {
-            value = mStatusBarHideHome.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.HIDE_SOFT_HOME_BUTTON, value ? 1 : 0);
-            return true;
-        } else if (preference == mStatusBarHideRecent) {
-            value = mStatusBarHideRecent.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.HIDE_SOFT_RECENT_BUTTON, value ? 1 : 0);
-            return true;
-        } else if (preference == mStatusBarHideBack) {
-            value = mStatusBarHideBack.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.HIDE_SOFT_BACK_BUTTON, value ? 1 : 0);
-            return true;
-        } else if (preference == mStatusBarHideMenu) {
-            value = mStatusBarHideMenu.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.HIDE_SOFT_MENU_BUTTON, value ? 1 : 0);
-            return true;
-        } else if (preference == mStatusBarRecentThumbnails) {
-            value = mStatusBarRecentThumbnails.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.LARGE_RECENT_THUMBNAILS, value ? 1 : 0);
             return true;
         }
         return false;

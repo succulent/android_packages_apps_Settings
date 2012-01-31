@@ -65,39 +65,4 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/status_bar_tablet_buttons_title">
-
-        <CheckBoxPreference
-            android:key="status_bar_hide_back"
-            android:title="@string/status_bar_hide_back"
-            android:defaultValue="false" />
-
-        <CheckBoxPreference
-            android:key="status_bar_hide_home"
-            android:title="@string/status_bar_hide_home"
-            android:defaultValue="false" />
-
-        <CheckBoxPreference
-            android:key="status_bar_hide_recent"
-            android:title="@string/status_bar_hide_recent"
-            android:defaultValue="false" />
-
-
-        <CheckBoxPreference
-            android:key="status_bar_hide_menu"
-            android:title="@string/status_bar_hide_menu"
-            android:defaultValue="false" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/status_bar_recents_title">
-
-        <CheckBoxPreference
-            android:key="status_bar_recent_thumbnails"
-            android:title="@string/status_bar_recent_thumbnails"
-            android:defaultValue="false" />
-
-    </PreferenceCategory>
 </PreferenceScreen>

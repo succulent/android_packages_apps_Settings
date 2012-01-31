@@ -17,26 +17,34 @@
 package com.android.settings.cyanogenmod;
 
 import com.android.settings.cyanogenmod.Processor;
+import com.android.settings.cyanogenmod.TabletTweaks;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.SystemProperties;
+import android.provider.Settings;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class CPUReceiver extends BroadcastReceiver {
+public class BootReceiver extends BroadcastReceiver {
 
     private static final String TAG = "CPUSettings";
 
     private static final String CPU_SETTINGS_PROP = "sys.cpufreq.restored";
 
+    private SharedPreferences mPrefs;
+
     @Override
     public void onReceive(Context ctx, Intent intent) {
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+
         if (SystemProperties.getBoolean(CPU_SETTINGS_PROP, false) == false
                 && intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
             SystemProperties.set(CPU_SETTINGS_PROP, "true");
@@ -44,23 +52,25 @@ public class CPUReceiver extends BroadcastReceiver {
         } else {
             SystemProperties.set(CPU_SETTINGS_PROP, "false");
         }
+        if (mPrefs.getBoolean(TabletTweaks.TABLET_TWEAKS_DISABLE_HARDWARE_BUTTONS, false)) {
+            configureButtons();
+        }
     }
 
     private void configureCPU(Context ctx) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-
-        if (prefs.getBoolean(Processor.SOB_PREF, false) == false) {
+        if (mPrefs.getBoolean(Processor.SOB_PREF, false) == false) {
             Log.i(TAG, "Restore disabled by user preference.");
             return;
         }
 
-        String governor = prefs.getString(Processor.GOV_PREF, null);
-        String minFrequency = prefs.getString(Processor.FREQ_MIN_PREF, null);
-        String maxFrequency = prefs.getString(Processor.FREQ_MAX_PREF, null);
+        String governor = mPrefs.getString(Processor.GOV_PREF, null);
+        String minFrequency = mPrefs.getString(Processor.FREQ_MIN_PREF, null);
+        String maxFrequency = mPrefs.getString(Processor.FREQ_MAX_PREF, null);
         String availableFrequenciesLine = Processor.readOneLine(Processor.FREQ_LIST_FILE);
         String availableGovernorsLine = Processor.readOneLine(Processor.GOV_LIST_FILE);
         boolean noSettings = ((availableGovernorsLine == null) || (governor == null)) &&
-                             ((availableFrequenciesLine == null) || ((minFrequency == null) && (maxFrequency == null)));
+                ((availableFrequenciesLine == null) || ((minFrequency == null)
+                && (maxFrequency == null)));
         List<String> frequencies = null;
         List<String> governors = null;
 
@@ -83,6 +93,16 @@ public class CPUReceiver extends BroadcastReceiver {
                 Processor.writeOneLine(Processor.FREQ_MIN_FILE, minFrequency);
             }
             Log.d(TAG, "CPU settings restored.");
+        }
+    }
+
+    private void configureButtons() {
+        try {
+            String[] cmds = {TabletTweaks.BUTTONS_ENABLED_SHELL, "-c",
+                    TabletTweaks.BUTTONS_ENABLED_COMMAND + "0" + TabletTweaks.BUTTONS_ENABLED_PATH};
+            Runtime.getRuntime().exec(cmds);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

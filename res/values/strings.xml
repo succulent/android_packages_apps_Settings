@@ -817,13 +817,18 @@
     <string name="status_bar_cm_signal_text_show_bars">Signal bars</string>
     <string name="status_bar_cm_signal_text_show_text">Signal text</string>
     <string name="status_bar_cm_signal_text_show_text_dbm">Signal text w/dBm</string>
-    <string name="status_bar_tablet_buttons_title">Tablet soft buttons</string>
-    <string name="status_bar_hide_home">Hide home button</string>
-    <string name="status_bar_hide_recent">Hide recent button</string>
-    <string name="status_bar_hide_back">Hide back button</string>
-    <string name="status_bar_hide_menu">Hide menu button</string>
-    <string name="status_bar_recents_title">Recent apps</string>
-    <string name="status_bar_recent_thumbnails">Large thumbnails</string>
+
+    <!-- Tablet Tweaks #CM -->
+    <string name="tablet_tweaks_title">Tablet tweaks</string>
+    <string name="tablet_tweaks_tablet_buttons_title">Tablet soft buttons</string>
+    <string name="tablet_tweaks_hide_home">Hide home button</string>
+    <string name="tablet_tweaks_hide_recent">Hide recent button</string>
+    <string name="tablet_tweaks_hide_back">Hide back button</string>
+    <string name="tablet_tweaks_hide_menu">Hide menu button</string>
+    <string name="tablet_tweaks_tablet_capacitive_title">Tablet capacitive buttons</string>
+    <string name="tablet_tweaks_disable_hardware_buttons">Disable capacitive buttons</string>
+    <string name="tablet_tweaks_recents_title">Recent apps</string>
+    <string name="tablet_tweaks_recent_thumbnails">Large thumbnails</string>
 
     <!-- Lock screen #CM -->
     <string name="lock_screen_title">Lock screen</string>

@@ -52,4 +52,9 @@
         android:entryValues="@array/entryvalues_font_size"
         android:dialogTitle="@string/dialog_title_font_size" />
 
+    <PreferenceScreen
+        android:key="tablet_tweaks"
+        android:title="@string/tablet_tweaks_title"
+        android:fragment="com.android.settings.cyanogenmod.TabletTweaks" />
+
 </PreferenceScreen>
