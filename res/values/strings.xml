@@ -829,6 +829,11 @@
     <string name="tablet_tweaks_disable_hardware_buttons">Disable capacitive buttons</string>
     <string name="tablet_tweaks_recents_title">Recent apps</string>
     <string name="tablet_tweaks_recent_thumbnails">Large thumbnails</string>
+    <string name="tablet_tweaks_storage_title">Storage</string>
+    <string name="tablet_tweaks_storage_switch">Switch external storage</string>
+    <string name="tablet_tweaks_storage_switch_summary">Switch external and internal sd-card mounts (Requires reboot)</string>
+    <string name="tablet_tweaks_storage_automount">Automount UMS</string>
+    <string name="tablet_tweaks_storage_automount_summary">Automount USB mass storage when connected</string>
 
     <!-- Lock screen #CM -->
     <string name="lock_screen_title">Lock screen</string>

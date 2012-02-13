@@ -64,4 +64,20 @@
             android:defaultValue="false" />
 
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/tablet_tweaks_storage_title">
+
+        <CheckBoxPreference
+            android:key="tablet_tweaks_storage_switch"
+            android:title="@string/tablet_tweaks_storage_switch"
+            android:summary="@string/tablet_tweaks_storage_switch_summary"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="tablet_tweaks_storage_automount"
+            android:title="@string/tablet_tweaks_storage_automount"
+            android:summary="@string/tablet_tweaks_storage_automount_summary"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
 </PreferenceScreen>

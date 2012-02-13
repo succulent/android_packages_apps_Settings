@@ -19,6 +19,7 @@ package com.android.settings.cyanogenmod;
 import android.content.ContentResolver;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemProperties;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
@@ -47,6 +48,10 @@ public class TabletTweaks extends SettingsPreferenceFragment {
 
     private static final String TABLET_TWEAKS_RECENT_THUMBNAILS = "tablet_tweaks_recent_thumbnails";
 
+    private static final String TABLET_TWEAKS_STORAGE_SWITCH = "tablet_tweaks_storage_switch";
+
+    private static final String TABLET_TWEAKS_STORAGE_AUTOMOUNT = "tablet_tweaks_storage_automount";
+
     public static final String BUTTONS_ENABLED_COMMAND = "echo ";
 
     public static final String BUTTONS_ENABLED_PATH =
@@ -65,6 +70,10 @@ public class TabletTweaks extends SettingsPreferenceFragment {
     private CheckBoxPreference mTabletTweaksDisableHardwareButtons;
 
     private CheckBoxPreference mTabletTweaksRecentThumbnails;
+
+    private CheckBoxPreference mTabletTweaksStorageSwitch;
+
+    private CheckBoxPreference mTabletTweaksStorageAutomount;
 
     private ContentResolver mContentResolver;
 
@@ -94,6 +103,10 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_DISABLE_HARDWARE_BUTTONS);
         mTabletTweaksRecentThumbnails =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_RECENT_THUMBNAILS);
+        mTabletTweaksStorageSwitch =
+                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_STORAGE_SWITCH);
+        mTabletTweaksStorageAutomount =
+                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_STORAGE_AUTOMOUNT);
 
         mTabletTweaksHideHome.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.HIDE_SOFT_HOME_BUTTON, 0) == 1));
@@ -105,6 +118,10 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 Settings.System.HIDE_SOFT_MENU_BUTTON, 0) == 1));
         mTabletTweaksRecentThumbnails.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.LARGE_RECENT_THUMBNAILS, 0) == 1));
+        mTabletTweaksStorageSwitch.setChecked(
+                SystemProperties.getInt("persist.sys.vold.switchexternal", 0) == 1);
+        mTabletTweaksStorageAutomount.setChecked((Settings.Secure.getInt(mContentResolver,
+                Settings.Secure.MOUNT_UMS_AUTOSTART, 0) == 1));
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -144,6 +161,15 @@ public class TabletTweaks extends SettingsPreferenceFragment {
             value = mTabletTweaksRecentThumbnails.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.LARGE_RECENT_THUMBNAILS, value ? 1 : 0);
+            return true;
+        } else if (preference == mTabletTweaksStorageSwitch) {
+            value = mTabletTweaksStorageSwitch.isChecked();
+            SystemProperties.set("persist.sys.vold.switchexternal", value ? "1" : "0");
+            return true;
+        } else if (preference == mTabletTweaksStorageAutomount) {
+            value = mTabletTweaksStorageAutomount.isChecked();
+            Settings.Secure.putInt(mContentResolver,
+                    Settings.Secure.MOUNT_UMS_AUTOSTART, value ? 1 : 0);
             return true;
         }
         return false;
