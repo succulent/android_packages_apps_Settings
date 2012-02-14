@@ -51,7 +51,8 @@
 
         <CheckBoxPreference
             android:key="tablet_tweaks_disable_hardware_buttons"
-            android:title="@string/tablet_tweaks_disable_hardware_buttons" />
+            android:title="@string/tablet_tweaks_disable_hardware_buttons"
+            android:summary="@string/tablet_tweaks_disable_hardware_buttons_summary" />
 
     </PreferenceCategory>
 
@@ -61,6 +62,7 @@
         <CheckBoxPreference
             android:key="tablet_tweaks_recent_thumbnails"
             android:title="@string/tablet_tweaks_recent_thumbnails"
+            android:summary="@string/tablet_tweaks_recent_thumbnails_summary"
             android:defaultValue="false" />
 
     </PreferenceCategory>
@@ -77,6 +79,22 @@
             android:key="tablet_tweaks_storage_automount"
             android:title="@string/tablet_tweaks_storage_automount"
             android:summary="@string/tablet_tweaks_storage_automount_summary"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/tablet_tweaks_status_bar_title">
+
+        <CheckBoxPreference
+            android:key="tablet_tweaks_peek_notifications"
+            android:title="@string/tablet_tweaks_peek_notifications"
+            android:summary="@string/tablet_tweaks_peek_notifications_summary"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="tablet_tweaks_right_buttons"
+            android:title="@string/tablet_tweaks_right_buttons"
+            android:summary="@string/tablet_tweaks_right_buttons_summary"
             android:defaultValue="false" />
 
     </PreferenceCategory>

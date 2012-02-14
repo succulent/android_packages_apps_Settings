@@ -827,13 +827,20 @@
     <string name="tablet_tweaks_hide_menu">Hide menu button</string>
     <string name="tablet_tweaks_tablet_capacitive_title">Tablet capacitive buttons</string>
     <string name="tablet_tweaks_disable_hardware_buttons">Disable capacitive buttons</string>
+    <string name="tablet_tweaks_disable_hardware_buttons_summary">Disable capacitive button touches and lights</string>
     <string name="tablet_tweaks_recents_title">Recent apps</string>
     <string name="tablet_tweaks_recent_thumbnails">Large thumbnails</string>
+    <string name="tablet_tweaks_recent_thumbnails_summary">Larger application history thumbnails</string>
     <string name="tablet_tweaks_storage_title">Storage</string>
     <string name="tablet_tweaks_storage_switch">Switch external storage</string>
     <string name="tablet_tweaks_storage_switch_summary">Switch external and internal sd-card mounts (Requires reboot)</string>
     <string name="tablet_tweaks_storage_automount">Automount UMS</string>
     <string name="tablet_tweaks_storage_automount_summary">Automount USB mass storage when connected</string>
+    <string name="tablet_tweaks_status_bar_title">Status bar</string>
+    <string name="tablet_tweaks_right_buttons">Buttons on the right</string>
+    <string name="tablet_tweaks_right_buttons_summary">Buttons on the right, notifications on the left (Requires reboot)</string>
+    <string name="tablet_tweaks_peek_notifications">Peek notifications</string>
+    <string name="tablet_tweaks_peek_notifications_summary">Peek notifications by pressing the notification icon (Requires reboot)</string>
 
     <!-- Lock screen #CM -->
     <string name="lock_screen_title">Lock screen</string>
