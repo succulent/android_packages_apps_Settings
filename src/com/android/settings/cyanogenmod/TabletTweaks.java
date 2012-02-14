@@ -56,6 +56,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
 
     private static final String TABLET_TWEAKS_PEEK_NOTIFICATIONS = "tablet_tweaks_peek_notifications";
 
+    private static final String TABLET_TWEAKS_SCREENSHOTS_JPEG = "tablet_tweaks_screenshots_jpeg";
+
     public static final String BUTTONS_ENABLED_COMMAND = "echo ";
 
     public static final String BUTTONS_ENABLED_PATH =
@@ -82,6 +84,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
     private CheckBoxPreference mTabletTweaksRightButtons;
 
     private CheckBoxPreference mTabletTweaksPeekNotifications;
+
+    private CheckBoxPreference mTabletTweaksScreenshotsJpeg;
 
     private ContentResolver mContentResolver;
 
@@ -119,6 +123,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_RIGHT_BUTTONS);
         mTabletTweaksPeekNotifications =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_PEEK_NOTIFICATIONS);
+        mTabletTweaksScreenshotsJpeg =
+                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_SCREENSHOTS_JPEG);
 
         mTabletTweaksHideHome.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.HIDE_SOFT_HOME_BUTTON, 0) == 1));
@@ -138,6 +144,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 Settings.System.RIGHT_SOFT_BUTTONS, 0) == 1));
         mTabletTweaksPeekNotifications.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.SHOW_NOTIFICATION_PEEK, 0) == 1));
+        mTabletTweaksScreenshotsJpeg.setChecked((Settings.System.getInt(mContentResolver,
+                Settings.System.JPEG_SCREENSHOTS, 0) == 1));
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -196,6 +204,11 @@ public class TabletTweaks extends SettingsPreferenceFragment {
             value = mTabletTweaksPeekNotifications.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.SHOW_NOTIFICATION_PEEK, value ? 1 : 0);
+            return true;
+        } else if (preference == mTabletTweaksScreenshotsJpeg) {
+            value = mTabletTweaksScreenshotsJpeg.isChecked();
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.JPEG_SCREENSHOTS, value ? 1 : 0);
             return true;
         }
         return false;

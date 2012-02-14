@@ -841,6 +841,9 @@
     <string name="tablet_tweaks_right_buttons_summary">Buttons on the right, notifications on the left (Requires reboot)</string>
     <string name="tablet_tweaks_peek_notifications">Peek notifications</string>
     <string name="tablet_tweaks_peek_notifications_summary">Peek notifications by pressing the notification icon (Requires reboot)</string>
+    <string name="tablet_tweaks_screenshots_title">Screenshots</string>
+    <string name="tablet_tweaks_screenshots_jpeg">Jpeg screenshots</string>
+    <string name="tablet_tweaks_screenshots_jpeg_summary">Save screenshots in jpeg format</string>
 
     <!-- Lock screen #CM -->
     <string name="lock_screen_title">Lock screen</string>
