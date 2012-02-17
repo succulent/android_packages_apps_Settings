@@ -127,6 +127,14 @@
                 android:resource="@id/wifi_settings" />
         </activity>
 
+        <activity android:name="Settings$AnonymousStatsActivity"
+                android:label="@string/anonymous_statistics_title"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:clearTaskOnLaunch="true">
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                android:value="com.android.settings.cmstats.AnonymousStats" />
+        </activity>
+
         <!-- Keep compatibility with old shortcuts. -->
         <activity-alias android:name=".wifi.WifiSettings"
                 android:label="@string/wifi_settings"
@@ -539,6 +547,34 @@
                 android:resource="@id/display_settings" />
         </activity-alias>
 
+        <activity android:name="Settings$InputSettingsActivity"
+                android:label="@string/input_settings"
+                android:clearTaskOnLaunch="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.android.settings.INPUT_SETTINGS" />
+                <action android:name="android.settings.INPUT_SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE_LAUNCH" />
+                <category android:name="com.android.settings.SHORTCUT" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                android:value="com.android.settings.InputSettings" />
+            <meta-data android:name="com.android.settings.TOP_LEVEL_HEADER_ID"
+                android:resource="@id/input_settings" />
+        </activity>
+        <!-- Keep compatibility with old shortcuts. -->
+        <activity-alias android:name="InputSettings"
+                android:label="@string/input_settings"
+                android:clearTaskOnLaunch="true"
+                android:exported="true"
+                android:targetActivity="Settings$InputSettingsActivity">
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                android:value="com.android.settings.InputSettings" />
+            <meta-data android:name="com.android.settings.TOP_LEVEL_HEADER_ID"
+                android:resource="@id/input_settings" />
+        </activity-alias>
+
         <activity android:name="Settings$DockSettingsActivity"
                 android:label="@string/dock_settings_title"
                 android:enabled="@bool/has_dock_settings"
@@ -908,6 +944,23 @@
             android:windowSoftInputMode="stateVisible|adjustResize"/>
 
         <activity android:name="ChooseLockPatternTutorial" android:exported="false"/>
+
+        <!-- Anonymous Statistics -->
+        <receiver android:name=".cmstats.ReportingServiceManager"
+            android:enabled="true"
+            android:exported="false"
+            android:label="ReportingServiceManager">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service android:label="ReportingService"
+            android:enabled="true"
+            android:exported="false"
+            android:name=".cmstats.ReportingService">
+        </service>
 
         <!-- Runs in the phone process since it needs access to the Phone object -->
         <activity android:name=".deviceinfo.Status"
