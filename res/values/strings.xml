@@ -837,10 +837,10 @@
     <string name="tablet_tweaks_storage_automount">Automount UMS</string>
     <string name="tablet_tweaks_storage_automount_summary">Automount USB mass storage when connected</string>
     <string name="tablet_tweaks_status_bar_title">Status bar</string>
-    <string name="tablet_tweaks_right_buttons">Buttons on the right</string>
-    <string name="tablet_tweaks_right_buttons_summary">Buttons on the right, notifications on the left (Requires reboot)</string>
+    <string name="tablet_tweaks_right_buttons">Flip status bar</string>
+    <string name="tablet_tweaks_right_buttons_summary">Notifications on the left, buttons on the right</string>
     <string name="tablet_tweaks_peek_notifications">Peek notifications</string>
-    <string name="tablet_tweaks_peek_notifications_summary">Peek notifications by pressing the notification icon (Requires reboot)</string>
+    <string name="tablet_tweaks_peek_notifications_summary">Preview notifications by pressing the notification icon</string>
     <string name="tablet_tweaks_screenshots_title">Screenshots</string>
     <string name="tablet_tweaks_screenshots_jpeg">Jpeg screenshots</string>
     <string name="tablet_tweaks_screenshots_jpeg_summary">Save screenshots in jpeg format</string>
