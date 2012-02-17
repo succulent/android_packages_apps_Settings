@@ -1786,6 +1786,8 @@
     <string name="pref_use_16bpp_alpha_title">16-bit-Transparenz</string>
     <string name="pref_use_16bpp_alpha_summary">Verwenden der 16-bit-Transparenz kann die Performance beim Scrollen verbessern, aber Grafikfehler verursachen (Neustart erforderlich)</string>
 
+    <!-- System Updates #CM -->
+
     <!-- Donate #CM -->
     <!-- About device screen, list item title. Takes the user to the screen about how to donate to the CyanogenMod Project. -->
     <string name="donate_settings_title">Spenden</string>
