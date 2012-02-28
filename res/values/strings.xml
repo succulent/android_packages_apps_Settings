@@ -847,6 +847,8 @@
     <string name="tablet_tweaks_right_buttons_summary">Notifications on the left, buttons on the right</string>
     <string name="tablet_tweaks_peek_notifications">Peek notifications</string>
     <string name="tablet_tweaks_peek_notifications_summary">Preview notifications by pressing the notification icon</string>
+    <string name="tablet_tweaks_hide_statusbar">Hide status bar in shadow mode</string>
+    <string name="tablet_tweaks_hide_statusbar_summary">Hide the status bar when it enters shadow mode</string>
     <string name="tablet_tweaks_screenshots_title">Screenshots</string>
     <string name="tablet_tweaks_screenshots_jpeg">Jpeg screenshots</string>
     <string name="tablet_tweaks_screenshots_jpeg_summary">Save screenshots in jpeg format</string>

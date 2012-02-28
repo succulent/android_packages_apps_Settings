@@ -58,6 +58,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
 
     private static final String TABLET_TWEAKS_SCREENSHOTS_JPEG = "tablet_tweaks_screenshots_jpeg";
 
+    private static final String TABLET_TWEAKS_HIDE_STATUSBAR = "tablet_tweaks_hide_statusbar";
+
     public static final String BUTTONS_ENABLED_COMMAND = "echo ";
 
     public static final String BUTTONS_ENABLED_PATH =
@@ -86,6 +88,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
     private CheckBoxPreference mTabletTweaksPeekNotifications;
 
     private CheckBoxPreference mTabletTweaksScreenshotsJpeg;
+
+    private CheckBoxPreference mTabletTweaksHideStatusbar;
 
     private ContentResolver mContentResolver;
 
@@ -125,6 +129,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_PEEK_NOTIFICATIONS);
         mTabletTweaksScreenshotsJpeg =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_SCREENSHOTS_JPEG);
+        mTabletTweaksHideStatusbar =
+                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_HIDE_STATUSBAR);
 
         mTabletTweaksHideHome.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.HIDE_SOFT_HOME_BUTTON, 0) == 1));
@@ -146,6 +152,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 Settings.System.SHOW_NOTIFICATION_PEEK, 0) == 1));
         mTabletTweaksScreenshotsJpeg.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.JPEG_SCREENSHOTS, 0) == 1));
+        mTabletTweaksHideStatusbar.setChecked((Settings.System.getInt(mContentResolver,
+                Settings.System.HIDE_STATUSBAR, 0) == 1));
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -209,6 +217,11 @@ public class TabletTweaks extends SettingsPreferenceFragment {
             value = mTabletTweaksScreenshotsJpeg.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.JPEG_SCREENSHOTS, value ? 1 : 0);
+            return true;
+        } else if (preference == mTabletTweaksHideStatusbar) {
+            value = mTabletTweaksHideStatusbar.isChecked();
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.HIDE_STATUSBAR, value ? 1 : 0);
             return true;
         }
         return false;

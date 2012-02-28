@@ -96,6 +96,11 @@
             android:title="@string/tablet_tweaks_right_buttons"
             android:summary="@string/tablet_tweaks_right_buttons_summary"
             android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="tablet_tweaks_hide_statusbar"
+            android:title="@string/tablet_tweaks_hide_statusbar"
+            android:summary="@string/tablet_tweaks_hide_statusbar_summary"
+            android:defaultValue="false" />
 
     </PreferenceCategory>
 
