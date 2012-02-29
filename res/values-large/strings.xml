@@ -14,14 +14,6 @@
      limitations under the License.
 -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-        android:title="@string/input_settings_title"
-        xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
-
-    <CheckBoxPreference
-        android:key="pref_volume_wake"
-        android:title="@string/pref_volume_wake_title"
-        android:summary="@string/pref_volume_wake_summary"
-        android:defaultValue="false" />
-
-</PreferenceScreen>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="combined_status_bar_title">@string/combined_bar_title</string>
+</resources>
