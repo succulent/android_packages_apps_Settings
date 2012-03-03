@@ -45,6 +45,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String COMBINED_BAR_AUTO_HIDE = "combined_bar_auto_hide";
 
+    public static final String STATUS_BAR_NAVIGATION_CONTROL = "status_bar_navigation_control";
+
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
 
     private static final String STATUS_BAR_CATEGORY_CLOCK = "status_bar_clock";
@@ -60,6 +62,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mStatusBarBrightnessControl;
 
     private CheckBoxPreference mCombinedBarAutoHide;
+
+    private CheckBoxPreference mStatusBarNavigationControl;
 
     private PreferenceCategory mPrefCategoryGeneral;
 
@@ -79,6 +83,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarBattery = (ListPreference) prefSet.findPreference(STATUS_BAR_BATTERY);
         mCombinedBarAutoHide = (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_AUTO_HIDE);
         mStatusBarCmSignal = (ListPreference) prefSet.findPreference(STATUS_BAR_SIGNAL);
+        mStatusBarNavigationControl = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NAVIGATION_CONTROL);
 
         mStatusBarClock.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_CLOCK, 1) == 1));
@@ -105,12 +110,16 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarBattery.setOnPreferenceChangeListener(this);
 
         int signalStyle = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-        		Settings.System.STATUS_BAR_SIGNAL_TEXT, 0);
+                Settings.System.STATUS_BAR_SIGNAL_TEXT, 0);
         mStatusBarCmSignal.setValue(String.valueOf(signalStyle));
         mStatusBarCmSignal.setOnPreferenceChangeListener(this);
 
         mCombinedBarAutoHide.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.COMBINED_BAR_AUTO_HIDE, 0) == 1));
+
+        mStatusBarNavigationControl.setChecked((Settings.System.getInt(getActivity()
+                .getApplicationContext().getContentResolver(),
+                Settings.System.PHONE_NAVIGATION_CONTROL, 0) == 1));
 
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
@@ -120,6 +129,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             mPrefCategoryGeneral.removePreference(mStatusBarBrightnessControl);
             mPrefCategoryGeneral.removePreference(mStatusBarCmSignal);
             mPrefCategoryClock.removePreference(mStatusBarAmPm);
+            mPrefCategoryGeneral.removePreference(mStatusBarNavigationControl);
         } else {
             mPrefCategoryGeneral.removePreference(mCombinedBarAutoHide);
         }
@@ -156,7 +166,13 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             return true;
         } else if (preference == mCombinedBarAutoHide) {
             value = mCombinedBarAutoHide.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(), Settings.System.COMBINED_BAR_AUTO_HIDE, value ? 1 : 0);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.COMBINED_BAR_AUTO_HIDE, value ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarNavigationControl) {
+            value = mStatusBarNavigationControl.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.PHONE_NAVIGATION_CONTROL, value ? 1 : 0);
             return true;
         }
         return false;

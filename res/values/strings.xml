@@ -826,6 +826,8 @@
     <string name="status_bar_signal_text_show_bars">Icon (default)</string>
     <string name="status_bar_signal_text_show_text">Text</string>
     <string name="status_bar_signal_text_hidden">Hidden</string>
+    <string name="status_bar_navigation_control">Show navigation</string>
+    <string name="status_bar_navigation_control_summary">Show on screen navigation controls (Requires reboot)</string>
 
     <!-- Tablet Tweaks #CM -->
     <string name="tablet_tweaks_title">Tablet tweaks</string>

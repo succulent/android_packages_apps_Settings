@@ -57,7 +57,7 @@ public class BootReceiver extends BroadcastReceiver {
 
         if (mPrefs.getBoolean(TabletTweaks.TABLET_TWEAKS_DISABLE_HARDWARE_BUTTONS, false)) {
             configureButtons();
-		}
+        }
 
         if (Utils.fileExists(MemoryManagement.KSM_RUN_FILE)) {
             if (SystemProperties.getBoolean(KSM_SETTINGS_PROP, false) == false
@@ -83,7 +83,8 @@ public class BootReceiver extends BroadcastReceiver {
         String availableGovernorsLine = Utils.fileReadOneLine(Processor.GOV_LIST_FILE);
 
         boolean noSettings = ((availableGovernorsLine == null) || (governor == null)) &&
-                             ((availableFrequenciesLine == null) || ((minFrequency == null) && (maxFrequency == null)));
+                ((availableFrequenciesLine == null) || ((minFrequency == null) &&
+                (maxFrequency == null)));
         List<String> frequencies = null;
         List<String> governors = null;
 
@@ -117,7 +118,7 @@ public class BootReceiver extends BroadcastReceiver {
         } catch (IOException e) {
             e.printStackTrace();
         }
-	}
+    }
 
     private void configureKSM(Context ctx) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
