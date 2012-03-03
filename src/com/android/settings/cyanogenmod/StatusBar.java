@@ -47,6 +47,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
 
+    private static final String STATUS_BAR_CATEGORY_CLOCK = "status_bar_clock";
+
     private ListPreference mStatusBarAmPm;
 
     private ListPreference mStatusBarBattery;
@@ -60,6 +62,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mCombinedBarAutoHide;
 
     private PreferenceCategory mPrefCategoryGeneral;
+
+    private PreferenceCategory mPrefCategoryClock;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -110,9 +114,12 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
+        mPrefCategoryClock = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_CLOCK);
+
         if (Utils.isScreenLarge()) {
             mPrefCategoryGeneral.removePreference(mStatusBarBrightnessControl);
             mPrefCategoryGeneral.removePreference(mStatusBarCmSignal);
+            mPrefCategoryClock.removePreference(mStatusBarAmPm);
         } else {
             mPrefCategoryGeneral.removePreference(mCombinedBarAutoHide);
         }
