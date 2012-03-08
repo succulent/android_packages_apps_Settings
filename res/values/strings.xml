@@ -857,6 +857,9 @@
     <string name="tablet_tweaks_screenshots_title">Screenshots</string>
     <string name="tablet_tweaks_screenshots_jpeg">Jpeg screenshots</string>
     <string name="tablet_tweaks_screenshots_jpeg_summary">Save screenshots in jpeg format</string>
+    <string name="tablet_tweaks_hard_keyboard_category">Physical keyboard</string>
+    <string name="tablet_tweaks_hard_keyboard_title">Enable physical keyboard</string>
+    <string name="tablet_tweaks_hard_keyboard_summary">Enable external physical keyboard</string>
 
     <!-- Lock screen #CM -->
     <string name="lock_screen_title">Lock screen</string>

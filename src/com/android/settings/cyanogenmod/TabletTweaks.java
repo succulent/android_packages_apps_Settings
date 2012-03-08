@@ -60,6 +60,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
 
     private static final String TABLET_TWEAKS_HIDE_STATUSBAR = "tablet_tweaks_hide_statusbar";
 
+    private static final String TABLET_TWEAKS_ENABLE_KEYBOARD = "tablet_tweaks_enable_keyboard";
+
     public static final String BUTTONS_ENABLED_COMMAND = "echo ";
 
     public static final String BUTTONS_ENABLED_PATH =
@@ -90,6 +92,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
     private CheckBoxPreference mTabletTweaksScreenshotsJpeg;
 
     private CheckBoxPreference mTabletTweaksHideStatusbar;
+
+    private CheckBoxPreference mTabletTweaksEnableKeyboard;
 
     private ContentResolver mContentResolver;
 
@@ -131,6 +135,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_SCREENSHOTS_JPEG);
         mTabletTweaksHideStatusbar =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_HIDE_STATUSBAR);
+        mTabletTweaksEnableKeyboard =
+                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_ENABLE_KEYBOARD);
 
         mTabletTweaksHideHome.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.HIDE_SOFT_HOME_BUTTON, 0) == 1));
@@ -154,6 +160,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 Settings.System.JPEG_SCREENSHOTS, 0) == 1));
         mTabletTweaksHideStatusbar.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.HIDE_STATUSBAR, 0) == 1));
+        mTabletTweaksEnableKeyboard.setChecked((Settings.System.getInt(mContentResolver,
+                Settings.System.ENABLE_HARD_KEYBOARD, 0) == 1));
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -222,6 +230,11 @@ public class TabletTweaks extends SettingsPreferenceFragment {
             value = mTabletTweaksHideStatusbar.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.HIDE_STATUSBAR, value ? 1 : 0);
+            return true;
+        } else if (preference == mTabletTweaksEnableKeyboard) {
+            value = mTabletTweaksEnableKeyboard.isChecked();
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.ENABLE_HARD_KEYBOARD, value ? 1 : 0);
             return true;
         }
         return false;
