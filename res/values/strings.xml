@@ -867,18 +867,11 @@
     <string name="tablet_tweaks_recents_title">Recent apps</string>
     <string name="tablet_tweaks_recent_thumbnails">Large thumbnails</string>
     <string name="tablet_tweaks_recent_thumbnails_summary">Larger application history thumbnails</string>
-    <string name="tablet_tweaks_storage_title">Storage</string>
-    <string name="tablet_tweaks_storage_switch">Switch external storage</string>
-    <string name="tablet_tweaks_storage_switch_summary">Switch external and internal sd-card mounts (Requires reboot)</string>
-    <string name="tablet_tweaks_storage_automount">Automount UMS</string>
-    <string name="tablet_tweaks_storage_automount_summary">Automount USB mass storage when connected</string>
     <string name="tablet_tweaks_status_bar_title">Status bar</string>
     <string name="tablet_tweaks_right_buttons">Flip status bar</string>
     <string name="tablet_tweaks_right_buttons_summary">Notifications on the left, buttons on the right</string>
     <string name="tablet_tweaks_peek_notifications">Peek notifications</string>
     <string name="tablet_tweaks_peek_notifications_summary">Preview notifications by pressing the notification icon</string>
-    <string name="tablet_tweaks_hide_statusbar">Hide status bar in shadow mode</string>
-    <string name="tablet_tweaks_hide_statusbar_summary">Hide the status bar when it enters shadow mode</string>
     <string name="tablet_tweaks_screenshots_title">Screenshots</string>
     <string name="tablet_tweaks_screenshots_jpeg">Jpeg screenshots</string>
     <string name="tablet_tweaks_screenshots_jpeg_summary">Save screenshots in jpeg format</string>
@@ -2389,7 +2382,8 @@
     <string name="storage_switch_summary_on">Using expanded internal storage for apps and media</string>
     <string name="storage_switch_summary_off">Using SD Card for apps and media</string>
     <string name="storage_switch_unavailable">This device doesn\'t have expanded internal storage</string>
-
+    <string name="storage_automount_title">Automount UMS</string>
+    <string name="storage_automount_summary">Automount USB mass storage when connected</string>
 
     <!-- Phone info screen, section titles: -->
     <string name="battery_status_title">Battery status</string>

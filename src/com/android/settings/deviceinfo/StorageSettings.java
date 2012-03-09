@@ -45,7 +45,13 @@ public class StorageSettings extends SettingsPreferenceFragment {
 
     private static final String SWITCH_STORAGE_PREF = "pref_switch_storage";
 
+    private static final String STORAGE_AUTOMOUNT_PREF = "pref_storage_automount";
+
     private CheckBoxPreference mSwitchStoragePref;
+
+    private CheckBoxPreference mStorageAutomountPref;
+
+    private ContentResolver mContentResolver;
 
     private PreferenceScreen createPreferenceHierarchy() {
         PreferenceScreen root = getPreferenceScreen();
@@ -55,13 +61,19 @@ public class StorageSettings extends SettingsPreferenceFragment {
         addPreferencesFromResource(R.xml.storage_settings);
         root = getPreferenceScreen();
 
+        mContentResolver = getActivity().getApplicationContext().getContentResolver();
+
         mSwitchStoragePref = (CheckBoxPreference) root.findPreference(SWITCH_STORAGE_PREF);
-        mSwitchStoragePref.setChecked((SystemProperties.getInt("persist.sys.vold.switchexternal", 0) == 1));
+        mSwitchStoragePref.setChecked((SystemProperties.getInt("persist.sys.vold.switchexternal", 0) == 0));
 
         if (SystemProperties.get("ro.vold.switchablepair","").equals("")) {
             mSwitchStoragePref.setSummary(R.string.storage_switch_unavailable);
             mSwitchStoragePref.setEnabled(false);
         }
+
+        mStorageAutomountPref = (CheckBoxPreference) root.findPreference(STORAGE_AUTOMOUNT_PREF);
+        mStorageAutomountPref.setChecked((Settings.Secure.getInt(mContentResolver,
+                Settings.Secure.MOUNT_UMS_AUTOSTART, 0) == 1));
 
         return root;
     }
@@ -95,7 +107,12 @@ public class StorageSettings extends SettingsPreferenceFragment {
         }
         if (preference == mSwitchStoragePref) {
             SystemProperties.set("persist.sys.vold.switchexternal",
-               mSwitchStoragePref.isChecked() ? "1" : "0");
+               mSwitchStoragePref.isChecked() ? "0" : "1");
+        } else if (preference == mStorageAutomountPref) {
+            boolean value = mStorageAutomountPref.isChecked();
+            Settings.Secure.putInt(mContentResolver,
+                    Settings.Secure.MOUNT_UMS_AUTOSTART, value ? 1 : 0);
+            return true;
         }
         return true;
     }

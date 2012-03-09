@@ -19,7 +19,6 @@ package com.android.settings.cyanogenmod;
 import android.content.ContentResolver;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.SystemProperties;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
@@ -48,17 +47,11 @@ public class TabletTweaks extends SettingsPreferenceFragment {
 
     private static final String TABLET_TWEAKS_RECENT_THUMBNAILS = "tablet_tweaks_recent_thumbnails";
 
-    private static final String TABLET_TWEAKS_STORAGE_SWITCH = "tablet_tweaks_storage_switch";
-
-    private static final String TABLET_TWEAKS_STORAGE_AUTOMOUNT = "tablet_tweaks_storage_automount";
-
     private static final String TABLET_TWEAKS_RIGHT_BUTTONS = "tablet_tweaks_right_buttons";
 
     private static final String TABLET_TWEAKS_PEEK_NOTIFICATIONS = "tablet_tweaks_peek_notifications";
 
     private static final String TABLET_TWEAKS_SCREENSHOTS_JPEG = "tablet_tweaks_screenshots_jpeg";
-
-    private static final String TABLET_TWEAKS_HIDE_STATUSBAR = "tablet_tweaks_hide_statusbar";
 
     private static final String TABLET_TWEAKS_ENABLE_KEYBOARD = "tablet_tweaks_enable_keyboard";
 
@@ -81,17 +74,11 @@ public class TabletTweaks extends SettingsPreferenceFragment {
 
     private CheckBoxPreference mTabletTweaksRecentThumbnails;
 
-    private CheckBoxPreference mTabletTweaksStorageSwitch;
-
-    private CheckBoxPreference mTabletTweaksStorageAutomount;
-
     private CheckBoxPreference mTabletTweaksRightButtons;
 
     private CheckBoxPreference mTabletTweaksPeekNotifications;
 
     private CheckBoxPreference mTabletTweaksScreenshotsJpeg;
-
-    private CheckBoxPreference mTabletTweaksHideStatusbar;
 
     private CheckBoxPreference mTabletTweaksEnableKeyboard;
 
@@ -123,18 +110,12 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_DISABLE_HARDWARE_BUTTONS);
         mTabletTweaksRecentThumbnails =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_RECENT_THUMBNAILS);
-        mTabletTweaksStorageSwitch =
-                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_STORAGE_SWITCH);
-        mTabletTweaksStorageAutomount =
-                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_STORAGE_AUTOMOUNT);
         mTabletTweaksRightButtons =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_RIGHT_BUTTONS);
         mTabletTweaksPeekNotifications =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_PEEK_NOTIFICATIONS);
         mTabletTweaksScreenshotsJpeg =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_SCREENSHOTS_JPEG);
-        mTabletTweaksHideStatusbar =
-                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_HIDE_STATUSBAR);
         mTabletTweaksEnableKeyboard =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_ENABLE_KEYBOARD);
 
@@ -148,18 +129,12 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 Settings.System.HIDE_SOFT_MENU_BUTTON, 0) == 1));
         mTabletTweaksRecentThumbnails.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.LARGE_RECENT_THUMBNAILS, 0) == 1));
-        mTabletTweaksStorageSwitch.setChecked(
-                SystemProperties.getInt("persist.sys.vold.switchexternal", 0) == 1);
-        mTabletTweaksStorageAutomount.setChecked((Settings.Secure.getInt(mContentResolver,
-                Settings.Secure.MOUNT_UMS_AUTOSTART, 0) == 1));
         mTabletTweaksRightButtons.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.RIGHT_SOFT_BUTTONS, 0) == 1));
         mTabletTweaksPeekNotifications.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.SHOW_NOTIFICATION_PEEK, 0) == 1));
         mTabletTweaksScreenshotsJpeg.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.JPEG_SCREENSHOTS, 0) == 1));
-        mTabletTweaksHideStatusbar.setChecked((Settings.System.getInt(mContentResolver,
-                Settings.System.HIDE_STATUSBAR, 0) == 1));
         mTabletTweaksEnableKeyboard.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.ENABLE_HARD_KEYBOARD, 0) == 1));
     }
@@ -202,15 +177,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
             Settings.System.putInt(mContentResolver,
                     Settings.System.LARGE_RECENT_THUMBNAILS, value ? 1 : 0);
             return true;
-        } else if (preference == mTabletTweaksStorageSwitch) {
-            value = mTabletTweaksStorageSwitch.isChecked();
-            SystemProperties.set("persist.sys.vold.switchexternal", value ? "1" : "0");
-            return true;
-        } else if (preference == mTabletTweaksStorageAutomount) {
-            value = mTabletTweaksStorageAutomount.isChecked();
-            Settings.Secure.putInt(mContentResolver,
-                    Settings.Secure.MOUNT_UMS_AUTOSTART, value ? 1 : 0);
-            return true;
         } else if (preference == mTabletTweaksRightButtons) {
             value = mTabletTweaksRightButtons.isChecked();
             Settings.System.putInt(mContentResolver,
@@ -225,11 +191,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
             value = mTabletTweaksScreenshotsJpeg.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.JPEG_SCREENSHOTS, value ? 1 : 0);
-            return true;
-        } else if (preference == mTabletTweaksHideStatusbar) {
-            value = mTabletTweaksHideStatusbar.isChecked();
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.HIDE_STATUSBAR, value ? 1 : 0);
             return true;
         } else if (preference == mTabletTweaksEnableKeyboard) {
             value = mTabletTweaksEnableKeyboard.isChecked();
