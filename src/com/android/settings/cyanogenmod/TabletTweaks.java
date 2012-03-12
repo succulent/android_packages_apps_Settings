@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
@@ -28,6 +29,7 @@ import android.provider.Settings.SettingNotFoundException;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.settings.Utils;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -54,6 +56,12 @@ public class TabletTweaks extends SettingsPreferenceFragment {
     private static final String TABLET_TWEAKS_SCREENSHOTS_JPEG = "tablet_tweaks_screenshots_jpeg";
 
     private static final String TABLET_TWEAKS_ENABLE_KEYBOARD = "tablet_tweaks_enable_keyboard";
+
+    private static final String TABLET_TWEAKS_BUTTONS_CATEGORY = "tablet_tweaks_buttons";
+
+    private static final String TABLET_TWEAKS_RECENTS_CATEGORY = "tablet_tweaks_recents";
+
+    private static final String TABLET_TWEAKS_STATUS_BAR_CATEGORY = "tablet_tweaks_status_bar";
 
     public static final String BUTTONS_ENABLED_COMMAND = "echo ";
 
@@ -137,6 +145,18 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 Settings.System.JPEG_SCREENSHOTS, 0) == 1));
         mTabletTweaksEnableKeyboard.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.ENABLE_HARD_KEYBOARD, 0) == 1));
+
+        if (!Utils.isScreenLarge(getActivity().getResources())) {
+            PreferenceCategory buttons =
+                    (PreferenceCategory) findPreference(TABLET_TWEAKS_BUTTONS_CATEGORY);
+            buttons.removeAll();
+            PreferenceCategory recents =
+                    (PreferenceCategory) findPreference(TABLET_TWEAKS_RECENTS_CATEGORY);
+            recents.removeAll();
+            PreferenceCategory statusBar =
+                    (PreferenceCategory) findPreference(TABLET_TWEAKS_STATUS_BAR_CATEGORY);
+            statusBar.removeAll();
+        }
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {

@@ -125,7 +125,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
         mPrefCategoryClock = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_CLOCK);
 
-        if (Utils.isScreenLarge()) {
+        if (Utils.isScreenLarge(getResources())) {
             mPrefCategoryGeneral.removePreference(mStatusBarBrightnessControl);
             mPrefCategoryGeneral.removePreference(mStatusBarCmSignal);
             mPrefCategoryClock.removePreference(mStatusBarAmPm);

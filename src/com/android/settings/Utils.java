@@ -488,11 +488,12 @@ public class Utils {
         return true;
     }
 
-    public static boolean isScreenLarge() {
+    public static boolean isScreenLarge(Resources res) {
         final int screenSize = Resources.getSystem().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
-        boolean isScreenLarge = screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE ||
-            screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE;
+        boolean isScreenLarge = (screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE ||
+                screenSize == Configuration.SCREENLAYOUT_SIZE_XLARGE) &&
+                res.getDisplayMetrics().density <= 1f;
         return isScreenLarge;
     }
 
