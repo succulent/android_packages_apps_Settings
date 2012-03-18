@@ -618,6 +618,9 @@
     <string name="lock_sounds_enable_title">Screen lock sound</string>
     <!-- Sound settings screen, setting check box label -->
     <string name="haptic_feedback_enable_title">Vibrate on touch</string>
+    <!-- Setting for volume rocker music controls -->
+    <string name="volbtn_music_controls_title">Volume rocker music controls</string>
+    <string name="volbtn_music_controls_summary">When screen off, long-pressing the volume rockers will seek music tracks</string>
     <!-- Sound settings screen, setting option name checkbox to enable/disable audio recording features that improve audio recording in noisy environments -->
     <string name="audio_record_proc_title">Noise cancellation</string>
     <!-- Volume description for media volume -->
@@ -963,6 +966,18 @@
     <!-- Add application dialog box title -->
     <string name="profile_choose_app">Choose application</string>
     <string name="profile_settings_header">Profile settings</string>
+
+    <!-- Profiles - system settings -->
+    <string name="profile_system_settings_title">System settings</string>
+    <string name="profile_lockmode_title">Lock screen mode</string>
+    <string name="profile_lockmode_default">Default</string>
+    <string name="profile_lockmode_insecure">Insecure</string>
+    <string name="profile_lockmode_disabled">Disabled</string>
+    <string name="profile_lockmode_default_summary">Use system default</string>
+    <string name="profile_lockmode_insecure_summary">Use insecure lock screen</string>
+    <string name="profile_lockmode_disabled_summary">Lockscreen is disabled</string>
+
+    <string name="profile_disable_screen_lock_summary">Disable lock screen security while this profile is active</string>
 
     <!-- Connection override toggles (not all are used at this time ) -->
     <string name="possibleButtons">Possible Buttons</string>
@@ -1623,7 +1638,11 @@
 
     <!-- About device screen, model of device. -->
     <string name="model_number">Model number</string>
-    <!-- About device screen, version of Android. -->
+    <!-- About device screen, Cpu info. -->
+    <string name="cpu_info">CPU</string>
+    <!-- About phone screen, Free memory info -->
+    <string name="mem_info">Memory</string>
+    <!-- About phone screen, status item label -->
     <string name="firmware_version">Android version</string>
     <!-- About device screen, verison of radio. -->
     <string name="baseband_version">Baseband version</string>
@@ -3185,6 +3204,15 @@ found in the list of installed apps.</string>
     <!-- Warning text to user about the implications of enabling USB debugging -->
     <string name="adb_warning_message">USB debugging is intended for development purposes only. Use it to copy data between your computer and your device, install apps on your device without notification, and read log data.</string>
 
+    <!-- Setting checkbox title for root access -->
+    <string name="root_access">Root access</string>
+    <string name="root_access_warning_title">Allow root access?</string>
+    <string name="root_access_warning_message">Allowing applications to request root access is very dangerous and could compromise the security of your system!</string>
+    <string name="root_access_none">Disabled</string>
+    <string name="root_access_apps">Apps only</string>
+    <string name="root_access_adb">ADB only</string>
+    <string name="root_access_all">Apps and ADB</string>
+
     <!-- Title for the screen that lets the user choose a gadget to add to the home screen
          (or other screens that can host gadgets). Note to translators: we're still determining
          the final name for Gadgets/Widgets, so please translate both for now. -->
@@ -4237,6 +4265,6 @@ found in the list of installed apps.</string>
     <!-- Wakeup options -->
     <string name="display_category_wakeup_options_title">Wakeup options</string>
     <string name="pref_volume_wake_title">Volume rocker wake</string>
-    <string name="pref_volume_wake_summary">Pressing the volume up/down wakes the device. Intended for devices with hard to press power key</string>
+    <string name="pref_volume_wake_summary">Pressing the volume rocker up/down will wake the device</string>
 
 </resources>
