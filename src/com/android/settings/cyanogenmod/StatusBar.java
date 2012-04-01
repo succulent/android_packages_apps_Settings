@@ -127,8 +127,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
         if (Utils.isScreenLarge(getResources())) {
             mPrefCategoryGeneral.removePreference(mStatusBarBrightnessControl);
-            mPrefCategoryGeneral.removePreference(mStatusBarCmSignal);
-            mPrefCategoryClock.removePreference(mStatusBarAmPm);
+            //mPrefCategoryGeneral.removePreference(mStatusBarCmSignal);
+            //mPrefCategoryClock.removePreference(mStatusBarAmPm);
             mPrefCategoryGeneral.removePreference(mStatusBarNavigationControl);
         } else {
             mPrefCategoryGeneral.removePreference(mCombinedBarAutoHide);
