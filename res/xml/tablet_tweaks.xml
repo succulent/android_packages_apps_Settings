@@ -39,10 +39,16 @@
             android:title="@string/tablet_tweaks_hide_recent"
             android:defaultValue="false" />
 
-
         <CheckBoxPreference
             android:key="tablet_tweaks_hide_menu"
             android:title="@string/tablet_tweaks_hide_menu"
+            android:disableDependentsState="true"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
+            android:key="tablet_tweaks_force_menu"
+            android:title="@string/tablet_tweaks_force_menu"
+            android:dependency="tablet_tweaks_hide_menu"
             android:defaultValue="false" />
 
     </PreferenceCategory>

@@ -43,6 +43,7 @@ public class TabletTweaks extends SettingsPreferenceFragment {
     private static final String TABLET_TWEAKS_HIDE_BACK = "tablet_tweaks_hide_back";
 
     private static final String TABLET_TWEAKS_HIDE_MENU = "tablet_tweaks_hide_menu";
+    private static final String TABLET_TWEAKS_FORCE_MENU = "tablet_tweaks_force_menu";
 
     public static final String TABLET_TWEAKS_DISABLE_HARDWARE_BUTTONS =
             "tablet_tweaks_disable_hardware_buttons";
@@ -77,6 +78,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
     private CheckBoxPreference mTabletTweaksHideBack;
 
     private CheckBoxPreference mTabletTweaksHideMenu;
+
+    private CheckBoxPreference mTabletTweaksForceMenu;
 
     private CheckBoxPreference mTabletTweaksDisableHardwareButtons;
 
@@ -114,6 +117,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_HIDE_BACK);
         mTabletTweaksHideMenu =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_HIDE_MENU);
+        mTabletTweaksForceMenu =
+                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_FORCE_MENU);
         mTabletTweaksDisableHardwareButtons =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_DISABLE_HARDWARE_BUTTONS);
         mTabletTweaksRecentThumbnails =
@@ -135,6 +140,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 Settings.System.HIDE_SOFT_BACK_BUTTON, 0) == 1));
         mTabletTweaksHideMenu.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.HIDE_SOFT_MENU_BUTTON, 0) == 1));
+        mTabletTweaksForceMenu.setChecked((Settings.System.getInt(mContentResolver,
+                Settings.System.FORCE_SOFT_MENU_BUTTON, 0) == 1));
         mTabletTweaksRecentThumbnails.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.LARGE_RECENT_THUMBNAILS, 0) == 1));
         mTabletTweaksRightButtons.setChecked((Settings.System.getInt(mContentResolver,
@@ -181,6 +188,11 @@ public class TabletTweaks extends SettingsPreferenceFragment {
             value = mTabletTweaksHideMenu.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.HIDE_SOFT_MENU_BUTTON, value ? 1 : 0);
+            return true;
+        } else if (preference == mTabletTweaksForceMenu) {
+            value = mTabletTweaksForceMenu.isChecked();
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.FORCE_SOFT_MENU_BUTTON, value ? 1 : 0);
             return true;
         } else if (preference == mTabletTweaksDisableHardwareButtons) {
             value = mTabletTweaksDisableHardwareButtons.isChecked();

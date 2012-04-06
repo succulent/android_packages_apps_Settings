@@ -870,6 +870,7 @@
     <string name="tablet_tweaks_hide_recent">Hide recent button</string>
     <string name="tablet_tweaks_hide_back">Hide back button</string>
     <string name="tablet_tweaks_hide_menu">Hide menu button</string>
+    <string name="tablet_tweaks_force_menu">Always show menu button</string>
     <string name="tablet_tweaks_tablet_capacitive_title">Tablet capacitive buttons</string>
     <string name="tablet_tweaks_disable_hardware_buttons">Disable capacitive buttons</string>
     <string name="tablet_tweaks_disable_hardware_buttons_summary">Disable capacitive button touches and lights</string>
