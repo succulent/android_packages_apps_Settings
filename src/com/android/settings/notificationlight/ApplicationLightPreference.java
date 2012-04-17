@@ -194,7 +194,7 @@ public class ApplicationLightPreference extends Preference implements
             }
         });
 
-        if (Utils.isScreenLarge()) {
+        if (Utils.isScreenLarge(resources)) {
             // Make the dialog smaller on large screen devices
             d.getWindow().setLayout(width, LayoutParams.WRAP_CONTENT);
         }
