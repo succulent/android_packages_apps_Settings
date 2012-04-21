@@ -16,8 +16,7 @@
 
 package com.android.settings.cyanogenmod;
 
-import com.android.settings.cyanogenmod.TabletTweaks;
-
+import android.app.StatusBarManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,8 +26,7 @@ import android.provider.Settings;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
+import com.android.settings.cyanogenmod.StatusBar;
 import com.android.settings.Utils;
 
 import java.util.Arrays;
@@ -42,10 +40,12 @@ public class BootReceiver extends BroadcastReceiver {
     private static final String KSM_SETTINGS_PROP = "sys.ksm.restored";
 
     private SharedPreferences mPrefs;
+    private StatusBarManager mStatusBarManager;
 
     @Override
     public void onReceive(Context ctx, Intent intent) {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        mStatusBarManager = (StatusBarManager) ctx.getSystemService(Context.STATUS_BAR_SERVICE);
 
         if (SystemProperties.getBoolean(CPU_SETTINGS_PROP, false) == false
                 && intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
@@ -53,10 +53,6 @@ public class BootReceiver extends BroadcastReceiver {
             configureCPU(ctx);
         } else {
             SystemProperties.set(CPU_SETTINGS_PROP, "false");
-        }
-
-        if (mPrefs.getBoolean(TabletTweaks.TABLET_TWEAKS_DISABLE_HARDWARE_BUTTONS, false)) {
-            configureButtons();
         }
 
         if (Utils.fileExists(MemoryManagement.KSM_RUN_FILE)) {
@@ -68,6 +64,11 @@ public class BootReceiver extends BroadcastReceiver {
                 SystemProperties.set(KSM_SETTINGS_PROP, "false");
             }
         }
+
+        if (mPrefs.getBoolean(StatusBar.HIDE_COMBINED_BAR_NAVIGATION, false)) {
+            hideCombinedBarNavigation();
+        }
+
     }
 
     private void configureCPU(Context ctx) {
@@ -110,16 +111,6 @@ public class BootReceiver extends BroadcastReceiver {
         }
     }
 
-    private void configureButtons() {
-        try {
-            String[] cmds = {TabletTweaks.BUTTONS_ENABLED_SHELL, "-c",
-                    TabletTweaks.BUTTONS_ENABLED_COMMAND + "0" + TabletTweaks.BUTTONS_ENABLED_PATH};
-            Runtime.getRuntime().exec(cmds);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void configureKSM(Context ctx) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 
@@ -127,5 +118,10 @@ public class BootReceiver extends BroadcastReceiver {
 
         Utils.fileWriteOneLine(MemoryManagement.KSM_RUN_FILE, ksm ? "1" : "0");
         Log.d(TAG, "KSM settings restored.");
+    }
+
+    private void hideCombinedBarNavigation() {
+        mStatusBarManager.disable(StatusBarManager.DISABLE_RECENT |
+                StatusBarManager.DISABLE_HOME | StatusBarManager.DISABLE_BACK);
     }
 }

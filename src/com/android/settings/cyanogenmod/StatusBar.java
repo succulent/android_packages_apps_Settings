@@ -16,6 +16,8 @@
 
 package com.android.settings.cyanogenmod;
 
+import android.app.StatusBarManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -45,11 +47,13 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String COMBINED_BAR_AUTO_HIDE = "combined_bar_auto_hide";
 
-    public static final String STATUS_BAR_NAVIGATION_CONTROL = "status_bar_navigation_control";
+    private static final String STATUS_BAR_NAVIGATION_CONTROL = "status_bar_navigation_control";
 
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
 
     private static final String STATUS_BAR_CATEGORY_CLOCK = "status_bar_clock";
+
+    public static final String HIDE_COMBINED_BAR_NAVIGATION = "hide_combined_bar_navigation";
 
     private ListPreference mStatusBarAmPm;
 
@@ -69,6 +73,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private PreferenceCategory mPrefCategoryClock;
 
+    private CheckBoxPreference mHideCombinedBarNavigation;
+
+    private StatusBarManager mStatusBarManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +92,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mCombinedBarAutoHide = (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_AUTO_HIDE);
         mStatusBarCmSignal = (ListPreference) prefSet.findPreference(STATUS_BAR_SIGNAL);
         mStatusBarNavigationControl = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NAVIGATION_CONTROL);
+
+        mHideCombinedBarNavigation = (CheckBoxPreference) prefSet.findPreference(
+                HIDE_COMBINED_BAR_NAVIGATION);
+        mStatusBarManager = (StatusBarManager) getActivity().getApplicationContext()
+                .getSystemService(Context.STATUS_BAR_SERVICE);
 
         mStatusBarClock.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_CLOCK, 1) == 1));
@@ -132,6 +145,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             mPrefCategoryGeneral.removePreference(mStatusBarNavigationControl);
         } else {
             mPrefCategoryGeneral.removePreference(mCombinedBarAutoHide);
+            mPrefCategoryGeneral.removePreference(mHideCombinedBarNavigation);
         }
     }
 
@@ -176,6 +190,12 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarNavigationControl.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PHONE_NAVIGATION_CONTROL, value ? 1 : 0);
+            return true;
+        } else if (preference == mHideCombinedBarNavigation) {
+            value = mHideCombinedBarNavigation.isChecked();
+            mStatusBarManager.disable(value ? StatusBarManager.DISABLE_RECENT |
+                    StatusBarManager.DISABLE_HOME | StatusBarManager.DISABLE_BACK :
+                    StatusBarManager.DISABLE_NONE);
             return true;
         }
         return false;

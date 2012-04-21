@@ -54,16 +54,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/tablet_tweaks_tablet_capacitive_title">
-
-        <CheckBoxPreference
-            android:key="tablet_tweaks_disable_hardware_buttons"
-            android:title="@string/tablet_tweaks_disable_hardware_buttons"
-            android:summary="@string/tablet_tweaks_disable_hardware_buttons_summary" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:title="@string/tablet_tweaks_recents_title"
         android:key="tablet_tweaks_recents">
 

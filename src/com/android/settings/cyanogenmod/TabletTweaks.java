@@ -31,9 +31,6 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-
 public class TabletTweaks extends SettingsPreferenceFragment {
 
     private static final String TABLET_TWEAKS_HIDE_HOME = "tablet_tweaks_hide_home";
@@ -44,9 +41,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
 
     private static final String TABLET_TWEAKS_HIDE_MENU = "tablet_tweaks_hide_menu";
     private static final String TABLET_TWEAKS_FORCE_MENU = "tablet_tweaks_force_menu";
-
-    public static final String TABLET_TWEAKS_DISABLE_HARDWARE_BUTTONS =
-            "tablet_tweaks_disable_hardware_buttons";
 
     private static final String TABLET_TWEAKS_RECENT_THUMBNAILS = "tablet_tweaks_recent_thumbnails";
 
@@ -64,13 +58,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
 
     private static final String TABLET_TWEAKS_STATUS_BAR_CATEGORY = "tablet_tweaks_status_bar";
 
-    public static final String BUTTONS_ENABLED_COMMAND = "echo ";
-
-    public static final String BUTTONS_ENABLED_PATH =
-            " > /sys/devices/platform/s3c2440-i2c.2/i2c-2/2-004a/buttons_enabled";
-
-    public static final String BUTTONS_ENABLED_SHELL = "/system/bin/sh";
-
     private CheckBoxPreference mTabletTweaksHideHome;
 
     private CheckBoxPreference mTabletTweaksHideRecent;
@@ -80,8 +67,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
     private CheckBoxPreference mTabletTweaksHideMenu;
 
     private CheckBoxPreference mTabletTweaksForceMenu;
-
-    private CheckBoxPreference mTabletTweaksDisableHardwareButtons;
 
     private CheckBoxPreference mTabletTweaksRecentThumbnails;
 
@@ -119,8 +104,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_HIDE_MENU);
         mTabletTweaksForceMenu =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_FORCE_MENU);
-        mTabletTweaksDisableHardwareButtons =
-                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_DISABLE_HARDWARE_BUTTONS);
         mTabletTweaksRecentThumbnails =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_RECENT_THUMBNAILS);
         mTabletTweaksRightButtons =
@@ -193,16 +176,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
             value = mTabletTweaksForceMenu.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.FORCE_SOFT_MENU_BUTTON, value ? 1 : 0);
-            return true;
-        } else if (preference == mTabletTweaksDisableHardwareButtons) {
-            value = mTabletTweaksDisableHardwareButtons.isChecked();
-            try {
-                String[] cmds = {BUTTONS_ENABLED_SHELL, "-c",
-                        BUTTONS_ENABLED_COMMAND + (value ? "0" : "1") + BUTTONS_ENABLED_PATH};
-                Runtime.getRuntime().exec(cmds);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             return true;
         } else if (preference == mTabletTweaksRecentThumbnails) {
             value = mTabletTweaksRecentThumbnails.isChecked();
