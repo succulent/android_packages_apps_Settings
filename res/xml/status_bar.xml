@@ -76,12 +76,6 @@
             android:title="@string/status_bar_navigation_control"
             android:summary="@string/status_bar_navigation_control_summary"
             android:defaultValue="false" />
-
-        <CheckBoxPreference
-            android:key="hide_combined_bar_navigation"
-            android:dialogTitle="@string/status_bar_signal_text_title"
-            android:title="@string/status_bar_signal_text_title"
-            android:summary="@string/status_bar_signal_text_summary" />
     </PreferenceCategory>
 
 </PreferenceScreen>
