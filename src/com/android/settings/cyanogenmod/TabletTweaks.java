@@ -33,15 +33,6 @@ import com.android.settings.Utils;
 
 public class TabletTweaks extends SettingsPreferenceFragment {
 
-    private static final String TABLET_TWEAKS_HIDE_HOME = "tablet_tweaks_hide_home";
-
-    private static final String TABLET_TWEAKS_HIDE_RECENT = "tablet_tweaks_hide_recent";
-
-    private static final String TABLET_TWEAKS_HIDE_BACK = "tablet_tweaks_hide_back";
-
-    private static final String TABLET_TWEAKS_HIDE_MENU = "tablet_tweaks_hide_menu";
-    private static final String TABLET_TWEAKS_FORCE_MENU = "tablet_tweaks_force_menu";
-
     private static final String TABLET_TWEAKS_RECENT_THUMBNAILS = "tablet_tweaks_recent_thumbnails";
 
     private static final String TABLET_TWEAKS_RIGHT_BUTTONS = "tablet_tweaks_right_buttons";
@@ -52,21 +43,9 @@ public class TabletTweaks extends SettingsPreferenceFragment {
 
     private static final String TABLET_TWEAKS_ENABLE_KEYBOARD = "tablet_tweaks_enable_keyboard";
 
-    private static final String TABLET_TWEAKS_BUTTONS_CATEGORY = "tablet_tweaks_buttons";
-
     private static final String TABLET_TWEAKS_RECENTS_CATEGORY = "tablet_tweaks_recents";
 
     private static final String TABLET_TWEAKS_STATUS_BAR_CATEGORY = "tablet_tweaks_status_bar";
-
-    private CheckBoxPreference mTabletTweaksHideHome;
-
-    private CheckBoxPreference mTabletTweaksHideRecent;
-
-    private CheckBoxPreference mTabletTweaksHideBack;
-
-    private CheckBoxPreference mTabletTweaksHideMenu;
-
-    private CheckBoxPreference mTabletTweaksForceMenu;
 
     private CheckBoxPreference mTabletTweaksRecentThumbnails;
 
@@ -94,16 +73,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
 
         mContentResolver = getActivity().getApplicationContext().getContentResolver();
 
-        mTabletTweaksHideHome =
-                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_HIDE_HOME);
-        mTabletTweaksHideRecent =
-                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_HIDE_RECENT);
-        mTabletTweaksHideBack =
-                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_HIDE_BACK);
-        mTabletTweaksHideMenu =
-                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_HIDE_MENU);
-        mTabletTweaksForceMenu =
-                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_FORCE_MENU);
         mTabletTweaksRecentThumbnails =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_RECENT_THUMBNAILS);
         mTabletTweaksRightButtons =
@@ -115,16 +84,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
         mTabletTweaksEnableKeyboard =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_ENABLE_KEYBOARD);
 
-        mTabletTweaksHideHome.setChecked((Settings.System.getInt(mContentResolver,
-                Settings.System.HIDE_SOFT_HOME_BUTTON, 0) == 1));
-        mTabletTweaksHideRecent.setChecked((Settings.System.getInt(mContentResolver,
-                Settings.System.HIDE_SOFT_RECENT_BUTTON, 0) == 1));
-        mTabletTweaksHideBack.setChecked((Settings.System.getInt(mContentResolver,
-                Settings.System.HIDE_SOFT_BACK_BUTTON, 0) == 1));
-        mTabletTweaksHideMenu.setChecked((Settings.System.getInt(mContentResolver,
-                Settings.System.HIDE_SOFT_MENU_BUTTON, 0) == 1));
-        mTabletTweaksForceMenu.setChecked((Settings.System.getInt(mContentResolver,
-                Settings.System.FORCE_SOFT_MENU_BUTTON, 0) == 1));
         mTabletTweaksRecentThumbnails.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.LARGE_RECENT_THUMBNAILS, 0) == 1));
         mTabletTweaksRightButtons.setChecked((Settings.System.getInt(mContentResolver,
@@ -137,9 +96,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 Settings.System.ENABLE_HARD_KEYBOARD, 0) == 1));
 
         if (!Utils.isScreenLarge(getActivity().getResources())) {
-            PreferenceCategory buttons =
-                    (PreferenceCategory) findPreference(TABLET_TWEAKS_BUTTONS_CATEGORY);
-            buttons.removeAll();
             PreferenceCategory recents =
                     (PreferenceCategory) findPreference(TABLET_TWEAKS_RECENTS_CATEGORY);
             recents.removeAll();
@@ -152,32 +108,7 @@ public class TabletTweaks extends SettingsPreferenceFragment {
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         boolean value;
 
-        if (preference == mTabletTweaksHideHome) {
-            value = mTabletTweaksHideHome.isChecked();
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.HIDE_SOFT_HOME_BUTTON, value ? 1 : 0);
-            return true;
-        } else if (preference == mTabletTweaksHideRecent) {
-            value = mTabletTweaksHideRecent.isChecked();
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.HIDE_SOFT_RECENT_BUTTON, value ? 1 : 0);
-            return true;
-        } else if (preference == mTabletTweaksHideBack) {
-            value = mTabletTweaksHideBack.isChecked();
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.HIDE_SOFT_BACK_BUTTON, value ? 1 : 0);
-            return true;
-        } else if (preference == mTabletTweaksHideMenu) {
-            value = mTabletTweaksHideMenu.isChecked();
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.HIDE_SOFT_MENU_BUTTON, value ? 1 : 0);
-            return true;
-        } else if (preference == mTabletTweaksForceMenu) {
-            value = mTabletTweaksForceMenu.isChecked();
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.FORCE_SOFT_MENU_BUTTON, value ? 1 : 0);
-            return true;
-        } else if (preference == mTabletTweaksRecentThumbnails) {
+        if (preference == mTabletTweaksRecentThumbnails) {
             value = mTabletTweaksRecentThumbnails.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.LARGE_RECENT_THUMBNAILS, value ? 1 : 0);

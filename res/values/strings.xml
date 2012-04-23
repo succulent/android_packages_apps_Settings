@@ -814,6 +814,12 @@
     <string name="combined_bar_title">Combined bar</string>
     <string name="combined_bar_auto_hide_title">Auto hide</string>
     <string name="combined_bar_auto_hide_summary">Allow combined bar to hide when showing a fullscreen app</string>
+    <string name="combined_bar_navigation_title">Combined bar navigation</string>
+    <string name="combined_bar_navigation_back_title">Back button</string>
+    <string name="combined_bar_navigation_home_title">Home button</string>
+    <string name="combined_bar_navigation_recent_title">Recent button</string>
+    <string name="combined_bar_navigation_menu_title">Menu button</string>
+    <string name="combined_bar_navigation_force_menu_title">Always show menu button</string>
 
     <!-- Power Widget #CM -->
     <string name="power_widget_title">Power widget</string>
