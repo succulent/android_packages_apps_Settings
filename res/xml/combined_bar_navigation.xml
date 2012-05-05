@@ -47,6 +47,11 @@
             android:dependency="combined_bar_navigation_menu"
             android:defaultValue="false" />
 
+        <PreferenceScreen
+            android:key="combined_bar_navigation_color"
+            android:title="@string/combined_bar_navigation_color_title">
+        </PreferenceScreen>
+
     </PreferenceCategory>
 
 </PreferenceScreen>
