@@ -47,6 +47,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
 
     private static final String TABLET_TWEAKS_STATUS_BAR_CATEGORY = "tablet_tweaks_status_bar";
 
+    private static final String TABLET_TWEAKS_GLOBAL_CONDENSED = "tablet_tweaks_global_condensed";
+
     private CheckBoxPreference mTabletTweaksRecentThumbnails;
 
     private CheckBoxPreference mTabletTweaksRightButtons;
@@ -56,6 +58,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
     private CheckBoxPreference mTabletTweaksScreenshotsJpeg;
 
     private CheckBoxPreference mTabletTweaksEnableKeyboard;
+
+    private CheckBoxPreference mTabletTweaksGlobalCondensed;
 
     private ContentResolver mContentResolver;
 
@@ -83,6 +87,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_SCREENSHOTS_JPEG);
         mTabletTweaksEnableKeyboard =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_ENABLE_KEYBOARD);
+        mTabletTweaksGlobalCondensed =
+                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_GLOBAL_CONDENSED);
 
         mTabletTweaksRecentThumbnails.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.LARGE_RECENT_THUMBNAILS, 0) == 1));
@@ -94,6 +100,8 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 Settings.System.JPEG_SCREENSHOTS, 0) == 1));
         mTabletTweaksEnableKeyboard.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.ENABLE_HARD_KEYBOARD, 0) == 1));
+        mTabletTweaksGlobalCondensed.setChecked((Settings.System.getInt(mContentResolver,
+                Settings.System.CONDENSED_GLOBAL_ACTIONS, 0) == 1));
 
         if (!Utils.isScreenLarge(getActivity().getResources())) {
             PreferenceCategory recents =
@@ -132,6 +140,11 @@ public class TabletTweaks extends SettingsPreferenceFragment {
             value = mTabletTweaksEnableKeyboard.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.ENABLE_HARD_KEYBOARD, value ? 1 : 0);
+            return true;
+        } else if (preference == mTabletTweaksGlobalCondensed) {
+            value = mTabletTweaksGlobalCondensed.isChecked();
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.CONDENSED_GLOBAL_ACTIONS, value ? 1 : 0);
             return true;
         }
         return false;

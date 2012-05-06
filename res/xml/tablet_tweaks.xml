@@ -50,6 +50,17 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/tablet_tweaks_global_category">
+
+        <CheckBoxPreference
+            android:key="tablet_tweaks_global_condensed"
+            android:title="@string/tablet_tweaks_global_condensed_title"
+            android:summary="@string/tablet_tweaks_global_condensed_summary"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/tablet_tweaks_screenshots_title">
 
         <CheckBoxPreference
