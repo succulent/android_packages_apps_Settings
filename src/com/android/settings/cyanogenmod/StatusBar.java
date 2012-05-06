@@ -16,6 +16,8 @@
 
 package com.android.settings.cyanogenmod;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -30,6 +32,7 @@ import android.util.Log;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.Utils;
+import com.android.settings.notificationlight.ColorPickerView;
 
 public class StatusBar extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
@@ -45,11 +48,13 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String COMBINED_BAR_AUTO_HIDE = "combined_bar_auto_hide";
 
-    public static final String STATUS_BAR_NAVIGATION_CONTROL = "status_bar_navigation_control";
+    private static final String STATUS_BAR_NAVIGATION_CONTROL = "status_bar_navigation_control";
 
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
 
     private static final String STATUS_BAR_CATEGORY_CLOCK = "status_bar_clock";
+
+    private static final String STATUS_BAR_CLOCK_COLOR = "status_bar_clock_color";
 
     private ListPreference mStatusBarAmPm;
 
@@ -69,6 +74,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private PreferenceCategory mPrefCategoryClock;
 
+    private Preference mStatusBarClockColor;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +91,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mCombinedBarAutoHide = (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_AUTO_HIDE);
         mStatusBarCmSignal = (ListPreference) prefSet.findPreference(STATUS_BAR_SIGNAL);
         mStatusBarNavigationControl = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NAVIGATION_CONTROL);
+        mStatusBarClockColor = (Preference) prefSet.findPreference(STATUS_BAR_CLOCK_COLOR);
 
         mStatusBarClock.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_CLOCK, 1) == 1));
@@ -177,7 +185,24 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PHONE_NAVIGATION_CONTROL, value ? 1 : 0);
             return true;
+        } else if (preference == mStatusBarClockColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mColorListener, Settings.System.getInt(getActivity().getApplicationContext()
+                    .getContentResolver(), Settings.System.STATUS_BAR_CLOCK_COLOR, 0xFF33B5E5));
+            cp.setDefaultColor(0xFF33B5E5);
+            cp.show();
+            return true;
         }
         return false;
     }
+
+    ColorPickerDialog.OnColorChangedListener mColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.STATUS_BAR_CLOCK_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
 }

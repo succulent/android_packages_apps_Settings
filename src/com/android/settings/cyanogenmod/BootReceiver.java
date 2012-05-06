@@ -16,8 +16,6 @@
 
 package com.android.settings.cyanogenmod;
 
-import com.android.settings.cyanogenmod.TabletTweaks;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,8 +25,6 @@ import android.provider.Settings;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
 import com.android.settings.Utils;
 
 import java.util.Arrays;
@@ -53,10 +49,6 @@ public class BootReceiver extends BroadcastReceiver {
             configureCPU(ctx);
         } else {
             SystemProperties.set(CPU_SETTINGS_PROP, "false");
-        }
-
-        if (mPrefs.getBoolean(TabletTweaks.TABLET_TWEAKS_DISABLE_HARDWARE_BUTTONS, false)) {
-            configureButtons();
         }
 
         if (Utils.fileExists(MemoryManagement.KSM_RUN_FILE)) {
@@ -107,16 +99,6 @@ public class BootReceiver extends BroadcastReceiver {
                 Utils.fileWriteOneLine(Processor.FREQ_MIN_FILE, minFrequency);
             }
             Log.d(TAG, "CPU settings restored.");
-        }
-    }
-
-    private void configureButtons() {
-        try {
-            String[] cmds = {TabletTweaks.BUTTONS_ENABLED_SHELL, "-c",
-                    TabletTweaks.BUTTONS_ENABLED_COMMAND + "0" + TabletTweaks.BUTTONS_ENABLED_PATH};
-            Runtime.getRuntime().exec(cmds);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

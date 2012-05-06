@@ -35,11 +35,12 @@ public class SystemSettings extends SettingsPreferenceFragment implements
     private static final String TAG = "SystemSettings";
 
     private static final String KEY_FONT_SIZE = "font_size";
+    private static final String KEY_COMBINED_BAR_NAVIGATION = "combined_bar_navigation";
 
     private ListPreference mFontSizePref;
 
     private final Configuration mCurConfig = new Configuration();
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
