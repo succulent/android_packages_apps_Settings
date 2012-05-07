@@ -105,9 +105,9 @@ public class LockscreenTargets extends Fragment implements ShortcutPickHelper.On
             Bundle savedInstanceState) {
         mContainer = container;
         setHasOptionsMenu(true);
-        mIsScreenLarge = Utils.isScreenLarge(mResources);
         mActivity = getActivity();
         mResources = getResources();
+        mIsScreenLarge = Utils.isScreenLarge(mResources);
         mIsLandscape = mResources.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         mTargetOffset = mIsLandscape && !mIsScreenLarge ? 2 : 0;
         mTargetInset = mIsScreenLarge ? MultiWaveView.TABLET_TARGET_INSET : MultiWaveView.PHONE_TARGET_INSET;
