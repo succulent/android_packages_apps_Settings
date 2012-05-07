@@ -826,6 +826,16 @@
     <string name="combined_bar_navigation_recent_title">Recent button</string>
     <string name="combined_bar_navigation_menu_title">Menu button</string>
     <string name="combined_bar_navigation_force_menu_title">Always show menu button</string>
+    <string name="combined_bar_settings_title">Combined bar expanded settings</string>
+    <string name="combined_bar_settings_picker_title">Expanded settings entries</string>
+    <string name="combined_bar_settings_wifi">Wi-Fi switch</string>
+    <string name="combined_bar_settings_bluetooth">Bluetooth switch</string>
+    <string name="combined_bar_settings_volume">Volume slider</string>
+    <string name="combined_bar_settings_brightness">Brightness slider</string>
+    <string name="combined_bar_settings_notifications">Notifications switch</string>
+    <string name="combined_bar_settings_shortcut">Settings shortcut</string>
+    <string name="combined_bar_settings_autorotate">Auto-rotate screen switch</string>
+    <string name="combined_bar_settings_airplane">Airplane mode switch</string>
 
     <!-- Power Widget #CM -->
     <string name="power_widget_title">Power widget</string>
@@ -862,6 +872,8 @@
     <string name="title_toggle_media_next">Media: Skip to Next</string>
     <string name="title_toggle_lte">Toggle LTE</string>
     <string name="title_toggle_wimax">Toggle WiMAX</string>
+    <string name="title_toggle_settings">Toggle Settings</string>
+    <string name="title_toggle_notifications">Toggle Notifications</string>
     <string name="title_button_modes">Button modes</string>
     <string name="pref_brightness_mode_title">Brightness modes</string>
     <string name="pref_brightness_mode_summary">Choose how the brightness button changes modes</string>
