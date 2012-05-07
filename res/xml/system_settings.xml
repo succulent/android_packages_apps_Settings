@@ -29,6 +29,11 @@
         android:fragment="com.android.settings.cyanogenmod.CombinedBarNavigation"
         android:title="@string/combined_bar_navigation_title" />
 
+    <PreferenceScreen
+        android:key="combined_bar_settings"
+        android:fragment="com.android.settings.cyanogenmod.CombinedBarSettings"
+        android:title="@string/combined_bar_settings_title" />
+
     <ListPreference
         android:key="font_size"
         android:title="@string/title_font_size"
