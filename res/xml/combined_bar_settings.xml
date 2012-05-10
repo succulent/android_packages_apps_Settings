@@ -32,6 +32,13 @@
             android:fragment="com.android.settings.cyanogenmod.CombinedBarSettings$SettingsOrder">
         </PreferenceScreen> -->
 
+        <com.android.settings.cyanogenmod.SeekBarPreference
+            android:key="combined_bar_expanded_transparency"
+            android:title="@string/combined_bar_expanded_transparency_title"
+            android:dialogMessage="Alpha level"
+            android:max="255"
+            android:defaultValue="255" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

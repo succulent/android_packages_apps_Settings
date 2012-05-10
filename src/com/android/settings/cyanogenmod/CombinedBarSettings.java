@@ -30,6 +30,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.ListPreferenceMultiSelect;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
@@ -46,14 +47,17 @@ import com.android.internal.telephony.Phone;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
-public class CombinedBarSettings extends SettingsPreferenceFragment {
+public class CombinedBarSettings extends SettingsPreferenceFragment 
+        implements OnPreferenceChangeListener {
     private static final String TAG = "CombinedBarSettings";
 
     private static final String SETTINGS_PICKER = "settings_picker";
     private static final String SETTINGS_ORDER = "settings_order";
+    private static final String TRANSPARENCY = "combined_bar_expanded_transparency";
 
     private PreferenceScreen mSettingsPicker;
     private PreferenceScreen mSettingsOrder;
+    private SeekBarPreference mTransparency;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,12 +70,27 @@ public class CombinedBarSettings extends SettingsPreferenceFragment {
 
             mSettingsPicker = (PreferenceScreen) prefSet.findPreference(SETTINGS_PICKER);
             mSettingsOrder = (PreferenceScreen) prefSet.findPreference(SETTINGS_ORDER);
+            mTransparency = (SeekBarPreference) prefSet.findPreference(TRANSPARENCY);
+            mTransparency.setDefault(Settings.System.getInt(getActivity().getApplicationContext()
+                    .getContentResolver(),
+                    Settings.System.COMBINED_BAR_EXPANDED_TRANSPARENCY, 255));
+            mTransparency.setOnPreferenceChangeListener(this);
         }
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         // If we didn't handle it, let preferences handle it.
         return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (preference == mTransparency) {
+            int transparency = (Integer) newValue;
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.COMBINED_BAR_EXPANDED_TRANSPARENCY, transparency);
+            return true;
+        }
+        return false;
     }
 
     public static class SettingsChooser extends SettingsPreferenceFragment {

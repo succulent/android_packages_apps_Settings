@@ -867,6 +867,7 @@
     <string name="combined_bar_settings_shortcut">Settings shortcut</string>
     <string name="combined_bar_settings_autorotate">Auto-rotate screen switch</string>
     <string name="combined_bar_settings_airplane">Airplane mode switch</string>
+    <string name="combined_bar_expanded_transparency_title">Transparency</string>
 
     <!-- Power Widget #CM -->
     <string name="power_widget_title">Power widget</string>
