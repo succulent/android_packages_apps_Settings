@@ -56,6 +56,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String STATUS_BAR_CLOCK_COLOR = "status_bar_clock_color";
 
+    private static final String STATUS_BAR_COLOR = "status_bar_color";
+
     private ListPreference mStatusBarAmPm;
 
     private ListPreference mStatusBarBattery;
@@ -76,6 +78,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private Preference mStatusBarClockColor;
 
+    private Preference mStatusBarColor;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +96,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarCmSignal = (ListPreference) prefSet.findPreference(STATUS_BAR_SIGNAL);
         mStatusBarNavigationControl = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NAVIGATION_CONTROL);
         mStatusBarClockColor = (Preference) prefSet.findPreference(STATUS_BAR_CLOCK_COLOR);
+        mStatusBarColor = (Preference) prefSet.findPreference(STATUS_BAR_COLOR);
 
         mStatusBarClock.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_CLOCK, 1) == 1));
@@ -192,6 +197,14 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             cp.setDefaultColor(0xFF33B5E5);
             cp.show();
             return true;
+        } else if (preference == mStatusBarColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mStatusBarColorListener, Settings.System.getInt(getActivity()
+                    .getApplicationContext()
+                    .getContentResolver(), Settings.System.COMBINED_BAR_COLOR, 0xFF000000));
+            cp.setDefaultColor(0xFF000000);
+            cp.show();
+            return true;
         }
         return false;
     }
@@ -201,6 +214,16 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             public void colorChanged(int color) {
                 Settings.System.putInt(getContentResolver(),
                         Settings.System.STATUS_BAR_CLOCK_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
+
+    ColorPickerDialog.OnColorChangedListener mStatusBarColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.COMBINED_BAR_COLOR, color);
             }
             public void colorUpdate(int color) {
             }
