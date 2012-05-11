@@ -21,6 +21,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.provider.Settings;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -28,6 +29,10 @@ import com.android.settings.SettingsPreferenceFragment;
 public class LockscreenInterface extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
     private static final String TAG = "LockscreenInterface";
+
+    private static final String LOCKSCREEN_COLOR = "lockscreen_color";
+
+    private Preference mColor;
 
     private final Configuration mCurConfig = new Configuration();
 
@@ -37,6 +42,10 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         ContentResolver resolver = getActivity().getContentResolver();
 
         addPreferencesFromResource(R.xml.lockscreen_interface_settings);
+
+        PreferenceScreen prefSet = getPreferenceScreen();
+
+        mColor = (Preference) prefSet.findPreference(LOCKSCREEN_COLOR);
     }
 
     @Override
@@ -54,14 +63,33 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private void updateState() {
     }
 
-    @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        return super.onPreferenceTreeClick(preferenceScreen, preference);
-    }
-
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         final String key = preference.getKey();
 
         return true;
     }
+
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        boolean value;
+        if (preference == mColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mColorListener, Settings.System.getInt(getActivity()
+                    .getApplicationContext()
+                    .getContentResolver(), Settings.System.LOCKSCREEN_COLOR, 0x70000000));
+            cp.setDefaultColor(0x70000000);
+            cp.show();
+            return true;
+        }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    ColorPickerDialog.OnColorChangedListener mColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.LOCKSCREEN_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
 }
