@@ -859,6 +859,7 @@
     <string name="combined_bar_navigation_force_menu_title">Always show menu button</string>
     <string name="combined_bar_settings_title">Combined bar expanded settings</string>
     <string name="combined_bar_settings_picker_title">Expanded settings entries</string>
+    <string name="combined_bar_settings_order_title">Expanded settings order</string>
     <string name="combined_bar_settings_wifi">Wi-Fi switch</string>
     <string name="combined_bar_settings_bluetooth">Bluetooth switch</string>
     <string name="combined_bar_settings_volume">Volume slider</string>
