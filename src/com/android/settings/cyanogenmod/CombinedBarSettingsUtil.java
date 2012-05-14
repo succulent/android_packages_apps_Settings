@@ -37,6 +37,7 @@ public class CombinedBarSettingsUtil {
     public static final String BUTTON_SETTINGS = "toggleSettings";
     public static final String BUTTON_AUTOROTATE = "toggleAutoRotate";
     public static final String BUTTON_AIRPLANE = "toggleAirplane";
+    public static final String BUTTON_GPS = "toggleGPS";
 
     public static final HashMap<String, ButtonInfo> BUTTONS = new HashMap<String, ButtonInfo>();
     static {
@@ -64,6 +65,9 @@ public class CombinedBarSettingsUtil {
         BUTTONS.put(BUTTON_SETTINGS, new CombinedBarSettingsUtil.ButtonInfo(
                 BUTTON_SETTINGS, R.string.combined_bar_settings_shortcut,
                 "com.android.systemui:drawable/ic_sysbar_quicksettings"));
+        BUTTONS.put(BUTTON_GPS, new CombinedBarSettingsUtil.ButtonInfo(
+                BUTTON_GPS, R.string.combined_bar_settings_gps,
+                "com.android.systemui:drawable/stat_gps_on"));
 
     }
 
