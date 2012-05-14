@@ -1431,6 +1431,7 @@
                 android:uiOptions="none">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.settings.DATA_USAGE" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.android.settings.SHORTCUT" />
             </intent-filter>

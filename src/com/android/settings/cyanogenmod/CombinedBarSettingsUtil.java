@@ -38,6 +38,9 @@ public class CombinedBarSettingsUtil {
     public static final String BUTTON_AUTOROTATE = "toggleAutoRotate";
     public static final String BUTTON_AIRPLANE = "toggleAirplane";
     public static final String BUTTON_GPS = "toggleGPS";
+    public static final String BUTTON_MEDIA = "toggleMedia";
+    public static final String BUTTON_MOBILEDATA = "toggleMobileData";
+    public static final String BUTTON_LOCKSCREEN = "toggleLockScreen";
 
     public static final HashMap<String, ButtonInfo> BUTTONS = new HashMap<String, ButtonInfo>();
     static {
@@ -68,7 +71,15 @@ public class CombinedBarSettingsUtil {
         BUTTONS.put(BUTTON_GPS, new CombinedBarSettingsUtil.ButtonInfo(
                 BUTTON_GPS, R.string.combined_bar_settings_gps,
                 "com.android.systemui:drawable/stat_gps_on"));
-
+        BUTTONS.put(BUTTON_MEDIA, new CombinedBarSettingsUtil.ButtonInfo(
+                BUTTON_MEDIA, R.string.combined_bar_settings_media,
+                "com.android.systemui:drawable/stat_media_play"));
+        BUTTONS.put(BUTTON_MOBILEDATA, new CombinedBarSettingsUtil.ButtonInfo(
+                BUTTON_MOBILEDATA, R.string.combined_bar_settings_data,
+                "com.android.systemui:drawable/stat_data_on"));
+        BUTTONS.put(BUTTON_LOCKSCREEN, new CombinedBarSettingsUtil.ButtonInfo(
+                BUTTON_LOCKSCREEN, R.string.combined_bar_settings_lockscreen,
+                "com.android.systemui:drawable/stat_lock_screen_on"));
     }
 
     private static final String BUTTON_DELIMITER = "|";
