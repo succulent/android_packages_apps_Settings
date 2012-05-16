@@ -39,6 +39,7 @@ public class CombinedBarNavigation extends SettingsPreferenceFragment {
     private static final String COMBINED_BAR_NAVIGATION_RECENT = "combined_bar_navigation_recent";
     private static final String COMBINED_BAR_NAVIGATION_MENU = "combined_bar_navigation_menu";
     private static final String COMBINED_BAR_NAVIGATION_COLOR = "combined_bar_navigation_color";
+    private static final String COMBINED_BAR_NAVIGATION_GLOW = "combined_bar_navigation_glow";
     private static final String COMBINED_BAR_NAVIGATION_FORCE_MENU =
             "combined_bar_navigation_force_menu";
     private static final String BACK = "back";
@@ -54,6 +55,7 @@ public class CombinedBarNavigation extends SettingsPreferenceFragment {
     private CheckBoxPreference mCombinedBarNavigationRecent;
     private CheckBoxPreference mCombinedBarNavigationMenu;
     private CheckBoxPreference mCombinedBarNavigationForceMenu;
+    private CheckBoxPreference mCombinedBarNavigationGlow;
     private Preference mCombinedBarNavigationColor;
 
     private ContentResolver mContentResolver;
@@ -80,6 +82,8 @@ public class CombinedBarNavigation extends SettingsPreferenceFragment {
                 (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_MENU);
         mCombinedBarNavigationForceMenu =
                 (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_FORCE_MENU);
+        mCombinedBarNavigationGlow =
+                (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_GLOW);
         mCombinedBarNavigationColor =
                 (Preference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_COLOR);
 
@@ -96,6 +100,8 @@ public class CombinedBarNavigation extends SettingsPreferenceFragment {
         mCombinedBarNavigationMenu.setChecked(mNavButtons.contains(MENU));
         mCombinedBarNavigationForceMenu.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.FORCE_SOFT_MENU_BUTTON, 0) == 1));
+        mCombinedBarNavigationGlow.setChecked((Settings.System.getInt(mContentResolver,
+                Settings.System.COMBINED_BAR_NAVIGATION_GLOW, 1) == 1));
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -120,6 +126,11 @@ public class CombinedBarNavigation extends SettingsPreferenceFragment {
             value = mCombinedBarNavigationForceMenu.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.FORCE_SOFT_MENU_BUTTON, value ? 1 : 0);
+            return true;
+        } else if (preference == mCombinedBarNavigationGlow) {
+            value = mCombinedBarNavigationGlow.isChecked();
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.COMBINED_BAR_NAVIGATION_GLOW, value ? 1 : 0);
             return true;
         } else if (preference == mCombinedBarNavigationColor) {
             ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
