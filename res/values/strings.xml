@@ -857,6 +857,7 @@
     <string name="combined_bar_navigation_recent_title">Recent button</string>
     <string name="combined_bar_navigation_menu_title">Menu button</string>
     <string name="combined_bar_navigation_force_menu_title">Always show menu button</string>
+    <string name="combined_bar_navigation_glow_title">Button glow effect</string>
     <string name="combined_bar_settings_title">Combined bar expanded settings</string>
     <string name="combined_bar_settings_picker_title">Expanded settings entries</string>
     <string name="combined_bar_settings_order_title">Expanded settings order</string>
@@ -872,6 +873,10 @@
     <string name="combined_bar_settings_media">Media control</string>
     <string name="combined_bar_settings_data">Mobile data switch</string>
     <string name="combined_bar_settings_lockscreen">Lock screen switch</string>
+    <string name="combined_bar_settings_wifiap">Wi-Fi access point switch</string>
+    <string name="combined_bar_settings_tetherusb">USB tethering switch</string>
+    <string name="combined_bar_settings_tetherbt">Bluetooth tethering switch</string>
+    <string name="combined_bar_settings_sleep">Sleep selector</string>
     <string name="combined_bar_expanded_transparency_title">Transparency</string>
 
     <!-- Power Widget #CM -->

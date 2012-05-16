@@ -170,7 +170,7 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private void updateTimeoutPreferenceDescription(long currentTimeout) {
         ListPreference preference = mScreenTimeoutPreference;
         String summary;
-        if (currentTimeout < 0) {
+        if (currentTimeout == 0) {
             // Unsupported value
             summary = "";
         } else {
@@ -183,8 +183,12 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                     best = i;
                 }
             }
-            summary = preference.getContext().getString(R.string.screen_timeout_summary,
-                    entries[best]);
+            if (currentTimeout < 0) {
+                summary = entries[best].toString();
+            } else {
+                summary = preference.getContext().getString(R.string.screen_timeout_summary,
+                        entries[best]);
+            }
         }
         preference.setSummary(summary);
     }

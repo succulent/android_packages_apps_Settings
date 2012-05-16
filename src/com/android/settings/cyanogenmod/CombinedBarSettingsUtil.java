@@ -41,6 +41,10 @@ public class CombinedBarSettingsUtil {
     public static final String BUTTON_MEDIA = "toggleMedia";
     public static final String BUTTON_MOBILEDATA = "toggleMobileData";
     public static final String BUTTON_LOCKSCREEN = "toggleLockScreen";
+    public static final String BUTTON_WIFIAP = "toggleApWifi";
+    public static final String BUTTON_TETHERUSB = "toggleTetherUSB";
+    public static final String BUTTON_TETHERBT = "toggleTetherBT";
+    public static final String BUTTON_SLEEP = "toggleSleep";
 
     public static final HashMap<String, ButtonInfo> BUTTONS = new HashMap<String, ButtonInfo>();
     static {
@@ -80,6 +84,18 @@ public class CombinedBarSettingsUtil {
         BUTTONS.put(BUTTON_LOCKSCREEN, new CombinedBarSettingsUtil.ButtonInfo(
                 BUTTON_LOCKSCREEN, R.string.combined_bar_settings_lockscreen,
                 "com.android.systemui:drawable/stat_lock_screen_on"));
+        BUTTONS.put(BUTTON_WIFIAP, new CombinedBarSettingsUtil.ButtonInfo(
+                BUTTON_WIFIAP, R.string.combined_bar_settings_wifiap,
+                "com.android.systemui:drawable/stat_wifi_ap_on"));
+        BUTTONS.put(BUTTON_TETHERUSB, new CombinedBarSettingsUtil.ButtonInfo(
+                BUTTON_TETHERUSB, R.string.combined_bar_settings_tetherusb,
+                "com.android.internal:drawable/stat_sys_tether_usb"));
+        BUTTONS.put(BUTTON_TETHERBT, new CombinedBarSettingsUtil.ButtonInfo(
+                BUTTON_TETHERBT, R.string.combined_bar_settings_tetherbt,
+                "com.android.internal:drawable/stat_sys_tether_bluetooth"));
+        BUTTONS.put(BUTTON_SLEEP, new CombinedBarSettingsUtil.ButtonInfo(
+                BUTTON_SLEEP, R.string.combined_bar_settings_sleep,
+                "com.android.internal:drawable/stat_screen_timeout_on"));
     }
 
     private static final String BUTTON_DELIMITER = "|";
