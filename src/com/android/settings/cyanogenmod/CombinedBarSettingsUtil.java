@@ -89,13 +89,13 @@ public class CombinedBarSettingsUtil {
                 "com.android.systemui:drawable/stat_wifi_ap_on"));
         BUTTONS.put(BUTTON_TETHERUSB, new CombinedBarSettingsUtil.ButtonInfo(
                 BUTTON_TETHERUSB, R.string.combined_bar_settings_tetherusb,
-                "com.android.internal:drawable/stat_sys_tether_usb"));
+                "com.android.systemui:drawable/stat_sys_tether_usb"));
         BUTTONS.put(BUTTON_TETHERBT, new CombinedBarSettingsUtil.ButtonInfo(
                 BUTTON_TETHERBT, R.string.combined_bar_settings_tetherbt,
-                "com.android.internal:drawable/stat_sys_tether_bluetooth"));
+                "com.android.systemui:drawable/stat_sys_tether_bluetooth"));
         BUTTONS.put(BUTTON_SLEEP, new CombinedBarSettingsUtil.ButtonInfo(
                 BUTTON_SLEEP, R.string.combined_bar_settings_sleep,
-                "com.android.internal:drawable/stat_screen_timeout_on"));
+                "com.android.systemui:drawable/stat_screen_timeout_on"));
     }
 
     private static final String BUTTON_DELIMITER = "|";
