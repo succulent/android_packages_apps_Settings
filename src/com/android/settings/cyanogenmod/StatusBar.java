@@ -145,6 +145,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             mPrefCategoryGeneral.removePreference(mStatusBarNavigationControl);
         } else {
             mPrefCategoryGeneral.removePreference(mCombinedBarAutoHide);
+            mPrefCategoryClock.removePreference(mStatusBarClockColor);
+            mPrefCategoryGeneral.removePreference(mStatusBarColor);
         }
     }
 

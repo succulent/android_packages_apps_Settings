@@ -36,6 +36,7 @@ public class SystemSettings extends SettingsPreferenceFragment implements
 
     private static final String KEY_FONT_SIZE = "font_size";
     private static final String KEY_COMBINED_BAR_NAVIGATION = "combined_bar_navigation";
+    private static final String KEY_COMBINED_BAR_SETTINGS = "combined_bar_settings";
 
     private ListPreference mFontSizePref;
 
@@ -49,6 +50,12 @@ public class SystemSettings extends SettingsPreferenceFragment implements
 
         mFontSizePref = (ListPreference) findPreference(KEY_FONT_SIZE);
         mFontSizePref.setOnPreferenceChangeListener(this);
+
+        if (!Utils.isScreenLarge(getResources())) {
+            PreferenceScreen prefSet = getPreferenceScreen();
+            prefSet.removePreference(findPreference(KEY_COMBINED_BAR_NAVIGATION));
+            prefSet.removePreference(findPreference(KEY_COMBINED_BAR_SETTINGS));
+        }
     }
 
     int floatToIndex(float val) {
