@@ -40,6 +40,10 @@ public class CombinedBarNavigation extends SettingsPreferenceFragment {
     private static final String COMBINED_BAR_NAVIGATION_MENU = "combined_bar_navigation_menu";
     private static final String COMBINED_BAR_NAVIGATION_COLOR = "combined_bar_navigation_color";
     private static final String COMBINED_BAR_NAVIGATION_GLOW = "combined_bar_navigation_glow";
+    private static final String COMBINED_BAR_NAVIGATION_GLOW_COLOR =
+            "combined_bar_navigation_glow_color";
+    private static final String COMBINED_BAR_NAVIGATION_QUICK_GLOW =
+            "combined_bar_navigation_quick_glow";
     private static final String COMBINED_BAR_NAVIGATION_FORCE_MENU =
             "combined_bar_navigation_force_menu";
     private static final String BACK = "back";
@@ -56,6 +60,8 @@ public class CombinedBarNavigation extends SettingsPreferenceFragment {
     private CheckBoxPreference mCombinedBarNavigationMenu;
     private CheckBoxPreference mCombinedBarNavigationForceMenu;
     private CheckBoxPreference mCombinedBarNavigationGlow;
+    private CheckBoxPreference mCombinedBarNavigationQuickGlow;
+    private Preference mCombinedBarNavigationGlowColor;
     private Preference mCombinedBarNavigationColor;
 
     private ContentResolver mContentResolver;
@@ -84,6 +90,10 @@ public class CombinedBarNavigation extends SettingsPreferenceFragment {
                 (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_FORCE_MENU);
         mCombinedBarNavigationGlow =
                 (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_GLOW);
+        mCombinedBarNavigationQuickGlow =
+                (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_QUICK_GLOW);
+        mCombinedBarNavigationGlowColor =
+                (Preference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_GLOW_COLOR);
         mCombinedBarNavigationColor =
                 (Preference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_COLOR);
 
@@ -102,6 +112,8 @@ public class CombinedBarNavigation extends SettingsPreferenceFragment {
                 Settings.System.FORCE_SOFT_MENU_BUTTON, 0) == 1));
         mCombinedBarNavigationGlow.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.COMBINED_BAR_NAVIGATION_GLOW, 1) == 1));
+        mCombinedBarNavigationQuickGlow.setChecked((Settings.System.getInt(mContentResolver,
+                Settings.System.COMBINED_BAR_NAVIGATION_GLOW_TIME, 0) == 1));
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
@@ -132,11 +144,29 @@ public class CombinedBarNavigation extends SettingsPreferenceFragment {
             Settings.System.putInt(mContentResolver,
                     Settings.System.COMBINED_BAR_NAVIGATION_GLOW, value ? 1 : 0);
             return true;
+        } else if (preference == mCombinedBarNavigationQuickGlow) {
+            value = mCombinedBarNavigationQuickGlow.isChecked();
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.COMBINED_BAR_NAVIGATION_GLOW_TIME, value ? 1 : 0);
+            return true;
+        } else if (preference == mCombinedBarNavigationGlowColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mGlowColorListener, Settings.System.getInt(getActivity().getApplicationContext()
+                    .getContentResolver(), Settings.System.COMBINED_BAR_NAVIGATION_GLOW_COLOR,
+                    getActivity().getApplicationContext().getResources().getColor(
+                    com.android.internal.R.color.holo_blue_light)));
+            cp.setDefaultColor(getActivity().getApplicationContext().getResources().getColor(
+                    com.android.internal.R.color.holo_blue_light));
+            cp.show();
+            return true;
         } else if (preference == mCombinedBarNavigationColor) {
             ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
                     mColorListener, Settings.System.getInt(getActivity().getApplicationContext()
-                    .getContentResolver(), Settings.System.COMBINED_BAR_NAVIGATION_COLOR, 0x00000000));
-            cp.setDefaultColor(0x00000000);
+                    .getContentResolver(), Settings.System.COMBINED_BAR_NAVIGATION_COLOR,
+                    getActivity().getApplicationContext().getResources().getColor(
+                    com.android.internal.R.color.transparent)));
+            cp.setDefaultColor(getActivity().getApplicationContext().getResources().getColor(
+                    com.android.internal.R.color.transparent));
             cp.show();
             return true;
         }
@@ -164,6 +194,15 @@ public class CombinedBarNavigation extends SettingsPreferenceFragment {
             public void colorChanged(int color) {
                 Settings.System.putInt(getContentResolver(),
                         Settings.System.COMBINED_BAR_NAVIGATION_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
+    ColorPickerDialog.OnColorChangedListener mGlowColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.COMBINED_BAR_NAVIGATION_GLOW_COLOR, color);
             }
             public void colorUpdate(int color) {
             }
