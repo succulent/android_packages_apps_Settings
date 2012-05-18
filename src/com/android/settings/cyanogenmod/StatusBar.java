@@ -17,6 +17,8 @@
 package com.android.settings.cyanogenmod;
 
 import android.app.AlertDialog;
+import android.app.StatusBarManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -201,11 +203,17 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarNavigationControl.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PHONE_NAVIGATION_CONTROL, value ? 1 : 0);
+            StatusBarManager sbm = (StatusBarManager) getSystemService(Context.STATUS_BAR_SERVICE);
+            sbm.expand();
+            sbm.collapse();
             return true;
         } else if (preference == mStatusBarNavigationLeft) {
             value = mStatusBarNavigationLeft.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PHONE_NAVIGATION_CONTROL_LEFT, value ? 1 : 0);
+            StatusBarManager sbm = (StatusBarManager) getSystemService(Context.STATUS_BAR_SERVICE);
+            sbm.expand();
+            sbm.collapse();
             return true;
         } else if (preference == mStatusBarClockColor) {
             ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
