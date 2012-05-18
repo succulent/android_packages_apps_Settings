@@ -24,6 +24,7 @@ import android.os.RemoteException;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.android.settings.R;
@@ -37,6 +38,8 @@ public class SystemSettings extends SettingsPreferenceFragment implements
     private static final String KEY_FONT_SIZE = "font_size";
     private static final String KEY_COMBINED_BAR_NAVIGATION = "combined_bar_navigation";
     private static final String KEY_COMBINED_BAR_SETTINGS = "combined_bar_settings";
+    private static final String KEY_NOTIFICATION_DRAWER = "notification_drawer";
+    private static final String KEY_NAVIGATION_BAR = "navigation_bar";
 
     private ListPreference mFontSizePref;
 
@@ -55,6 +58,13 @@ public class SystemSettings extends SettingsPreferenceFragment implements
             PreferenceScreen prefSet = getPreferenceScreen();
             prefSet.removePreference(findPreference(KEY_COMBINED_BAR_NAVIGATION));
             prefSet.removePreference(findPreference(KEY_COMBINED_BAR_SETTINGS));
+            if (Settings.System.getInt(getActivity()
+                .getApplicationContext().getContentResolver(),
+                Settings.System.PHONE_NAVIGATION_CONTROL, 0) == 0) {
+                prefSet.removePreference(findPreference(KEY_NAVIGATION_BAR));
+            }
+        } else {
+            getPreferenceScreen().removePreference(findPreference(KEY_NAVIGATION_BAR));
         }
     }
 
