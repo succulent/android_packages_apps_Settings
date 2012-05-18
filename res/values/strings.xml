@@ -841,6 +841,8 @@
     <string name="combined_bar_navigation_menu_title">Menu button</string>
     <string name="combined_bar_navigation_force_menu_title">Always show menu button</string>
     <string name="combined_bar_navigation_glow_title">Button glow effect</string>
+    <string name="combined_bar_navigation_glow_color_title">Button glow color</string>
+    <string name="combined_bar_navigation_quick_glow_title">Shorter button glow</string>
     <string name="combined_bar_settings_title">Combined bar expanded settings</string>
     <string name="combined_bar_settings_picker_title">Expanded settings entries</string>
     <string name="combined_bar_settings_order_title">Expanded settings order</string>
