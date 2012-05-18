@@ -78,8 +78,13 @@
 
         <CheckBoxPreference
             android:key="status_bar_navigation_control"
-            android:title="@string/status_bar_navigation_control"
-            android:summary="@string/status_bar_navigation_control_summary"
+            android:title="@string/status_bar_navigation_control_title"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
+            android:key="status_bar_navigation_left"
+            android:title="@string/status_bar_navigation_left_title"
+            android:dependency="status_bar_navigation_control"
             android:defaultValue="false" />
 
         <PreferenceScreen

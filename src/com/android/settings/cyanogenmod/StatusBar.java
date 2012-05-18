@@ -28,6 +28,7 @@ import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -50,6 +51,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String STATUS_BAR_NAVIGATION_CONTROL = "status_bar_navigation_control";
 
+    private static final String STATUS_BAR_NAVIGATION_LEFT = "status_bar_navigation_left";
+
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
 
     private static final String STATUS_BAR_CATEGORY_CLOCK = "status_bar_clock";
@@ -71,6 +74,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mCombinedBarAutoHide;
 
     private CheckBoxPreference mStatusBarNavigationControl;
+    private CheckBoxPreference mStatusBarNavigationLeft;
 
     private PreferenceCategory mPrefCategoryGeneral;
 
@@ -95,6 +99,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mCombinedBarAutoHide = (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_AUTO_HIDE);
         mStatusBarCmSignal = (ListPreference) prefSet.findPreference(STATUS_BAR_SIGNAL);
         mStatusBarNavigationControl = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NAVIGATION_CONTROL);
+        mStatusBarNavigationLeft = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NAVIGATION_LEFT);
         mStatusBarClockColor = (Preference) prefSet.findPreference(STATUS_BAR_CLOCK_COLOR);
         mStatusBarColor = (Preference) prefSet.findPreference(STATUS_BAR_COLOR);
 
@@ -134,6 +139,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 .getApplicationContext().getContentResolver(),
                 Settings.System.PHONE_NAVIGATION_CONTROL, 0) == 1));
 
+        mStatusBarNavigationLeft.setChecked((Settings.System.getInt(getActivity()
+                .getApplicationContext().getContentResolver(),
+                Settings.System.PHONE_NAVIGATION_CONTROL_LEFT, 0) == 1));
+
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
         mPrefCategoryClock = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_CLOCK);
@@ -143,6 +152,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             //mPrefCategoryGeneral.removePreference(mStatusBarCmSignal);
             //mPrefCategoryClock.removePreference(mStatusBarAmPm);
             mPrefCategoryGeneral.removePreference(mStatusBarNavigationControl);
+            mPrefCategoryGeneral.removePreference(mStatusBarNavigationLeft);
         } else {
             mPrefCategoryGeneral.removePreference(mCombinedBarAutoHide);
             mPrefCategoryClock.removePreference(mStatusBarClockColor);
@@ -191,6 +201,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarNavigationControl.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PHONE_NAVIGATION_CONTROL, value ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarNavigationLeft) {
+            value = mStatusBarNavigationLeft.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.PHONE_NAVIGATION_CONTROL_LEFT, value ? 1 : 0);
             return true;
         } else if (preference == mStatusBarClockColor) {
             ColorPickerDialog cp = new ColorPickerDialog(getActivity(),

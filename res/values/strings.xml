@@ -943,8 +943,8 @@
     <string name="status_bar_signal_text_show_bars">Icon (default)</string>
     <string name="status_bar_signal_text_show_text">Text</string>
     <string name="status_bar_signal_text_hidden">Hidden</string>
-    <string name="status_bar_navigation_control">Show navigation</string>
-    <string name="status_bar_navigation_control_summary">Show on screen navigation controls (Requires reboot)</string>
+    <string name="status_bar_navigation_control_title">Navigation bar</string>
+    <string name="status_bar_navigation_left_title">Navigation bar left (Landscape)</string>
     <string name="dialog_indicator_color_title">Select color</string>
     <string name="combined_bar_navigation_color_title">Color</string>
 
