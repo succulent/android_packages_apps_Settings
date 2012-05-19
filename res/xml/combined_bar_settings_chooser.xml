@@ -18,7 +18,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:key="pref_buttons"
+        android:key="pref_combined_bar_buttons"
         android:title="@string/combined_bar_settings_picker_title" />
 
 </PreferenceScreen>

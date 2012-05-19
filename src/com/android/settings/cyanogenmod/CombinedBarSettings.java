@@ -100,8 +100,8 @@ public class CombinedBarSettings extends SettingsPreferenceFragment
 
         private static final String TAG = "SettingsChooserActivity";
 
-        private static final String BUTTONS_CATEGORY = "pref_buttons";
-        private static final String SELECT_BUTTON_KEY_PREFIX = "pref_button_";
+        private static final String BUTTONS_CATEGORY = "pref_combined_bar_buttons";
+        private static final String SELECT_BUTTON_KEY_PREFIX = "pref_combined_bar_button_";
 
         private HashMap<CheckBoxPreference, String> mCheckBoxPrefs = new HashMap<CheckBoxPreference, String>();
 
