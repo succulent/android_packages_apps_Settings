@@ -882,6 +882,8 @@
     <string name="power_widget_title">Power widget</string>
     <string name="title_expanded_widget">Show power widget</string>
     <string name="summary_expanded_widget">Show the power widget in the notification drawer</string>
+    <string name="title_expanded_widget_tablet_bottom">Move to bottom</string>
+    <string name="summary_expanded_widget_tablet_bottom">Show the power widget at the bottom of the notification drawer</string>
     <string name="title_expanded_hide_onchange">Hide on change</string>
     <string name="summary_expanded_hide_onchange">Hide the notification drawer after toggling a widget button</string>
     <string name="title_expanded_hide_indicator">Hide indicator</string>

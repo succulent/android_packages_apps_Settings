@@ -26,6 +26,12 @@
             android:summary="@string/summary_expanded_widget"
             android:defaultValue="true" />
 
+        <CheckBoxPreference android:key="expanded_widget_tablet_bottom"
+            android:title="@string/title_expanded_widget_tablet_bottom"
+            android:summary="@string/summary_expanded_widget_tablet_bottom"
+            android:dependency="expanded_widget"
+            android:defaultValue="false" />
+
         <CheckBoxPreference
             android:key="expanded_hide_onchange"
             android:title="@string/title_expanded_hide_onchange"
