@@ -66,6 +66,10 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         } else {
             getPreferenceScreen().removePreference(findPreference(KEY_NAVIGATION_BAR));
         }
+        if (Utils.isScreenLarge() || !getResources().getBoolean(
+                com.android.internal.R.bool.config_showNavigationBar)) {
+            getPreferenceScreen().removePreference(findPreference(KEY_NAVIGATION_BAR));
+        }
     }
 
     int floatToIndex(float val) {
