@@ -59,15 +59,11 @@ public class SystemSettings extends SettingsPreferenceFragment implements
             prefSet.removePreference(findPreference(KEY_COMBINED_BAR_NAVIGATION));
             prefSet.removePreference(findPreference(KEY_COMBINED_BAR_SETTINGS));
             if (Settings.System.getInt(getActivity()
-                .getApplicationContext().getContentResolver(),
-                Settings.System.PHONE_NAVIGATION_CONTROL, 0) == 0) {
+                    .getApplicationContext().getContentResolver(),
+                    Settings.System.PHONE_NAVIGATION_CONTROL, 0) == 0) {
                 prefSet.removePreference(findPreference(KEY_NAVIGATION_BAR));
             }
         } else {
-            getPreferenceScreen().removePreference(findPreference(KEY_NAVIGATION_BAR));
-        }
-        if (Utils.isScreenLarge() || !getResources().getBoolean(
-                com.android.internal.R.bool.config_showNavigationBar)) {
             getPreferenceScreen().removePreference(findPreference(KEY_NAVIGATION_BAR));
         }
     }

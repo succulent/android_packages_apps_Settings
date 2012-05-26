@@ -41,8 +41,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
 
     private static final String TABLET_TWEAKS_SCREENSHOTS_JPEG = "tablet_tweaks_screenshots_jpeg";
 
-    private static final String TABLET_TWEAKS_ENABLE_KEYBOARD = "tablet_tweaks_enable_keyboard";
-
     private static final String TABLET_TWEAKS_RECENTS_CATEGORY = "tablet_tweaks_recents";
 
     private static final String TABLET_TWEAKS_STATUS_BAR_CATEGORY = "tablet_tweaks_status_bar";
@@ -56,8 +54,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
     private CheckBoxPreference mTabletTweaksPeekNotifications;
 
     private CheckBoxPreference mTabletTweaksScreenshotsJpeg;
-
-    private CheckBoxPreference mTabletTweaksEnableKeyboard;
 
     private CheckBoxPreference mTabletTweaksGlobalCondensed;
 
@@ -85,8 +81,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_PEEK_NOTIFICATIONS);
         mTabletTweaksScreenshotsJpeg =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_SCREENSHOTS_JPEG);
-        mTabletTweaksEnableKeyboard =
-                (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_ENABLE_KEYBOARD);
         mTabletTweaksGlobalCondensed =
                 (CheckBoxPreference) prefSet.findPreference(TABLET_TWEAKS_GLOBAL_CONDENSED);
 
@@ -98,8 +92,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
                 Settings.System.SHOW_NOTIFICATION_PEEK, 0) == 1));
         mTabletTweaksScreenshotsJpeg.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.JPEG_SCREENSHOTS, 0) == 1));
-        mTabletTweaksEnableKeyboard.setChecked((Settings.System.getInt(mContentResolver,
-                Settings.System.ENABLE_HARD_KEYBOARD, 0) == 1));
         mTabletTweaksGlobalCondensed.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.CONDENSED_GLOBAL_ACTIONS, 0) == 1));
 
@@ -135,11 +127,6 @@ public class TabletTweaks extends SettingsPreferenceFragment {
             value = mTabletTweaksScreenshotsJpeg.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.JPEG_SCREENSHOTS, value ? 1 : 0);
-            return true;
-        } else if (preference == mTabletTweaksEnableKeyboard) {
-            value = mTabletTweaksEnableKeyboard.isChecked();
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.ENABLE_HARD_KEYBOARD, value ? 1 : 0);
             return true;
         } else if (preference == mTabletTweaksGlobalCondensed) {
             value = mTabletTweaksGlobalCondensed.isChecked();
