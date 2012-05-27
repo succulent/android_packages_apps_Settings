@@ -44,4 +44,10 @@
         android:title="@string/dock_force_undock_title"
         android:summary="@string/dock_force_undock_summary_no_dock" />
 
+    <CheckBoxPreference
+        android:key="dock_enable_keyboard"
+        android:title="@string/dock_keyboard_title"
+        android:summary="@string/dock_keyboard_summary"
+        android:defaultValue="false" />
+
 </PreferenceScreen>

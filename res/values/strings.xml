@@ -983,12 +983,9 @@
     <string name="tablet_tweaks_screenshots_title">Screenshots</string>
     <string name="tablet_tweaks_screenshots_jpeg">Jpeg screenshots</string>
     <string name="tablet_tweaks_screenshots_jpeg_summary">Save screenshots in jpeg format</string>
-    <string name="tablet_tweaks_hard_keyboard_category">Physical keyboard</string>
-    <string name="tablet_tweaks_hard_keyboard_title">Enable physical keyboard</string>
-    <string name="tablet_tweaks_hard_keyboard_summary">Enable external physical keyboard</string>
     <string name="tablet_tweaks_global_category">Global actions</string>
-    <string name="tablet_tweaks_global_condensed_title">Condensed global actions</string>
-    <string name="tablet_tweaks_global_condensed_summary">Use the condensed global actions dialog</string>
+    <string name="tablet_tweaks_global_condensed_title">Icon view</string>
+    <string name="tablet_tweaks_global_condensed_summary">Use the icon view global actions dialog</string>
 
     <string name="lock_screen_title">Lock screen</string>
 
@@ -1604,6 +1601,9 @@
 <string name="dock_force_undock_summary" product="tablet">Undock the Tablet</string>
 <!-- -->
 <string name="dock_force_undock_summary" product="default">Undock the Phone</string>
+
+    <string name="dock_keyboard_title">Keyboard</string>
+    <string name="dock_keyboard_summary">Enable dock keyboard</string>
 
 <!-- Date and time settings --><skip />
     <!-- Main Settings screen setting option name to go into the date and time settings-->

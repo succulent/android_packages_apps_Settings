@@ -118,7 +118,7 @@ public class PowerWidget extends SettingsPreferenceFragment implements
                     Settings.System.EXPANDED_HIDE_ONCHANGE, 0) == 1));
             mPowerWidgetHideScrollBar.setChecked((Settings.System.getInt(getActivity()
                     .getApplicationContext().getContentResolver(),
-                    Settings.System.EXPANDED_HIDE_SCROLLBAR, 0) == 1));
+                    Settings.System.EXPANDED_HIDE_SCROLLBAR, 1) == 1));
             mPowerWidgetIndicatorHide.setChecked((Settings.System.getInt(getActivity()
                     .getApplicationContext().getContentResolver(),
                     Settings.System.EXPANDED_HIDE_INDICATOR, 0) == 1));
