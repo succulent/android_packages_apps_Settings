@@ -1391,6 +1391,10 @@
 
         <activity android:name=".cyanogenmod.LockscreenTargets" />
 
+        <activity android:name=".cyanogenmod.LockscreenInterface" />
+
+        <activity android:name=".cyanogenmod.Weather" />
+
         <activity android:name=".profiles.NFCProfile"
                 android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
@@ -1411,6 +1415,7 @@
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
                 android:value="com.android.settings.cmstats.AnonymousStats" />
         </activity>
+
         <!-- CyanogenMod activities End -->
 
         <!-- Pseudo-activity used to provide an intent-filter entry point to encryption settings -->

@@ -1002,6 +1002,36 @@
         <item>1800000</item>
     </string-array>
 
+    <string-array name="lockscreen_timeout_entries">
+        <item>@string/slide_lock_delay_5s</item>
+        <item>@string/slide_lock_delay_10s</item>
+        <item>@string/slide_lock_delay_15s</item>
+        <item>@string/slide_lock_delay_30s</item>
+        <item>@string/slide_lock_delay_1m</item>
+        <item>@string/slide_lock_delay_5m</item>
+    </string-array>
+
+    <string-array name="lockscreen_timeout_values" translatable="false">
+        <item>5000</item>
+        <item>10000</item>
+        <item>15000</item>
+        <item>30000</item>
+        <item>60000</item>
+        <item>300000</item>
+    </string-array>
+
+    <string-array name="lockscreen_alignment_entries">
+        <item>@string/lockscreen_alignment_right</item>
+        <item>@string/lockscreen_alignment_center</item>
+        <item>@string/lockscreen_alignment_left</item>
+    </string-array>
+
+    <string-array name="lockscreen_alignment_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
     <string-array name="lockscreen_icon_picker_labels" translatable="false">
         <item>@string/icon_picker_alarm</item>
         <item>@string/icon_picker_browser</item>
@@ -1184,5 +1214,25 @@
         <item>5000</item>
     </string-array>
 
-    <!-- **** CYANOGENMOD EDITS END **** -->
+    <string-array name="weather_interval_entries">
+        <item>@string/weather_refresh_manual</item>
+        <item>@string/weather_refresh_30min</item>
+        <item>@string/weather_refresh_60min</item>
+        <item>@string/weather_refresh_2hrs</item>
+        <item>@string/weather_refresh_4hrs</item>
+        <item>@string/weather_refresh_6hrs</item>
+        <item>@string/weather_refresh_8hrs</item>
+    </string-array>
+
+    <string-array name="weather_interval_values" translatable="false">
+        <item>0</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>240</item>
+        <item>360</item>
+        <item>480</item>
+    </string-array>
+
+<!-- **** CYANOGENMOD EDITS END **** -->
 </resources>

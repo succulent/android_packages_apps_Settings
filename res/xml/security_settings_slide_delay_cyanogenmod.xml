@@ -41,6 +41,13 @@
             android:entryValues="@array/lockscreen_delay_values"
             android:dependency="slide_lock_delay_toggle" />
 
+        <ListPreference
+            android:key="slide_lock_timeout"
+            android:dialogTitle="@string/slide_lock_timeout_on_title"
+            android:title="@string/slide_lock_timeout_on_title"
+            android:entries="@array/lockscreen_timeout_entries"
+            android:entryValues="@array/lockscreen_timeout_values" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

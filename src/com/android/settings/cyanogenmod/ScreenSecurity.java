@@ -39,6 +39,7 @@ import com.android.internal.widget.LockPatternUtils;
 import com.android.settings.ChooseLockSettingsHelper;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.settings.Utils;
 
 public class ScreenSecurity extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener, DialogInterface.OnClickListener {
@@ -73,6 +74,12 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
 
     private static final String LOCKSCREEN_QUICK_UNLOCK_CONTROL = "quick_unlock_control";
 
+    private static final String KEY_LOCK_BEFORE_UNLOCK = "lock_before_unlock";
+
+    private static final String KEY_ACCESS_RECENTS = "insecure_access_recents";
+
+    private static final String KEY_LOCKSCREEN_TIMEOUT = "slide_lock_timeout";
+
     private LockPatternUtils mLockPatternUtils;
 
     private CheckBoxPreference mSlideLockDelayToggle;
@@ -94,6 +101,10 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
     private CheckBoxPreference mMenuUnlock;
 
     private CheckBoxPreference mQuickUnlockScreen;
+
+    private CheckBoxPreference mAccessRecents;
+
+    private ListPreference mLockscreenOnTimeout;
 
     boolean mHasNavigationBar = false;
 
@@ -181,6 +192,15 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
             mSlideLockScreenOffDelay.setValue(String.valueOf(slideScreenOffDelay));
             updateSlideAfterScreenOffSummary();
             mSlideLockScreenOffDelay.setOnPreferenceChangeListener(this);
+
+            mLockscreenOnTimeout = (ListPreference) root
+                    .findPreference(KEY_LOCKSCREEN_TIMEOUT);
+            int lockscreenOnTimeout = Settings.System.getInt(getActivity().getApplicationContext()
+                    .getContentResolver(),
+                    Settings.System.LOCKSCREEN_TIMEOUT, 10000);
+            mLockscreenOnTimeout.setValue(String.valueOf(lockscreenOnTimeout));
+            updateLockscreenTimeoutSummary();
+            mLockscreenOnTimeout.setOnPreferenceChangeListener(this);
         }
 
         // visible pattern
@@ -223,16 +243,29 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
                 .getContentResolver(),
                 Settings.System.MENU_UNLOCK_SCREEN, 0) == 1);
 
+        // Access Recents
+        mAccessRecents = (CheckBoxPreference) root
+                .findPreference(KEY_ACCESS_RECENTS);
+        mAccessRecents.setChecked(Settings.System.getInt(getActivity()
+                .getApplicationContext().getContentResolver(),
+                Settings.System.LOCKSCREEN_RECENTS, 0) == 1);
+
         // disable lock options if lock screen set to NONE
         if (!mLockPatternUtils.isSecure() && mLockPatternUtils.isLockScreenDisabled()) {
-                mQuickUnlockScreen.setEnabled(false);
-                mMenuUnlock.setEnabled(false);
+            mQuickUnlockScreen.setEnabled(false);
+            mMenuUnlock.setEnabled(false);
         }
 
         //Disable the MenuUnlock setting if no menu button is available
         if (getActivity().getApplicationContext().getResources()
                 .getBoolean(com.android.internal.R.bool.config_showNavigationBar)) {
             mMenuUnlock.setEnabled(false);
+        }
+
+        // disable lock options if lock screen is secure
+        if (mLockPatternUtils.isSecure() || !Utils.isScreenLarge(getResources())
+                || mLockPatternUtils.isLockScreenDisabled()) {
+            mAccessRecents.setEnabled(false);
         }
 
         return root;
@@ -275,6 +308,23 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
             }
         }
         mSlideLockScreenOffDelay.setSummary(entries[best]);
+    }
+
+    private void updateLockscreenTimeoutSummary() {
+        // Update summary message with current value
+        long currentTimeout = Settings.System.getInt(getActivity().getApplicationContext()
+                .getContentResolver(),
+                Settings.System.LOCKSCREEN_TIMEOUT, 10000);
+        final CharSequence[] entries = mLockscreenOnTimeout.getEntries();
+        final CharSequence[] values = mLockscreenOnTimeout.getEntryValues();
+        int best = 0;
+        for (int i = 0; i < values.length; i++) {
+            long timeout = Long.valueOf(values[i].toString());
+            if (currentTimeout >= timeout) {
+                best = i;
+            }
+        }
+        mLockscreenOnTimeout.setSummary(entries[best]);
     }
 
     private void setupLockAfterPreference() {
@@ -383,6 +433,8 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
             lockPatternUtils.setVisiblePatternEnabled(isToggled(preference));
         } else if (KEY_TACTILE_FEEDBACK_ENABLED.equals(key)) {
             lockPatternUtils.setTactileFeedbackEnabled(isToggled(preference));
+        } else if (KEY_LOCK_BEFORE_UNLOCK.equals(key)) {
+            lockPatternUtils.setLockBeforeUnlock(isToggled(preference));
         } else if (preference == mSlideLockDelayToggle) {
             value = mSlideLockDelayToggle.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
@@ -395,6 +447,10 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
             value = mMenuUnlock.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.MENU_UNLOCK_SCREEN, value ? 1 : 0);
+        } else if (preference == mAccessRecents) {
+            value = mAccessRecents.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_RECENTS, value ? 1 : 0);
         } else {
             // If we didn't handle it, let preferences handle it.
             return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -442,6 +498,11 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.SCREEN_LOCK_SLIDE_SCREENOFF_DELAY, slideScreenOffDelay);
             updateSlideAfterScreenOffSummary();
+        } else if (preference == mLockscreenOnTimeout) {
+            int lockTimeout = Integer.valueOf((String) value);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_TIMEOUT, lockTimeout);
+            updateLockscreenTimeoutSummary();
         }
 
         return true;
