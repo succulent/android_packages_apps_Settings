@@ -18,6 +18,7 @@ package com.android.settings.cyanogenmod;
 
 import android.content.ContentResolver;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
@@ -29,12 +30,13 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
     private static final String TAG = "LockscreenInterface";
 
+    private static final String KEY_LOCKSCREEN_ALIGNMENT = "lockscreen_alignment";
     private static final String LOCKSCREEN_COLOR = "lockscreen_color";
+    public static final String KEY_WEATHER_PREF = "lockscreen_weather";
 
     private Preference mColor;
-
-    public static final String KEY_WEATHER_PREF = "lockscreen_weather";
     private Preference mWeatherPref;
+    private ListPreference mLockscreenAlignment;
     ContentResolver mResolver;
 
     @Override
@@ -45,6 +47,12 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         addPreferencesFromResource(R.xml.lockscreen_interface_settings);
         mWeatherPref = (Preference) findPreference(KEY_WEATHER_PREF);
         mColor = (Preference) findPreference(LOCKSCREEN_COLOR);
+        mLockscreenAlignment = (ListPreference) findPreference(KEY_LOCKSCREEN_ALIGNMENT);
+        int lockscreenAlignment = Settings.System.getInt(getActivity().getApplicationContext()
+                .getContentResolver(), Settings.System.LOCKSCREEN_ALIGNMENT, 0);
+        mLockscreenAlignment.setValue(String.valueOf(lockscreenAlignment));
+        updateLockscreenAlignmentSummary();
+        mLockscreenAlignment.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -74,7 +82,12 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
         final String key = preference.getKey();
-
+        if (preference == mLockscreenAlignment) {
+            int alignment = Integer.valueOf((String) objValue);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_ALIGNMENT, alignment);
+            updateLockscreenAlignmentSummary();
+        }
         return true;
     }
 
@@ -101,4 +114,20 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
             public void colorUpdate(int color) {
             }
     };
+
+    private void updateLockscreenAlignmentSummary() {
+        // Update summary message with current value
+        int currentAlignment = Settings.System.getInt(getActivity().getApplicationContext()
+                .getContentResolver(), Settings.System.LOCKSCREEN_ALIGNMENT, 0);
+        final CharSequence[] entries = mLockscreenAlignment.getEntries();
+        final CharSequence[] values = mLockscreenAlignment.getEntryValues();
+        int best = 0;
+        for (int i = 0; i < values.length; i++) {
+            int alignment = Integer.valueOf(values[i].toString());
+            if (currentAlignment >= alignment) {
+                best = i;
+            }
+        }
+        mLockscreenAlignment.setSummary(entries[best]);
+    }
 }

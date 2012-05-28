@@ -1002,6 +1002,36 @@
         <item>1800000</item>
     </string-array>
 
+    <string-array name="lockscreen_timeout_entries">
+        <item>@string/slide_lock_delay_5s</item>
+        <item>@string/slide_lock_delay_10s</item>
+        <item>@string/slide_lock_delay_15s</item>
+        <item>@string/slide_lock_delay_30s</item>
+        <item>@string/slide_lock_delay_1m</item>
+        <item>@string/slide_lock_delay_5m</item>
+    </string-array>
+
+    <string-array name="lockscreen_timeout_values" translatable="false">
+        <item>5000</item>
+        <item>10000</item>
+        <item>15000</item>
+        <item>30000</item>
+        <item>60000</item>
+        <item>300000</item>
+    </string-array>
+
+    <string-array name="lockscreen_alignment_entries">
+        <item>@string/lockscreen_alignment_right</item>
+        <item>@string/lockscreen_alignment_center</item>
+        <item>@string/lockscreen_alignment_left</item>
+    </string-array>
+
+    <string-array name="lockscreen_alignment_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
     <string-array name="lockscreen_icon_picker_labels" translatable="false">
         <item>@string/icon_picker_alarm</item>
         <item>@string/icon_picker_browser</item>

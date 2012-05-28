@@ -1192,12 +1192,19 @@
     <string name="unlock_menu_unlock_summary">Pressing the menu button unlocks the device</string>
     <string name="unlock_quick_unlock_control_title">Quick unlock</string>
     <string name="unlock_quick_unlock_control_summary">Unlock automatically when the correct PIN/password is entered</string>
+    <string name="insecure_access_recents_title">Access recents</string>
+    <string name="insecure_access_recents_summary">Access recent apps from lockscreen</string>
+    <string name="lockscreen_alignment_title">Text alignment</string>
+    <string name="lockscreen_alignment_right">Right</string>
+    <string name="lockscreen_alignment_center">Center</string>
+    <string name="lockscreen_alignment_left">Left</string>
 
     <!-- Slide lock delay -->
     <string name="delay_and_timeout_title">Lock delay</string>
     <string name="slide_lock_delay_title">Delay screen lock</string>
     <string name="slide_lock_timeout_delay_title">Delay after timeout</string>
     <string name="slide_lock_screenoff_delay_title">Delay after turned off</string>
+    <string name="slide_lock_timeout_on_title">Lockscreen timeout</string>
     <string name="slide_lock_delay_none">None</string>
     <string name="slide_lock_delay_1s">1 second</string>
     <string name="slide_lock_delay_5s">5 seconds</string>
