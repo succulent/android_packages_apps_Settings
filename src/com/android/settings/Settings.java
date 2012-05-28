@@ -325,7 +325,7 @@ public class Settings extends PreferenceActivity implements ButtonBarHandler {
                 if (!needsDockSettings())
                     target.remove(header);
             } else if (id == R.id.operator_settings || id == R.id.manufacturer_settings ||
-                    id == R.id.advanced_settings) {
+                    id == R.id.advanced_settings || id == R.id.bazinga) {
                 Utils.updateHeaderToSpecificActivityFromMetaDataOrRemove(this, target, header);
             } else if (id == R.id.launcher_settings) {
                 Intent launcherIntent = new Intent(Intent.ACTION_MAIN);
