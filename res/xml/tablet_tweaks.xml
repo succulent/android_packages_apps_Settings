@@ -21,6 +21,23 @@
     <!-- Status bar tweaks -->
 
     <PreferenceCategory
+        android:title="@string/tablet_tweaks_status_bar_title"
+        android:key="tablet_tweaks_status_bar">
+
+        <CheckBoxPreference
+            android:key="tablet_tweaks_right_buttons"
+            android:title="@string/tablet_tweaks_right_buttons"
+            android:summary="@string/tablet_tweaks_right_buttons_summary"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="tablet_tweaks_peek_notifications"
+            android:title="@string/tablet_tweaks_peek_notifications"
+            android:summary="@string/tablet_tweaks_peek_notifications_summary"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/tablet_tweaks_recents_title"
         android:key="tablet_tweaks_recents">
 
@@ -28,23 +45,6 @@
             android:key="tablet_tweaks_recent_thumbnails"
             android:title="@string/tablet_tweaks_recent_thumbnails"
             android:summary="@string/tablet_tweaks_recent_thumbnails_summary"
-            android:defaultValue="false" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/tablet_tweaks_status_bar_title"
-        android:key="tablet_tweaks_status_bar">
-
-        <CheckBoxPreference
-            android:key="tablet_tweaks_peek_notifications"
-            android:title="@string/tablet_tweaks_peek_notifications"
-            android:summary="@string/tablet_tweaks_peek_notifications_summary"
-            android:defaultValue="false" />
-        <CheckBoxPreference
-            android:key="tablet_tweaks_right_buttons"
-            android:title="@string/tablet_tweaks_right_buttons"
-            android:summary="@string/tablet_tweaks_right_buttons_summary"
             android:defaultValue="false" />
 
     </PreferenceCategory>
@@ -71,14 +71,4 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/tablet_tweaks_hard_keyboard_category">
-
-        <CheckBoxPreference
-            android:key="tablet_tweaks_enable_keyboard"
-            android:title="@string/tablet_tweaks_hard_keyboard_title"
-            android:summary="@string/tablet_tweaks_hard_keyboard_summary"
-            android:defaultValue="false" />
-
-    </PreferenceCategory>
 </PreferenceScreen>

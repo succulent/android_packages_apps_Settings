@@ -43,10 +43,13 @@ public class DockSettings extends SettingsPreferenceFragment {
     private static final String KEY_DOCK_SOUNDS = "dock_sounds";
     private static final String KEY_DOCK_USB_AUDIO = "dock_usb_audio";
     private static final String KEY_DOCK_FORCE_UNDOCK = "dock_force_undock";
+    private static final String KEY_ENABLE_KEYBOARD = "dock_enable_keyboard";
+
     private Preference mAudioSettings;
     private CheckBoxPreference mDockUseUSBAudio;
     private CheckBoxPreference mDockSounds;
     private Preference mForceUndock;
+    private CheckBoxPreference mEnableKeyboard;
     private Intent mDockIntent;
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -104,6 +107,9 @@ public class DockSettings extends SettingsPreferenceFragment {
             mForceUndock.setEnabled(false);
         }
 
+        mEnableKeyboard = (CheckBoxPreference) findPreference(KEY_ENABLE_KEYBOARD);
+        mEnableKeyboard.setChecked((Settings.System.getInt(resolver,
+                Settings.System.ENABLE_HARD_KEYBOARD, 0) == 1));
     }
 
     private void handleDockChange(Intent intent) {
@@ -230,6 +236,8 @@ public class DockSettings extends SettingsPreferenceFragment {
                     mForceUndock.setSummary(R.string.dock_force_undock_summary_no_dock);
                 }
             }
+        } else if (preference == mEnableKeyboard) {
+            enableKeyboard(mEnableKeyboard.isChecked());
         }
 
         return true;
@@ -249,5 +257,10 @@ public class DockSettings extends SettingsPreferenceFragment {
         ab.setMessage(R.string.dock_not_found_text);
         ab.setPositiveButton(android.R.string.ok, null);
         return ab.create();
+    }
+
+    private void enableKeyboard(boolean enable) {
+        Settings.System.putInt(getContentResolver(),
+                Settings.System.ENABLE_HARD_KEYBOARD, enable ? 1 : 0);
     }
 }
