@@ -686,6 +686,10 @@
     <string name="start_time_title">Start</string>
     <string name="end_time_title">End</string>
 
+    <!-- Safe headset volume restore checkbox -->
+    <string name="safe_headset_restore_title">Safe headset volume</string>
+    <string name="safe_headset_restore_summary">Prevent loud volume levels when headset is first plugged in</string>
+
     <!-- Display settings --><skip/>
     <!-- Sound & display settings screen, section header for settings related to display -->
     <string name="display_settings">Display</string>
@@ -1025,6 +1029,7 @@
     <string name="weather_retrieve_location_dialog_title">Cannot retrieve location!</string>
     <string name="weather_retrieve_location_dialog_message">Network geolocation is disabled.\n\nSet a custom location or enable network location</string>
     <string name="weather_retrieve_location_dialog_enable_button">Enable</string>
+    <string name="weather_invert_lowhigh">Invert low/high temperatures</string>
 
     <!-- Lock screen Weather - Update frequency -->
     <string name="weather_refresh_manual">Manual</string>
