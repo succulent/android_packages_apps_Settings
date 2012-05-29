@@ -25,6 +25,7 @@ import android.provider.Settings;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.android.settings.Utils;
 
 public class LockscreenInterface extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -33,10 +34,13 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private static final String KEY_LOCKSCREEN_ALIGNMENT = "lockscreen_alignment";
     private static final String LOCKSCREEN_COLOR = "lockscreen_color";
     public static final String KEY_WEATHER_PREF = "lockscreen_weather";
+    public static final String KEY_CALENDAR_PREF = "lockscreen_calendar";
 
     private Preference mColor;
     private Preference mWeatherPref;
     private ListPreference mLockscreenAlignment;
+    private Preference mCalendarPref;
+
     ContentResolver mResolver;
 
     @Override
@@ -53,12 +57,16 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         mLockscreenAlignment.setValue(String.valueOf(lockscreenAlignment));
         updateLockscreenAlignmentSummary();
         mLockscreenAlignment.setOnPreferenceChangeListener(this);
+        mCalendarPref = (Preference) findPreference(KEY_CALENDAR_PREF);
+
+        if (!Utils.isScreenLarge(getResources())) {
+            mLockscreenAlignment.setEnabled(false);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
         updateState();
     }
 
@@ -76,6 +84,17 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
                 mWeatherPref.setSummary(R.string.lockscreen_weather_enabled);
             } else {
                 mWeatherPref.setSummary(R.string.lockscreen_weather_summary);
+            }
+        }
+
+        // Set the calendar description text
+        if (mCalendarPref != null) {
+            boolean weatherEnabled = Settings.System.getInt(mResolver,
+                    Settings.System.LOCKSCREEN_CALENDAR, 0) == 1;
+            if (weatherEnabled) {
+                mCalendarPref.setSummary(R.string.lockscreen_calendar_enabled);
+            } else {
+                mCalendarPref.setSummary(R.string.lockscreen_calendar_summary);
             }
         }
     }
