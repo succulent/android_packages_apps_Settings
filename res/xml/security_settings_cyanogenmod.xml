@@ -36,6 +36,13 @@
             android:title="@string/unlock_quick_unlock_control_title"
             android:summary="@string/unlock_quick_unlock_control_summary" />
 
+        <ListPreference
+            android:key="lockscreen_alignment"
+            android:dialogTitle="@string/lockscreen_alignment_title"
+            android:title="@string/lockscreen_alignment_title"
+            android:entries="@array/lockscreen_alignment_entries"
+            android:entryValues="@array/lockscreen_alignment_values" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

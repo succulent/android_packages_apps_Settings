@@ -52,13 +52,4 @@
         android:title="@string/status_bar_clock_color_title">
     </PreferenceScreen>
 
-    <ListPreference
-        android:key="lockscreen_alignment"
-        android:dialogTitle="@string/lockscreen_alignment_title"
-        android:title="@string/lockscreen_alignment_title"
-        android:entries="@array/lockscreen_alignment_entries"
-        android:entryValues="@array/lockscreen_alignment_values" />
-
-
-
 </PreferenceScreen>

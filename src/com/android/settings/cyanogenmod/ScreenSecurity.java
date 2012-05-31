@@ -30,6 +30,7 @@ import android.os.Vibrator;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
@@ -82,6 +83,8 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
 
     private static final String KEY_LOCKSCREEN_TIMEOUT = "slide_lock_timeout";
 
+    private static final String KEY_LOCKSCREEN_ALIGNMENT = "lockscreen_alignment";
+
     private LockPatternUtils mLockPatternUtils;
 
     private CheckBoxPreference mSlideLockDelayToggle;
@@ -109,6 +112,8 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
     private CheckBoxPreference mAccessRecents;
 
     private ListPreference mLockscreenOnTimeout;
+
+    private ListPreference mLockscreenAlignment;
 
     boolean mHasNavigationBar = false;
 
@@ -259,11 +264,16 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
                 .getApplicationContext().getContentResolver(),
                 Settings.System.LOCKSCREEN_RECENTS, 0) == 1);
 
-        // disable lock options if lock screen set to NONE
-        if (!mLockPatternUtils.isSecure() && mLockPatternUtils.isLockScreenDisabled()) {
-            mQuickUnlockScreen.setEnabled(false);
-            mMenuUnlock.setEnabled(false);
+        mLockscreenAlignment = (ListPreference) findPreference(KEY_LOCKSCREEN_ALIGNMENT);
+        if (mLockPatternUtils.isSecure()) {
+            Settings.System.putInt(getActivity().getApplicationContext()
+                    .getContentResolver(), Settings.System.LOCKSCREEN_ALIGNMENT, 0);
         }
+        int lockscreenAlignment = Settings.System.getInt(getActivity().getApplicationContext()
+                .getContentResolver(), Settings.System.LOCKSCREEN_ALIGNMENT, 0);
+        mLockscreenAlignment.setValue(String.valueOf(lockscreenAlignment));
+        updateLockscreenAlignmentSummary();
+        mLockscreenAlignment.setOnPreferenceChangeListener(this);
 
         //Disable the MenuUnlock setting if no menu button is available
         if (getActivity().getApplicationContext().getResources()
@@ -274,7 +284,15 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
         // disable lock options if lock screen is secure
         if (mLockPatternUtils.isSecure() || !Utils.isScreenLarge(getResources())
                 || mLockPatternUtils.isLockScreenDisabled()) {
-            mAccessRecents.setEnabled(false);
+            PreferenceCategory additional =
+                    (PreferenceCategory) findPreference("additional_options");
+            additional.removePreference(mAccessRecents);
+            additional.removePreference(mLockscreenAlignment);
+            // disable lock options if lock screen set to NONE
+            if (!mLockPatternUtils.isSecure() && mLockPatternUtils.isLockScreenDisabled()) {
+                additional.removePreference(mQuickUnlockScreen);
+                additional.removePreference(mMenuUnlock);
+            }
         }
 
         return root;
@@ -317,6 +335,22 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
             }
         }
         mSlideLockScreenOffDelay.setSummary(entries[best]);
+    }
+
+    private void updateLockscreenAlignmentSummary() {
+        // Update summary message with current value
+        int currentAlignment = Settings.System.getInt(getActivity().getApplicationContext()
+                .getContentResolver(), Settings.System.LOCKSCREEN_ALIGNMENT, 0);
+        final CharSequence[] entries = mLockscreenAlignment.getEntries();
+        final CharSequence[] values = mLockscreenAlignment.getEntryValues();
+        int best = 0;
+        for (int i = 0; i < values.length; i++) {
+            int alignment = Integer.valueOf(values[i].toString());
+            if (currentAlignment >= alignment) {
+                best = i;
+            }
+        }
+        mLockscreenAlignment.setSummary(entries[best]);
     }
 
     private void updateLockscreenTimeoutSummary() {
@@ -530,6 +564,11 @@ public class ScreenSecurity extends SettingsPreferenceFragment implements
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.LOCKSCREEN_TIMEOUT, lockTimeout);
             updateLockscreenTimeoutSummary();
+        } else if (preference == mLockscreenAlignment) {
+            int alignment = Integer.valueOf((String) value);
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LOCKSCREEN_ALIGNMENT, alignment);
+            updateLockscreenAlignmentSummary();
         }
 
         return true;
