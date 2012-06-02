@@ -74,6 +74,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_QUIET_HOURS = "quiet_hours";
     private static final String KEY_VOLBTN_MUSIC_CTRL = "volbtn_music_controls";
     private static final String KEY_SAFE_HEADSET_RESTORE = "safe_headset_restore";
+    private static final String KEY_VOLUME_CHANGE_TONE = "volume_change_tone";
 
     private static final String SILENT_MODE_OFF = "off";
     private static final String SILENT_MODE_VIBRATE = "vibrate";
@@ -100,6 +101,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private Preference mNotificationPreference;
     private PreferenceScreen mQuietHours;
     private CheckBoxPreference mSafeHeadsetRestore;
+    private CheckBoxPreference mVolumeChangeTone;
 
     private Runnable mRingtoneLookupRunnable;
 
@@ -198,6 +200,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
 
         mRingtonePreference = findPreference(KEY_RINGTONE);
         mNotificationPreference = findPreference(KEY_NOTIFICATION_SOUND);
+
+        mVolumeChangeTone = (CheckBoxPreference) findPreference(KEY_VOLUME_CHANGE_TONE);
+        mVolumeChangeTone.setChecked(Settings.System.getInt(resolver,
+                Settings.System.VOLUME_CHANGE_BEEP, 1) != 0);
 
         if (!((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).hasVibrator()) {
             getPreferenceScreen().removePreference(mVibrateOnRing);
@@ -446,6 +452,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         } else if (preference == mVolBtnMusicCtrl) {
             Settings.System.putInt(getContentResolver(), Settings.System.VOLBTN_MUSIC_CONTROLS,
                     mVolBtnMusicCtrl.isChecked() ? 1 : 0);
+
+        } else if (preference == mVolumeChangeTone) {
+            Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_CHANGE_BEEP,
+                    mVolumeChangeTone.isChecked() ? 1 : 0);
 
         } else {
             // If we didn't handle it, let preferences handle it.

@@ -654,6 +654,7 @@
     <string name="link_volume_ringtones">Link ringtone + notification volume</string>
     <string name="link_volume_ringtones_toast">Make sure to change your volume to re-set your notification volume to match your ringtone volume.</string>
     <string name="link_volume_mutes">Link ringtone + notification mutes</string>
+    <string name="volume_change_tone_title">Volume change tone</string>
 
     <!-- Quiet hours #CM -->
     <string name="quiet_hours_title">Quiet hours</string>
