@@ -37,7 +37,6 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private Preference mColor;
     private Preference mWeatherPref;
     private Preference mCalendarPref;
-
     ContentResolver mResolver;
 
     @Override

@@ -958,6 +958,7 @@
     <string name="status_bar_clock_color_title">Color</string>
     <string name="status_bar_am_pm_title">AM/PM style</string>
     <string name="status_bar_am_pm_summary">Display style of AM/PM next to clock</string>
+    <string name="status_bar_am_pm_info">24-hour clock is enabled</string>
     <string name="status_bar_battery_title">Battery status style</string>
     <string name="status_bar_battery_summary">Display style of battery status</string>
     <string name="status_bar_toggle_brightness">Brightness control</string>
@@ -1007,8 +1008,8 @@
     <string name="lockscreen_target_reset_title">Reset</string>
     <string name="lockscreen_target_reset_message">Delete all user created lock screen shortcuts and restore to default?</string>
     <string name="lockscreen_target_empty">Empty</string>
-    <string name="lockscreen_target_edit_title">Edit shortcut</string>
-    <string name="lockscreen_target_edit_msg">Select or change the desired application or activity and icon</string>
+    <string name="lockscreen_target_edit_title">Edit shortcut and icon</string>
+    <string name="lockscreen_target_edit_msg">Select or change the desired application or activity and the associated icon</string>
 
     <!-- Lock Screen Weather -->
     <string name="lockscreen_weather_title">Weather</string>
@@ -1250,7 +1251,7 @@
     <string name="slide_lock_delay_1m">1 minute</string>
     <string name="slide_lock_delay_5m">5 minutes</string>
     <string name="slide_lock_delay_10m">10 minutes</string>
-    <string name="slide_lock_delay_30m">30 mminutes</string>
+    <string name="slide_lock_delay_30m">30 minutes</string>
 
     <!-- Title of the preferences category for preference items to control encryption -->
     <string name="crypt_keeper_settings_title">Encryption</string>
@@ -4521,6 +4522,11 @@ found in the list of installed apps.</string>
     <!-- Performance Settings : Disable bootanimation -->		
     <string name="pref_disable_bootanimation_title">Disable boot animation</string>
     <string name="pref_disable_bootanimation_summary">Don\'t show the boot animation for faster boot</string>
+
+    <!-- Electron Beam -->
+    <string name="display_category_animation_options_title">Animation</string>
+    <string name="display_electron_beam_animation_on_title">Screen-on animation</string>
+    <string name="display_electron_beam_animation_off_title">Screen-off animation</string>
 
     <!-- Wakeup options -->
     <string name="display_category_wakeup_options_title">Wakeup options</string>

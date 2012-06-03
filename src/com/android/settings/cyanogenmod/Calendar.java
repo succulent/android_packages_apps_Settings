@@ -30,13 +30,11 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceScreen;
 import android.provider.CalendarContract;
 import android.provider.Settings;
-import android.util.Log;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Calendar extends SettingsPreferenceFragment implements
@@ -63,7 +61,7 @@ public class Calendar extends SettingsPreferenceFragment implements
         super.onCreate(savedInstanceState);
 
         mResolver = getContentResolver();
-        
+
         addPreferencesFromResource(R.xml.calendar_prefs);
 
         PreferenceScreen prefSet = getPreferenceScreen();
@@ -189,24 +187,17 @@ public class Calendar extends SettingsPreferenceFragment implements
     private static class CalendarEntries {
         private final CharSequence[] mEntries;
         private final CharSequence[] mEntryValues;
-
         private static Uri uri = CalendarContract.Calendars.CONTENT_URI;
 
         // Calendar projection array
         private static String[] projection = new String[] {
                CalendarContract.Calendars._ID,
-               CalendarContract.Calendars.ACCOUNT_NAME,
                CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,
-               CalendarContract.Calendars.OWNER_ACCOUNT,
-               CalendarContract.Calendars.CALENDAR_COLOR
         };
 
         // The indices for the projection array
         private static final int CALENDAR_ID_INDEX = 0;
-        private static final int ACCOUNT_NAME_INDEX = 1;
-        private static final int DISPLAY_NAME_INDEX = 2;
-        private static final int OWNER_ACCOUNT_INDEX = 3;
-        private static final int CALENDAR_COLOR_INDEX = 4;
+        private static final int DISPLAY_NAME_INDEX = 1;
 
         static CalendarEntries findCalendars(Activity activity) {
             List<CharSequence> entries = new ArrayList<CharSequence>();
