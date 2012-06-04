@@ -75,6 +75,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private static final String KEY_VOLBTN_MUSIC_CTRL = "volbtn_music_controls";
     private static final String KEY_SAFE_HEADSET_RESTORE = "safe_headset_restore";
     private static final String KEY_VOLUME_CHANGE_TONE = "volume_change_tone";
+    private static final String KEY_SCREENSHOT_TONE = "screenshot_tone";
 
     private static final String SILENT_MODE_OFF = "off";
     private static final String SILENT_MODE_VIBRATE = "vibrate";
@@ -102,6 +103,7 @@ public class SoundSettings extends SettingsPreferenceFragment implements
     private PreferenceScreen mQuietHours;
     private CheckBoxPreference mSafeHeadsetRestore;
     private CheckBoxPreference mVolumeChangeTone;
+    private CheckBoxPreference mScreenshotTone;
 
     private Runnable mRingtoneLookupRunnable;
 
@@ -204,6 +206,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         mVolumeChangeTone = (CheckBoxPreference) findPreference(KEY_VOLUME_CHANGE_TONE);
         mVolumeChangeTone.setChecked(Settings.System.getInt(resolver,
                 Settings.System.VOLUME_CHANGE_BEEP, 1) != 0);
+
+        mScreenshotTone = (CheckBoxPreference) findPreference(KEY_SCREENSHOT_TONE);
+        mScreenshotTone.setChecked(Settings.System.getInt(resolver,
+                Settings.System.SCREENSHOT_SOUND, 1) != 0);
 
         if (!((Vibrator) getSystemService(Context.VIBRATOR_SERVICE)).hasVibrator()) {
             getPreferenceScreen().removePreference(mVibrateOnRing);
@@ -456,6 +462,10 @@ public class SoundSettings extends SettingsPreferenceFragment implements
         } else if (preference == mVolumeChangeTone) {
             Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_CHANGE_BEEP,
                     mVolumeChangeTone.isChecked() ? 1 : 0);
+
+        } else if (preference == mScreenshotTone) {
+            Settings.System.putInt(getContentResolver(), Settings.System.SCREENSHOT_SOUND,
+                    mScreenshotTone.isChecked() ? 1 : 0);
 
         } else {
             // If we didn't handle it, let preferences handle it.

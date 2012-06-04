@@ -107,6 +107,11 @@
             android:defaultValue="true" />
 
     <CheckBoxPreference
+            android:key="screenshot_tone"
+            android:title="@string/screenshot_tone_title"
+            android:defaultValue="true" />
+
+    <CheckBoxPreference
             android:key="haptic_feedback"
             android:title="@string/haptic_feedback_enable_title"
             android:defaultValue="true" />
