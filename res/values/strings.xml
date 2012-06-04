@@ -985,7 +985,7 @@
     <string name="tablet_tweaks_recents_title">Recent apps</string>
     <string name="tablet_tweaks_recent_thumbnails">Large thumbnails</string>
     <string name="tablet_tweaks_recent_thumbnails_summary">Larger application history thumbnails</string>
-    <string name="tablet_tweaks_status_bar_title">Status bar</string>
+    <string name="tablet_tweaks_status_bar_title">Combined bar</string>
     <string name="tablet_tweaks_right_buttons">Flip status bar</string>
     <string name="tablet_tweaks_right_buttons_summary">Notifications on the left, buttons on the right</string>
     <string name="tablet_tweaks_peek_notifications">Peek notifications</string>
@@ -996,6 +996,20 @@
     <string name="tablet_tweaks_global_category">Global actions</string>
     <string name="tablet_tweaks_global_condensed_title">Icon view</string>
     <string name="tablet_tweaks_global_condensed_summary">Use the icon view global actions dialog</string>
+
+
+    <string name="edge_swipe_title">Edge swipe navigation</string>
+    <string name="edge_swipe_right_title">Right edge swipe</string>
+    <string name="edge_swipe_left_title">Left edge swipe</string>
+    <string name="edge_swipe_top_title">Top edge swipe</string>
+    <string name="edge_swipe_bottom_title">Bottom edge swipe</string>
+    <string name="edge_swipe_none">No action</string>
+    <string name="edge_swipe_expand">Expand notifications</string>
+    <string name="edge_swipe_hide">Hide combined status bar</string>
+    <string name="edge_swipe_recents">Show recents panel</string>
+    <string name="edge_swipe_back">Back</string>
+    <string name="edge_swipe_home">Home</string>
+    <string name="edge_swipe_menu">Menu</string>
 
     <string name="lock_screen_title">Lock screen</string>
 
