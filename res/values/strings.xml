@@ -1004,6 +1004,8 @@
     <string name="edge_swipe_left_title">Left edge swipe</string>
     <string name="edge_swipe_top_title">Top edge swipe</string>
     <string name="edge_swipe_bottom_title">Bottom edge swipe</string>
+    <string name="edge_swipe_move_title">Capture touch events</string>
+    <string name="edge_swipe_move_summary">Capture touch move events after initial touch when edge swiping</string>
     <string name="edge_swipe_none">No action</string>
     <string name="edge_swipe_expand">Expand notifications</string>
     <string name="edge_swipe_hide">Hide combined status bar</string>

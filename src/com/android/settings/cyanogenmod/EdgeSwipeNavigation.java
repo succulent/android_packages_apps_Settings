@@ -19,6 +19,7 @@ package com.android.settings.cyanogenmod;
 import android.content.ContentResolver;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
@@ -37,11 +38,13 @@ public class EdgeSwipeNavigation extends SettingsPreferenceFragment implements
     private static final String EDGE_SWIPE_TOP = "edge_swipe_top";
     private static final String EDGE_SWIPE_LEFT = "edge_swipe_left";
     private static final String EDGE_SWIPE_RIGHT = "edge_swipe_right";
+    private static final String EDGE_SWIPE_MOVE = "edge_swipe_move";
 
     private ListPreference mEdgeSwipeBottom;
     private ListPreference mEdgeSwipeTop;
     private ListPreference mEdgeSwipeRight;
     private ListPreference mEdgeSwipeLeft;
+    private CheckBoxPreference mEdgeSwipeMove;
 
     private ContentResolver mContentResolver;
 
@@ -83,6 +86,10 @@ public class EdgeSwipeNavigation extends SettingsPreferenceFragment implements
         int left = Settings.System.getInt(mContentResolver, EDGE_SWIPE_LEFT, 0);
         mEdgeSwipeLeft.setValue(String.valueOf(left));
         updateSummary(mEdgeSwipeLeft, left);
+
+        mEdgeSwipeMove = (CheckBoxPreference) findPreference(EDGE_SWIPE_MOVE);
+        mEdgeSwipeMove.setChecked(Settings.System.getInt(mContentResolver,
+                EDGE_SWIPE_MOVE, 0) == 1);
     }
 
     private void updateSummary(ListPreference preference, int value) {
@@ -117,6 +124,19 @@ public class EdgeSwipeNavigation extends SettingsPreferenceFragment implements
             Settings.System.putInt(mContentResolver, EDGE_SWIPE_LEFT, value);
             updateSummary(mEdgeSwipeLeft, value);
         }
+        return true;
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        if (preference == mEdgeSwipeMove) {
+            Settings.System.putInt(getContentResolver(), Settings.System.EDGE_SWIPE_MOVE,
+                    mEdgeSwipeMove.isChecked() ? 1 : 0);
+        } else {
+            // If we didn't handle it, let preferences handle it.
+            return super.onPreferenceTreeClick(preferenceScreen, preference);
+        }
+
         return true;
     }
 }

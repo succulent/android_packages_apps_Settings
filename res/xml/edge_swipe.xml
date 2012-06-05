@@ -46,4 +46,10 @@
             android:persistent="false"
             android:defaultValue="0"/>
 
+    <CheckBoxPreference
+            android:key="edge_swipe_move"
+            android:title="@string/edge_swipe_move_title"
+            android:summary="@string/edge_swipe_move_summary"
+            android:persistent="false"/>
+
 </PreferenceScreen>
