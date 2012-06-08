@@ -52,4 +52,16 @@
             android:summary="@string/edge_swipe_move_summary"
             android:persistent="false"/>
 
+    <com.android.settings.cyanogenmod.SeekBarPreference
+            android:key="edge_swipe_start"
+            android:title="@string/edge_swipe_start"
+            android:max="100"
+            android:defaultValue="35" />
+
+    <com.android.settings.cyanogenmod.SeekBarPreference
+            android:key="edge_swipe_distance"
+            android:title="@string/edge_swipe_distance"
+            android:max="150"
+            android:defaultValue="40" />
+
 </PreferenceScreen>

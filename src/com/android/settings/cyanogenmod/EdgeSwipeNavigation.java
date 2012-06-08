@@ -39,12 +39,16 @@ public class EdgeSwipeNavigation extends SettingsPreferenceFragment implements
     private static final String EDGE_SWIPE_LEFT = "edge_swipe_left";
     private static final String EDGE_SWIPE_RIGHT = "edge_swipe_right";
     private static final String EDGE_SWIPE_MOVE = "edge_swipe_move";
+    private static final String EDGE_SWIPE_START = "edge_swipe_start";
+    private static final String EDGE_SWIPE_DISTANCE = "edge_swipe_distance";
 
     private ListPreference mEdgeSwipeBottom;
     private ListPreference mEdgeSwipeTop;
     private ListPreference mEdgeSwipeRight;
     private ListPreference mEdgeSwipeLeft;
     private CheckBoxPreference mEdgeSwipeMove;
+    private SeekBarPreference mEdgeSwipeStart;
+    private SeekBarPreference mEdgeSwipeDistance;
 
     private ContentResolver mContentResolver;
 
@@ -90,6 +94,18 @@ public class EdgeSwipeNavigation extends SettingsPreferenceFragment implements
         mEdgeSwipeMove = (CheckBoxPreference) findPreference(EDGE_SWIPE_MOVE);
         mEdgeSwipeMove.setChecked(Settings.System.getInt(mContentResolver,
                 EDGE_SWIPE_MOVE, 0) == 1);
+
+        mEdgeSwipeStart = (SeekBarPreference) prefSet.findPreference(EDGE_SWIPE_START);
+        mEdgeSwipeStart.setDefault(Settings.System.getInt(getActivity().getApplicationContext()
+                .getContentResolver(), Settings.System.EDGE_SWIPE_START, 35));
+        mEdgeSwipeStart.setOnPreferenceChangeListener(this);
+        mEdgeSwipeStart.setSummary(String.valueOf(mEdgeSwipeStart.getDefault()));
+
+        mEdgeSwipeDistance = (SeekBarPreference) prefSet.findPreference(EDGE_SWIPE_DISTANCE);
+        mEdgeSwipeDistance.setDefault(Settings.System.getInt(getActivity().getApplicationContext()
+                .getContentResolver(), Settings.System.EDGE_SWIPE_DISTANCE, 40));
+        mEdgeSwipeDistance.setOnPreferenceChangeListener(this);
+        mEdgeSwipeDistance.setSummary(String.valueOf(mEdgeSwipeDistance.getDefault()));
     }
 
     private void updateSummary(ListPreference preference, int value) {
@@ -123,6 +139,14 @@ public class EdgeSwipeNavigation extends SettingsPreferenceFragment implements
             int value = Integer.parseInt((String) objValue);
             Settings.System.putInt(mContentResolver, EDGE_SWIPE_LEFT, value);
             updateSummary(mEdgeSwipeLeft, value);
+        } else if (preference == mEdgeSwipeStart) {
+            int value = (Integer) objValue;
+            Settings.System.putInt(mContentResolver, EDGE_SWIPE_START, value);
+            mEdgeSwipeStart.setSummary(String.valueOf(value));
+        } else if (preference == mEdgeSwipeDistance) {
+            int value = (Integer) objValue;
+            Settings.System.putInt(mContentResolver, EDGE_SWIPE_DISTANCE, value);
+            mEdgeSwipeDistance.setSummary(String.valueOf(value));
         }
         return true;
     }
