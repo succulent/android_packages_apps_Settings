@@ -55,6 +55,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String STATUS_BAR_NAVIGATION_LEFT = "status_bar_navigation_left";
 
+    private static final String STATUS_BAR_NOTIF_COUNT = "status_bar_notif_count";
+
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
 
     private static final String STATUS_BAR_CATEGORY_CLOCK = "status_bar_clock";
@@ -76,7 +78,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mCombinedBarAutoHide;
 
     private CheckBoxPreference mStatusBarNavigationControl;
+
     private CheckBoxPreference mStatusBarNavigationLeft;
+
+    private CheckBoxPreference mStatusBarNotifCount;
 
     private PreferenceCategory mPrefCategoryGeneral;
 
@@ -153,6 +158,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarNavigationLeft.setChecked((Settings.System.getInt(getActivity()
                 .getApplicationContext().getContentResolver(),
                 Settings.System.PHONE_NAVIGATION_CONTROL_LEFT, 0) == 1));
+
+        mStatusBarNotifCount = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NOTIF_COUNT);
+        mStatusBarNotifCount.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.STATUS_BAR_NOTIF_COUNT, 0) == 1));
 
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
@@ -238,6 +247,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                     .getContentResolver(), Settings.System.COMBINED_BAR_COLOR, 0xFF000000));
             cp.setDefaultColor(0xFF000000);
             cp.show();
+            return true;
+        } else if (preference == mStatusBarNotifCount) {
+            value = mStatusBarNotifCount.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.STATUS_BAR_NOTIF_COUNT, value ? 1 : 0);
             return true;
         }
         return false;
