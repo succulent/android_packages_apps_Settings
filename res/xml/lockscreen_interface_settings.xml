@@ -23,6 +23,14 @@
          android:title="@string/screen_security_category"
          android:summary="@string/screen_security_summary" />
 
+     <ListPreference
+        android:key="lockscreen_background"
+        android:persistent="false"
+        android:dialogTitle="@string/lockscreen_custom_background_title"
+        android:title="@string/lockscreen_custom_background_title"
+        android:entries="@array/lockscreen_background_entries"
+        android:entryValues="@array/lockscreen_background_values"/>
+
      <Preference
         android:fragment="com.android.settings.cyanogenmod.Calendar"
         android:key="lockscreen_calendar"
@@ -46,10 +54,5 @@
         android:key="lockscreen_weather"
         android:summary="@string/lockscreen_weather_summary"
         android:title="@string/lockscreen_weather_title" />
-
-    <PreferenceScreen
-        android:key="lockscreen_color"
-        android:title="@string/status_bar_clock_color_title">
-    </PreferenceScreen>
 
 </PreferenceScreen>
