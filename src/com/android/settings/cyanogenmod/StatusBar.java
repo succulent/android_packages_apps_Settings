@@ -17,7 +17,6 @@
 package com.android.settings.cyanogenmod;
 
 import android.app.AlertDialog;
-import android.app.StatusBarManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -65,6 +64,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String STATUS_BAR_COLOR = "status_bar_color";
 
+    private static final String STATUS_BAR_NAVIGATION_GLOW = "status_bar_navigation_glow";
+
+    private static final String STATUS_BAR_NAVIGATION_QUICK_GLOW =
+            "status_bar_navigation_quick_glow";
+
     private ListPreference mStatusBarAmPm;
 
     private ListPreference mStatusBarBattery;
@@ -91,6 +95,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private Preference mStatusBarColor;
 
+    private CheckBoxPreference mStatusBarNavigationGlow;
+
+    private CheckBoxPreference mStatusBarNavigationQuickGlow;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +117,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarNavigationLeft = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NAVIGATION_LEFT);
         mStatusBarClockColor = (Preference) prefSet.findPreference(STATUS_BAR_CLOCK_COLOR);
         mStatusBarColor = (Preference) prefSet.findPreference(STATUS_BAR_COLOR);
+        mStatusBarNavigationGlow =
+                (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NAVIGATION_GLOW);
+        mStatusBarNavigationQuickGlow =
+                (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NAVIGATION_QUICK_GLOW);
 
         mStatusBarClock.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_CLOCK, 1) == 1));
@@ -163,20 +175,23 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarNotifCount.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_NOTIF_COUNT, 0) == 1));
 
+        mStatusBarNavigationGlow.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.COMBINED_BAR_NAVIGATION_GLOW, 1) == 1));
+        mStatusBarNavigationQuickGlow.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.COMBINED_BAR_NAVIGATION_GLOW_TIME, 0) == 1));
+
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
         mPrefCategoryClock = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_CLOCK);
 
         if (Utils.isScreenLarge(getResources())) {
             mPrefCategoryGeneral.removePreference(mStatusBarBrightnessControl);
-            //mPrefCategoryGeneral.removePreference(mStatusBarCmSignal);
-            //mPrefCategoryClock.removePreference(mStatusBarAmPm);
             mPrefCategoryGeneral.removePreference(mStatusBarNavigationControl);
             mPrefCategoryGeneral.removePreference(mStatusBarNavigationLeft);
+            mPrefCategoryGeneral.removePreference(mStatusBarNavigationGlow);
+            mPrefCategoryGeneral.removePreference(mStatusBarNavigationQuickGlow);
         } else {
             mPrefCategoryGeneral.removePreference(mCombinedBarAutoHide);
-            mPrefCategoryClock.removePreference(mStatusBarClockColor);
-            mPrefCategoryGeneral.removePreference(mStatusBarColor);
         }
     }
 
@@ -221,17 +236,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarNavigationControl.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PHONE_NAVIGATION_CONTROL, value ? 1 : 0);
-            StatusBarManager sbm = (StatusBarManager) getSystemService(Context.STATUS_BAR_SERVICE);
-            sbm.expand();
-            sbm.collapse();
             return true;
         } else if (preference == mStatusBarNavigationLeft) {
             value = mStatusBarNavigationLeft.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.PHONE_NAVIGATION_CONTROL_LEFT, value ? 1 : 0);
-            StatusBarManager sbm = (StatusBarManager) getSystemService(Context.STATUS_BAR_SERVICE);
-            sbm.expand();
-            sbm.collapse();
             return true;
         } else if (preference == mStatusBarClockColor) {
             ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
@@ -252,6 +261,16 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarNotifCount.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_NOTIF_COUNT, value ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarNavigationGlow) {
+            value = mStatusBarNavigationGlow.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.COMBINED_BAR_NAVIGATION_GLOW, value ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarNavigationQuickGlow) {
+            value = mStatusBarNavigationQuickGlow.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.COMBINED_BAR_NAVIGATION_GLOW_TIME, value ? 1 : 0);
             return true;
         }
         return false;
