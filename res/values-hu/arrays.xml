@@ -374,5 +374,6 @@
   <string-array name="location_entries_gps_source">
     <item>Használja a beépített GPS-t</item>
   </string-array>
+
   <!-- **** CYANOGENMOD EDITS END **** -->
 </resources>
