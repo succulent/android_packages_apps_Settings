@@ -51,10 +51,16 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_FONT_SIZE = "font_size";
     private static final String KEY_NOTIFICATION_PULSE = "notification_pulse";
     private static final String KEY_SCREEN_SAVER = "screensaver";
+    private static final String KEY_TABLET_MODE = "tablet_mode";
+    private static final String KEY_TABLET_FLIPPED = "tablet_flipped";
+    private static final String KEY_NAVIGATION_CONTROLS = "navigation_controls";
 
     private CheckBoxPreference mAccelerometer;
     private ListPreference mFontSizePref;
     private CheckBoxPreference mNotificationPulse;
+    private CheckBoxPreference mTabletMode;
+    private CheckBoxPreference mTabletFlipped;
+    private CheckBoxPreference mNavigationControls;
 
     private final Configuration mCurConfig = new Configuration();
     
@@ -116,6 +122,26 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
             }
         }
 
+        mTabletMode = (CheckBoxPreference) findPreference(KEY_TABLET_MODE);
+        mTabletMode.setChecked(Settings.System.getInt(resolver,
+                        Settings.System.TABLET_MODE, 0) == 1);
+
+        mTabletFlipped = (CheckBoxPreference) findPreference(KEY_TABLET_FLIPPED);
+        mTabletFlipped.setChecked(Settings.System.getInt(resolver,
+                        Settings.System.TABLET_FLIPPED, 0) == 1);
+
+        mNavigationControls = (CheckBoxPreference) findPreference(KEY_NAVIGATION_CONTROLS);
+        mNavigationControls.setChecked(Settings.System.getInt(resolver,
+                        Settings.System.NAVIGATION_CONTROLS, 1) == 1);
+
+        if (getResources().getConfiguration().smallestScreenWidthDp != 600) {
+            getPreferenceScreen().removePreference(mTabletMode);
+        } else {
+            mTabletFlipped.setEnabled(mTabletMode.isChecked());
+        }
+        if (getResources().getConfiguration().smallestScreenWidthDp < 600) {
+            getPreferenceScreen().removePreference(mTabletFlipped);
+        }
     }
 
     private void updateTimeoutPreferenceDescription(long currentTimeout) {
@@ -261,6 +287,22 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         } else if (preference == mNotificationPulse) {
             boolean value = mNotificationPulse.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.NOTIFICATION_LIGHT_PULSE,
+                    value ? 1 : 0);
+            return true;
+        } else if (preference == mTabletMode) {
+            boolean value = mTabletMode.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.TABLET_MODE,
+                    value ? 1 : 0);
+            mTabletFlipped.setEnabled(value);
+            return true;
+        } else if (preference == mTabletFlipped) {
+            boolean value = mTabletFlipped.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.TABLET_FLIPPED,
+                    value ? 1 : 0);
+            return true;
+        } else if (preference == mNavigationControls) {
+            boolean value = mNavigationControls.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.NAVIGATION_CONTROLS,
                     value ? 1 : 0);
             return true;
         }

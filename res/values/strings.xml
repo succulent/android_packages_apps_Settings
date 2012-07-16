@@ -4153,5 +4153,8 @@
     <string name="preview_country_title">Country</string>
     <string name="preview_carrier_title">Carrier</string>
 
+    <string name="tablet_mode_title">Tablet mode</string>
+    <string name="tablet_flipped_title">Flip notifications and buttons</string>
+    <string name="navigation_controls_title">Navigation controls</string>
     <!-- **** CYANOGENMOD ADDITIONS END **** -->
 </resources>
