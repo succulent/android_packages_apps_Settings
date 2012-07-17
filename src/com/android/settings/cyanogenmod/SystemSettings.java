@@ -56,7 +56,7 @@ public class SystemSettings extends SettingsPreferenceFragment implements
 
         mFontSizePref = (ListPreference) findPreference(KEY_FONT_SIZE);
         mFontSizePref.setOnPreferenceChangeListener(this);
-        mPhoneDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER);
+/*        mPhoneDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER);
         mTabletDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER_TABLET);
 
         if (Utils.isScreenLarge()) {
@@ -76,6 +76,7 @@ public class SystemSettings extends SettingsPreferenceFragment implements
             }
         } catch (RemoteException e) {
         }
+*/
     }
 
     int floatToIndex(float val) {
