@@ -52,6 +52,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String KEY_TABLET_MODE = "tablet_mode";
     private static final String KEY_TABLET_FLIPPED = "tablet_flipped";
     private static final String KEY_NAVIGATION_CONTROLS = "navigation_controls";
+    private static final String COMBINED_BAR_NAVIGATION_FORCE_MENU =
+            "combined_bar_navigation_force_menu";
 
     private ListPreference mStatusBarAmPm;
 
@@ -72,6 +74,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mTabletMode;
     private CheckBoxPreference mTabletFlipped;
     private CheckBoxPreference mNavigationControls;
+    private CheckBoxPreference mCombinedBarNavigationForceMenu;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,6 +90,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarBattery = (ListPreference) prefSet.findPreference(STATUS_BAR_BATTERY);
         mCombinedBarAutoHide = (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_AUTO_HIDE);
         mStatusBarCmSignal = (ListPreference) prefSet.findPreference(STATUS_BAR_SIGNAL);
+        mCombinedBarNavigationForceMenu =
+                (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_FORCE_MENU);
 
         mStatusBarClock.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_CLOCK, 1) == 1));
@@ -144,6 +149,9 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mNavigationControls = (CheckBoxPreference) findPreference(KEY_NAVIGATION_CONTROLS);
         mNavigationControls.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                         Settings.System.NAVIGATION_CONTROLS, 1) == 1);
+
+        mCombinedBarNavigationForceMenu.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.FORCE_SOFT_MENU_BUTTON, 0) == 1));
 
         if (getResources().getConfiguration().smallestScreenWidthDp != 600) {
             getPreferenceScreen().removePreference(mTabletMode);
@@ -222,6 +230,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mNavigationControls.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.NAVIGATION_CONTROLS,
                     value ? 1 : 0);
+            return true;
+        } else if (preference == mCombinedBarNavigationForceMenu) {
+            value = mCombinedBarNavigationForceMenu.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.FORCE_SOFT_MENU_BUTTON, value ? 1 : 0);
             return true;
         }
         return false;

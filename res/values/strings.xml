@@ -4800,4 +4800,6 @@
     <string name="edge_swipe_menu">Menu</string>
     <string name="edge_swipe_start">Edge distance</string>
     <string name="edge_swipe_distance">Swipe distance</string>
+
+    <string name="combined_bar_navigation_force_menu_title">Always show menu button</string>
 </resources>

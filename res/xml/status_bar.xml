@@ -58,6 +58,12 @@
             android:persistent="false" />
 
         <CheckBoxPreference
+            android:key="combined_bar_navigation_force_menu"
+            android:title="@string/combined_bar_navigation_force_menu_title"
+            android:dependency="navigation_controls"
+            android:defaultValue="false" />
+
+        <CheckBoxPreference
             android:key="combined_bar_auto_hide"
             android:title="@string/combined_bar_auto_hide_title"
             android:summary="@string/combined_bar_auto_hide_summary"
