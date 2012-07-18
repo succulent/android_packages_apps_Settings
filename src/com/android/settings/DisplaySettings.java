@@ -62,9 +62,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private static final String KEY_ELECTRON_BEAM_CATEGORY_ANIMATION = "category_animation_options";
     private static final String KEY_WAKEUP_CATEGORY = "category_wakeup_options";
     private static final String KEY_VOLUME_WAKE = "pref_volume_wake";
-    private static final String KEY_TABLET_MODE = "tablet_mode";
-    private static final String KEY_TABLET_FLIPPED = "tablet_flipped";
-    private static final String KEY_NAVIGATION_CONTROLS = "navigation_controls";
 
     private static final String ROTATION_ANGLE_0 = "0";
     private static final String ROTATION_ANGLE_90 = "90";
@@ -88,10 +85,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
     private Preference mScreenSaverPreference;
     private PreferenceScreen mDisplayRotationPreference;
     private PreferenceScreen mAutomaticBacklightPreference;
-
-    private CheckBoxPreference mTabletMode;
-    private CheckBoxPreference mTabletFlipped;
-    private CheckBoxPreference mNavigationControls;
 
     private ContentObserver mAccelerometerRotationObserver = 
             new ContentObserver(new Handler()) {
@@ -203,27 +196,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
                 mVolumeWake.setChecked(Settings.System.getInt(resolver,
                         Settings.System.VOLUME_WAKE_SCREEN, 0) == 1);
             }
-        }
-
-        mTabletMode = (CheckBoxPreference) findPreference(KEY_TABLET_MODE);
-        mTabletMode.setChecked(Settings.System.getInt(resolver,
-                        Settings.System.TABLET_MODE, 0) == 1);
-
-        mTabletFlipped = (CheckBoxPreference) findPreference(KEY_TABLET_FLIPPED);
-        mTabletFlipped.setChecked(Settings.System.getInt(resolver,
-                        Settings.System.TABLET_FLIPPED, 0) == 1);
-
-        mNavigationControls = (CheckBoxPreference) findPreference(KEY_NAVIGATION_CONTROLS);
-        mNavigationControls.setChecked(Settings.System.getInt(resolver,
-                        Settings.System.NAVIGATION_CONTROLS, 1) == 1);
-
-        if (getResources().getConfiguration().smallestScreenWidthDp != 600) {
-            getPreferenceScreen().removePreference(mTabletMode);
-        } else {
-            mTabletFlipped.setEnabled(mTabletMode.isChecked());
-        }
-        if (getResources().getConfiguration().smallestScreenWidthDp < 600) {
-            getPreferenceScreen().removePreference(mTabletFlipped);
         }
     }
 
@@ -413,22 +385,6 @@ public class DisplaySettings extends SettingsPreferenceFragment implements
         } else if (preference == mVolumeWake) {
             Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_WAKE_SCREEN,
                     mVolumeWake.isChecked() ? 1 : 0);
-            return true;
-        } else if (preference == mTabletMode) {
-            boolean value = mTabletMode.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.TABLET_MODE,
-                    value ? 1 : 0);
-            mTabletFlipped.setEnabled(value);
-            return true;
-        } else if (preference == mTabletFlipped) {
-            boolean value = mTabletFlipped.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.TABLET_FLIPPED,
-                    value ? 1 : 0);
-            return true;
-        } else if (preference == mNavigationControls) {
-            boolean value = mNavigationControls.isChecked();
-            Settings.System.putInt(getContentResolver(), Settings.System.NAVIGATION_CONTROLS,
-                    value ? 1 : 0);
             return true;
         }
 

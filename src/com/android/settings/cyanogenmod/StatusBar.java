@@ -49,6 +49,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
 
+    private static final String KEY_TABLET_MODE = "tablet_mode";
+    private static final String KEY_TABLET_FLIPPED = "tablet_flipped";
+    private static final String KEY_NAVIGATION_CONTROLS = "navigation_controls";
+
     private ListPreference mStatusBarAmPm;
 
     private ListPreference mStatusBarBattery;
@@ -64,6 +68,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mStatusBarNotifCount;
 
     private PreferenceCategory mPrefCategoryGeneral;
+
+    private CheckBoxPreference mTabletMode;
+    private CheckBoxPreference mTabletFlipped;
+    private CheckBoxPreference mNavigationControls;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,6 +133,27 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarNotifCount.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_NOTIF_COUNT, 0) == 1));
 
+        mTabletMode = (CheckBoxPreference) findPreference(KEY_TABLET_MODE);
+        mTabletMode.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                        Settings.System.TABLET_MODE, 0) == 1);
+
+        mTabletFlipped = (CheckBoxPreference) findPreference(KEY_TABLET_FLIPPED);
+        mTabletFlipped.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                        Settings.System.TABLET_FLIPPED, 0) == 1);
+
+        mNavigationControls = (CheckBoxPreference) findPreference(KEY_NAVIGATION_CONTROLS);
+        mNavigationControls.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                        Settings.System.NAVIGATION_CONTROLS, 1) == 1);
+
+        if (getResources().getConfiguration().smallestScreenWidthDp != 600) {
+            getPreferenceScreen().removePreference(mTabletMode);
+        } else {
+            mTabletFlipped.setEnabled(mTabletMode.isChecked());
+        }
+        if (getResources().getConfiguration().smallestScreenWidthDp < 600) {
+            getPreferenceScreen().removePreference(mTabletFlipped);
+        }
+
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
         if (Utils.isScreenLarge()) {
@@ -177,6 +206,22 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarNotifCount.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_NOTIF_COUNT, value ? 1 : 0);
+            return true;
+        } else if (preference == mTabletMode) {
+            value = mTabletMode.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.TABLET_MODE,
+                    value ? 1 : 0);
+            mTabletFlipped.setEnabled(value);
+            return true;
+        } else if (preference == mTabletFlipped) {
+            value = mTabletFlipped.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.TABLET_FLIPPED,
+                    value ? 1 : 0);
+            return true;
+        } else if (preference == mNavigationControls) {
+            value = mNavigationControls.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.NAVIGATION_CONTROLS,
+                    value ? 1 : 0);
             return true;
         }
         return false;

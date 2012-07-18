@@ -88,19 +88,4 @@
             android:summary="@string/pref_volume_wake_summary"
             android:defaultValue="false" />
 
-        <CheckBoxPreference
-            android:key="tablet_mode"
-            android:title="@string/tablet_mode_title"
-            android:persistent="false" />
-
-        <CheckBoxPreference
-            android:key="tablet_flipped"
-            android:title="@string/tablet_flipped_title"
-            android:persistent="false" />
-
-        <CheckBoxPreference
-            android:key="navigation_controls"
-            android:title="@string/navigation_controls_title"
-            android:persistent="false" />
-
 </PreferenceScreen>
