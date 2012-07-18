@@ -54,6 +54,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String KEY_NAVIGATION_CONTROLS = "navigation_controls";
     private static final String COMBINED_BAR_NAVIGATION_FORCE_MENU =
             "combined_bar_navigation_force_menu";
+    private static final String STATUS_BAR_CLOCK_COLOR = "status_bar_clock_color";
 
     private ListPreference mStatusBarAmPm;
 
@@ -75,6 +76,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mTabletFlipped;
     private CheckBoxPreference mNavigationControls;
     private CheckBoxPreference mCombinedBarNavigationForceMenu;
+    private Preference mStatusBarClockColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarCmSignal = (ListPreference) prefSet.findPreference(STATUS_BAR_SIGNAL);
         mCombinedBarNavigationForceMenu =
                 (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_FORCE_MENU);
+        mStatusBarClockColor = (Preference) prefSet.findPreference(STATUS_BAR_CLOCK_COLOR);
 
         mStatusBarClock.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_CLOCK, 1) == 1));
@@ -236,7 +239,24 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getContentResolver(),
                     Settings.System.FORCE_SOFT_MENU_BUTTON, value ? 1 : 0);
             return true;
+        } else if (preference == mStatusBarClockColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mColorListener, Settings.System.getInt(getActivity().getApplicationContext()
+                    .getContentResolver(), Settings.System.STATUS_BAR_CLOCK_COLOR, 0xFF33B5E5));
+            cp.setDefaultColor(0xFF33B5E5);
+            cp.show();
+            return true;
         }
         return false;
     }
+
+    ColorPickerDialog.OnColorChangedListener mColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.STATUS_BAR_CLOCK_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
 }
