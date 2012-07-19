@@ -160,6 +160,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             getPreferenceScreen().removePreference(mTabletMode);
         } else {
             mTabletFlipped.setEnabled(mTabletMode.isChecked());
+            mStatusBarBrightnessControl.setEnabled(!mTabletMode.isChecked());
         }
         if (getResources().getConfiguration().smallestScreenWidthDp < 600) {
             getPreferenceScreen().removePreference(mTabletFlipped);
@@ -167,8 +168,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
-        if (Utils.isScreenLarge()) {
+        if (getResources().getConfiguration().smallestScreenWidthDp > 600) {
             mPrefCategoryGeneral.removePreference(mStatusBarBrightnessControl);
+        }
+        if (Utils.isScreenLarge()) {
             mPrefCategoryGeneral.removePreference(mStatusBarCmSignal);
         } else {
             mPrefCategoryGeneral.removePreference(mCombinedBarAutoHide);
@@ -223,6 +226,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getContentResolver(), Settings.System.TABLET_MODE,
                     value ? 1 : 0);
             mTabletFlipped.setEnabled(value);
+            mStatusBarBrightnessControl.setEnabled(!value);
             return true;
         } else if (preference == mTabletFlipped) {
             value = mTabletFlipped.isChecked();
