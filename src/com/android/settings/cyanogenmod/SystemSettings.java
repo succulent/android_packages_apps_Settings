@@ -59,15 +59,15 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         mPhoneDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER);
         mTabletDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER_TABLET);
 
-        if (Utils.isScreenLarge()) {
+//        if (Utils.isScreenLarge()) {
             if (mPhoneDrawer != null) {
                 getPreferenceScreen().removePreference(mPhoneDrawer);
             }
-        } else {
+//        } else {
             if (mTabletDrawer != null) {
                 getPreferenceScreen().removePreference(mTabletDrawer);
             }
-        }
+//        }
 
         IWindowManager windowManager = IWindowManager.Stub.asInterface(ServiceManager.getService(Context.WINDOW_SERVICE));
         try {
