@@ -42,10 +42,12 @@ public class SystemSettings extends SettingsPreferenceFragment implements
     private static final String KEY_NOTIFICATION_DRAWER = "notification_drawer";
     private static final String KEY_NOTIFICATION_DRAWER_TABLET = "notification_drawer_tablet";
     private static final String KEY_NAVIGATION_BAR = "navigation_bar";
+    private static final String KEY_BAR_SETTINGS = "combined_bar_settings";
 
     private ListPreference mFontSizePref;
     private PreferenceScreen mPhoneDrawer;
     private PreferenceScreen mTabletDrawer;
+    private PreferenceScreen mBarSettings;
 
     private final Configuration mCurConfig = new Configuration();
 
@@ -59,17 +61,23 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         mFontSizePref.setOnPreferenceChangeListener(this);
         mPhoneDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER);
         mTabletDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER_TABLET);
+        mBarSettings = (PreferenceScreen) findPreference(KEY_BAR_SETTINGS);
 
-//        if (Utils.isScreenLarge()) {
-            if (mPhoneDrawer != null) {
-                mPhoneDrawer.setEnabled(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
-                        Settings.System.TABLET_MODE, 0) == 0);
-            }
-//        } else {
-            if (mTabletDrawer != null) {
-                getPreferenceScreen().removePreference(mTabletDrawer);
-            }
-//        }
+        boolean tabletMode = Settings.System.getInt(getActivity().getApplicationContext()
+                .getContentResolver(), Settings.System.TABLET_MODE, 0) == 1 &&
+                getResources().getConfiguration().smallestScreenWidthDp == 600;
+        boolean phoneUi = getResources().getConfiguration().smallestScreenWidthDp < 600;
+        boolean tabletUi = getResources().getConfiguration().smallestScreenWidthDp >= 720;
+
+        if (phoneUi || !tabletMode) {
+            getPreferenceScreen().removePreference(mBarSettings);
+        } else if (tabletUi || tabletMode) {
+            getPreferenceScreen().removePreference(mPhoneDrawer);
+        }
+
+        if (mTabletDrawer != null) {
+            getPreferenceScreen().removePreference(mTabletDrawer);
+        }
 
         IWindowManager windowManager = IWindowManager.Stub.asInterface(ServiceManager.getService(Context.WINDOW_SERVICE));
         try {

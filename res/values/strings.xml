@@ -4803,4 +4803,20 @@
     <string name="combined_bar_navigation_force_menu_title">Always show menu button</string>
     <string name="status_bar_clock_color_title">Clock color</string>
     <string name="dialog_indicator_color_title">Select color</string>
+
+    <!-- Combined Bar #CM -->
+    <string name="combined_bar_settings_title">Tablet bar settings view</string>
+    <string name="combined_bar_settings_picker_title">Settings view entries</string>
+    <string name="combined_bar_settings_order_title">Settings view order</string>
+    <string name="combined_bar_settings_wifi">Wi-Fi switch</string>
+    <string name="combined_bar_settings_bluetooth">Bluetooth switch</string>
+    <string name="combined_bar_settings_volume">Media volume slider</string>
+    <string name="combined_bar_settings_notification_volume">Notification volume slider</string>
+    <string name="combined_bar_settings_brightness">Brightness slider</string>
+    <string name="combined_bar_settings_notifications">Notifications switch</string>
+    <string name="combined_bar_settings_shortcut">Settings shortcut</string>
+    <string name="combined_bar_settings_autorotate">Auto-rotate screen switch</string>
+    <string name="combined_bar_settings_airplane">Airplane mode switch</string>
+    <string name="combined_bar_settings_media">Media control</string>
+    <string name="combined_bar_settings_sleep">Sleep selector</string>
 </resources>
