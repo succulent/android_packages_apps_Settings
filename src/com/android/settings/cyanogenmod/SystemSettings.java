@@ -26,6 +26,7 @@ import android.os.ServiceManager;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.IWindowManager;
 
@@ -61,7 +62,8 @@ public class SystemSettings extends SettingsPreferenceFragment implements
 
 //        if (Utils.isScreenLarge()) {
             if (mPhoneDrawer != null) {
-                getPreferenceScreen().removePreference(mPhoneDrawer);
+                mPhoneDrawer.setEnabled(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                        Settings.System.TABLET_MODE, 0) == 0);
             }
 //        } else {
             if (mTabletDrawer != null) {
