@@ -39,7 +39,6 @@ public class CombinedBarSettingsUtil {
     public static final String BUTTON_AIRPLANE = "toggleAirplane";
     public static final String BUTTON_MEDIA = "toggleMedia";
     public static final String BUTTON_SLEEP = "toggleSleep";
-    public static final String BUTTON_NOTIFICATION_VOLUME = "toggleNotificationVolume";
 
     public static final HashMap<String, ButtonInfo> BUTTONS = new HashMap<String, ButtonInfo>();
     static {
@@ -73,16 +72,12 @@ public class CombinedBarSettingsUtil {
         BUTTONS.put(BUTTON_SLEEP, new CombinedBarSettingsUtil.ButtonInfo(
                 BUTTON_SLEEP, R.string.combined_bar_settings_sleep,
                 "com.android.systemui:drawable/stat_screen_timeout_on"));
-        BUTTONS.put(BUTTON_NOTIFICATION_VOLUME, new CombinedBarSettingsUtil.ButtonInfo(
-                BUTTON_NOTIFICATION_VOLUME, R.string.combined_bar_settings_notification_volume,
-                "com.android.systemui:drawable/ic_audio_ring_notif"));
     }
 
     private static final String BUTTON_DELIMITER = "|";
     private static final String BUTTONS_DEFAULT = BUTTON_MEDIA
             + BUTTON_DELIMITER + BUTTON_BRIGHTNESS
             + BUTTON_DELIMITER + BUTTON_SOUND
-            + BUTTON_DELIMITER + BUTTON_NOTIFICATION_VOLUME
             + BUTTON_DELIMITER + BUTTON_AUTOROTATE
             + BUTTON_DELIMITER + BUTTON_NOTIFICATIONS
             + BUTTON_DELIMITER + BUTTON_SETTINGS;

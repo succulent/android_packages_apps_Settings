@@ -4810,8 +4810,7 @@
     <string name="combined_bar_settings_order_title">Settings view order</string>
     <string name="combined_bar_settings_wifi">Wi-Fi switch</string>
     <string name="combined_bar_settings_bluetooth">Bluetooth switch</string>
-    <string name="combined_bar_settings_volume">Media volume slider</string>
-    <string name="combined_bar_settings_notification_volume">Notification volume slider</string>
+    <string name="combined_bar_settings_volume">Volume slider</string>
     <string name="combined_bar_settings_brightness">Brightness slider</string>
     <string name="combined_bar_settings_notifications">Notifications switch</string>
     <string name="combined_bar_settings_shortcut">Settings shortcut</string>
