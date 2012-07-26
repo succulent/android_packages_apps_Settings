@@ -2838,6 +2838,10 @@
     <string name="enable_adb">Android debugging</string>
     <!-- Setting checkbox summary for Whether to enable USB debugging support on the phone -->
     <string name="enable_adb_summary">Allow Android debug mode, the adb interface on USB (or on network)</string>
+    <!-- Setting checkbox summary for displaying USB debugging notification -->
+    <string name="adb_notify">USB debugging notify</string>
+    <string name="adb_notify_summary">Display a notification when USB debugging is connected</string>
+
     <string name="keep_screen_on">Stay awake</string>
     <!-- setting Checkbox summary whether to keep the screen on when plugged in  -->
     <string name="keep_screen_on_summary">Screen will never sleep while charging</string>
@@ -4411,6 +4415,7 @@
     <string name="profiles_add">Add</string>
     <string name="profile_menu_delete">Delete</string>
     <string name="profile_settings_title">Profile</string>
+    <string name="profile_empty_list_profiles_off">To configure and use System profiles, turn Profiles on.</string>
 
     <!-- Add Profile -->
     <string name="add_profile_dialog_title">Create new profile</string>
