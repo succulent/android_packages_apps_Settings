@@ -4829,4 +4829,10 @@
     <string name="combined_bar_settings_airplane">Airplane mode switch</string>
     <string name="combined_bar_settings_media">Media control</string>
     <string name="combined_bar_settings_sleep">Sleep selector</string>
+
+    <string name="combined_bar_navigation_title">Navigation settings</string>
+    <string name="combined_bar_navigation_color_title">Button color</string>
+    <string name="combined_bar_navigation_glow_title">Button glow effect</string>
+    <string name="combined_bar_navigation_glow_color_title">Button glow color</string>
+    <string name="combined_bar_navigation_quick_glow_title">Shorter button glow</string>
 </resources>
