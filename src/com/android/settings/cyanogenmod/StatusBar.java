@@ -17,6 +17,7 @@
 package com.android.settings.cyanogenmod;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -76,6 +77,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private Preference mCombinedBarNavigationColor;
 
     private ContentResolver mContentResolver;
+    private Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +87,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
         PreferenceScreen prefSet = getPreferenceScreen();
 
-        mContentResolver = getActivity().getApplicationContext().getContentResolver();
+        mContext = getActivity().getApplicationContext();
+        mContentResolver = mContext.getContentResolver();
 
         mStatusBarClock = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_CLOCK);
         mStatusBarBrightnessControl = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_BRIGHTNESS_CONTROL);
@@ -105,14 +108,14 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mCombinedBarNavigationColor =
                 (Preference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_COLOR);
 
-        mStatusBarClock.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mStatusBarClock.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_CLOCK, 1) == 1));
-        mStatusBarBrightnessControl.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mStatusBarBrightnessControl.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1));
 
         try {
-            if (Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(), 
-                    Settings.System.SCREEN_BRIGHTNESS_MODE) == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+            if (Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE)
+                    == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
                 mStatusBarBrightnessControl.setEnabled(false);
                 mStatusBarBrightnessControl.setSummary(R.string.status_bar_toggle_info);
             }
@@ -120,7 +123,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         }
 
         try {
-            if (Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+            if (Settings.System.getInt(mContentResolver,
                     Settings.System.TIME_12_24) == 24) {
                 mStatusBarAmPm.setEnabled(false);
                 mStatusBarAmPm.setSummary(R.string.status_bar_am_pm_info);
@@ -128,44 +131,44 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         } catch (SettingNotFoundException e ) {
         }
 
-        int statusBarAmPm = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        int statusBarAmPm = Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_AM_PM, 2);
         mStatusBarAmPm.setValue(String.valueOf(statusBarAmPm));
         mStatusBarAmPm.setSummary(mStatusBarAmPm.getEntry());
         mStatusBarAmPm.setOnPreferenceChangeListener(this);
 
-        int statusBarBattery = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        int statusBarBattery = Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_BATTERY, 0);
         mStatusBarBattery.setValue(String.valueOf(statusBarBattery));
         mStatusBarBattery.setSummary(mStatusBarBattery.getEntry());
         mStatusBarBattery.setOnPreferenceChangeListener(this);
 
-        int signalStyle = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        int signalStyle = Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_SIGNAL_TEXT, 0);
         mStatusBarCmSignal.setValue(String.valueOf(signalStyle));
         mStatusBarCmSignal.setSummary(mStatusBarCmSignal.getEntry());
         mStatusBarCmSignal.setOnPreferenceChangeListener(this);
 
-        mCombinedBarAutoHide.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mCombinedBarAutoHide.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.COMBINED_BAR_AUTO_HIDE, 0) == 1));
 
         mStatusBarNotifCount = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NOTIF_COUNT);
-        mStatusBarNotifCount.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mStatusBarNotifCount.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_NOTIF_COUNT, 0) == 1));
 
         mTabletMode = (CheckBoxPreference) findPreference(KEY_TABLET_MODE);
-        mTabletMode.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mTabletMode.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.TABLET_MODE, 0) == 1);
 
         mTabletFlipped = (CheckBoxPreference) findPreference(KEY_TABLET_FLIPPED);
-        mTabletFlipped.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mTabletFlipped.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.TABLET_FLIPPED, 0) == 1);
 
         mNavigationControls = (CheckBoxPreference) findPreference(KEY_NAVIGATION_CONTROLS);
-        mNavigationControls.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mNavigationControls.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.NAVIGATION_CONTROLS, 1) == 1);
 
-        mCombinedBarNavigationForceMenu.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mCombinedBarNavigationForceMenu.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.FORCE_SOFT_MENU_BUTTON, 0) == 1));
 
         mCombinedBarNavigationGlow.setChecked((Settings.System.getInt(mContentResolver,
@@ -173,20 +176,22 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mCombinedBarNavigationQuickGlow.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.COMBINED_BAR_NAVIGATION_GLOW_TIME, 0) == 1));
 
-        if (getResources().getConfiguration().smallestScreenWidthDp != 600) {
+        if (!Utils.isHybrid(mContext)) {
             getPreferenceScreen().removePreference(mTabletMode);
         } else {
             mTabletFlipped.setEnabled(mTabletMode.isChecked());
             mStatusBarBrightnessControl.setEnabled(!mTabletMode.isChecked());
         }
-        if (getResources().getConfiguration().smallestScreenWidthDp < 600) {
+        if (Utils.isPhone(mContext)) {
             getPreferenceScreen().removePreference(mTabletFlipped);
         }
 
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
-        if (getResources().getConfiguration().smallestScreenWidthDp > 600) {
+        if (Utils.isTablet(mContext)) {
             mPrefCategoryGeneral.removePreference(mStatusBarBrightnessControl);
+            mPrefCategoryGeneral.removePreference(mTabletMode);
+            mTabletFlipped.setEnabled(true);
         }
 
         mStatusBarCmSignal.setEnabled(!mTabletMode.isChecked());
@@ -197,21 +202,21 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         if (preference == mStatusBarAmPm) {
             int statusBarAmPm = Integer.valueOf((String) newValue);
             int index = mStatusBarAmPm.findIndexOfValue((String) newValue);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentResolver,
                     Settings.System.STATUS_BAR_AM_PM, statusBarAmPm);
             mStatusBarAmPm.setSummary(mStatusBarAmPm.getEntries()[index]);
             return true;
         } else if (preference == mStatusBarBattery) {
             int statusBarBattery = Integer.valueOf((String) newValue);
             int index = mStatusBarBattery.findIndexOfValue((String) newValue);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentResolver,
                     Settings.System.STATUS_BAR_BATTERY, statusBarBattery);
             mStatusBarBattery.setSummary(mStatusBarBattery.getEntries()[index]);
             return true;
         } else if (preference == mStatusBarCmSignal) {
             int signalStyle = Integer.valueOf((String) newValue);
             int index = mStatusBarCmSignal.findIndexOfValue((String) newValue);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentResolver,
                     Settings.System.STATUS_BAR_SIGNAL_TEXT, signalStyle);
             mStatusBarCmSignal.setSummary(mStatusBarCmSignal.getEntries()[index]);
             return true;
@@ -224,22 +229,22 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
         if (preference == mStatusBarClock) {
             value = mStatusBarClock.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentResolver,
                     Settings.System.STATUS_BAR_CLOCK, value ? 1 : 0);
             return true;
         } else if (preference == mStatusBarBrightnessControl) {
             value = mStatusBarBrightnessControl.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentResolver,
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, value ? 1 : 0);
             return true;
         } else if (preference == mCombinedBarAutoHide) {
             value = mCombinedBarAutoHide.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentResolver,
                     Settings.System.COMBINED_BAR_AUTO_HIDE, value ? 1 : 0);
             return true;
         } else if (preference == mStatusBarNotifCount) {
             value = mStatusBarNotifCount.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentResolver,
                     Settings.System.STATUS_BAR_NOTIF_COUNT, value ? 1 : 0);
             return true;
         } else if (preference == mTabletMode) {
@@ -268,8 +273,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             return true;
         } else if (preference == mStatusBarClockColor) {
             ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
-                    mColorListener, Settings.System.getInt(getActivity().getApplicationContext()
-                    .getContentResolver(), Settings.System.STATUS_BAR_CLOCK_COLOR, 0xFF33B5E5));
+                    mColorListener, Settings.System.getInt(mContentResolver,
+                    Settings.System.STATUS_BAR_CLOCK_COLOR, 0xFF33B5E5));
             cp.setDefaultColor(0xFF33B5E5);
             cp.show();
             return true;
@@ -285,8 +290,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             return true;
         } else if (preference == mCombinedBarNavigationGlowColor) {
             ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
-                    mGlowColorListener, Settings.System.getInt(getActivity().getApplicationContext()
-                    .getContentResolver(), Settings.System.COMBINED_BAR_NAVIGATION_GLOW_COLOR,
+                    mGlowColorListener, Settings.System.getInt(mContentResolver,
+                    Settings.System.COMBINED_BAR_NAVIGATION_GLOW_COLOR,
                     getActivity().getApplicationContext().getResources().getColor(
                     com.android.internal.R.color.holo_blue_light)));
             cp.setDefaultColor(0x00000000);
@@ -294,8 +299,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             return true;
         } else if (preference == mCombinedBarNavigationColor) {
             ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
-                    mButtonColorListener, Settings.System.getInt(getActivity().getApplicationContext()
-                    .getContentResolver(), Settings.System.COMBINED_BAR_NAVIGATION_COLOR,
+                    mButtonColorListener, Settings.System.getInt(mContentResolver,
+                    Settings.System.COMBINED_BAR_NAVIGATION_COLOR,
                     getActivity().getApplicationContext().getResources().getColor(
                     com.android.internal.R.color.transparent)));
             cp.setDefaultColor(0x00000000);

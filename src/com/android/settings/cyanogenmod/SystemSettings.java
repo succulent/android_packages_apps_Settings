@@ -49,6 +49,8 @@ public class SystemSettings extends SettingsPreferenceFragment implements
     private PreferenceScreen mTabletDrawer;
     private PreferenceScreen mBarSettings;
 
+    private Context mContext;
+
     private final Configuration mCurConfig = new Configuration();
 
     @Override
@@ -63,23 +65,29 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         mTabletDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER_TABLET);
         mBarSettings = (PreferenceScreen) findPreference(KEY_BAR_SETTINGS);
 
-        boolean tabletMode = Settings.System.getInt(getActivity().getApplicationContext()
-                .getContentResolver(), Settings.System.TABLET_MODE, 0) == 1 &&
-                getResources().getConfiguration().smallestScreenWidthDp == 600;
-        boolean phoneUi = getResources().getConfiguration().smallestScreenWidthDp < 600;
-        boolean tabletUi = getResources().getConfiguration().smallestScreenWidthDp >= 720;
+        mContext = getActivity().getApplicationContext();
 
-        if (phoneUi || !tabletMode) {
+        boolean tabletMode = Settings.System.getInt(mContext
+                .getContentResolver(), Settings.System.TABLET_MODE, 0) == 1;
+
+        if (Utils.isPhone(mContext)) {
             getPreferenceScreen().removePreference(mBarSettings);
-        } else if (tabletUi || tabletMode) {
+        } else if (Utils.isTablet(mContext)) {
             getPreferenceScreen().removePreference(mPhoneDrawer);
+        } else if (Utils.isHybrid(mContext)) {
+            if (!tabletMode) {
+                getPreferenceScreen().removePreference(mBarSettings);
+            } else {
+                getPreferenceScreen().removePreference(mPhoneDrawer);
+            }
         }
 
         if (mTabletDrawer != null) {
             getPreferenceScreen().removePreference(mTabletDrawer);
         }
 
-        IWindowManager windowManager = IWindowManager.Stub.asInterface(ServiceManager.getService(Context.WINDOW_SERVICE));
+        IWindowManager windowManager =
+                IWindowManager.Stub.asInterface(ServiceManager.getService(Context.WINDOW_SERVICE));
         try {
             Preference naviBar = findPreference(KEY_NAVIGATION_BAR);
             if (!windowManager.hasNavigationBar() && naviBar != null) {
