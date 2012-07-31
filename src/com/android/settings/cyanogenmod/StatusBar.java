@@ -176,17 +176,18 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mCombinedBarNavigationQuickGlow.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.COMBINED_BAR_NAVIGATION_GLOW_TIME, 0) == 1));
 
+        mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
+
         if (!Utils.isHybrid(mContext)) {
-            getPreferenceScreen().removePreference(mTabletMode);
+            mPrefCategoryGeneral.removePreference(mTabletMode);
         } else {
             mTabletFlipped.setEnabled(mTabletMode.isChecked());
             mStatusBarBrightnessControl.setEnabled(!mTabletMode.isChecked());
         }
         if (Utils.isPhone(mContext)) {
-            getPreferenceScreen().removePreference(mTabletFlipped);
+            mPrefCategoryGeneral.removePreference(mTabletMode);
+            mPrefCategoryGeneral.removePreference(mTabletFlipped);
         }
-
-        mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
         if (Utils.isTablet(mContext)) {
             mPrefCategoryGeneral.removePreference(mStatusBarBrightnessControl);
