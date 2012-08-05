@@ -27,7 +27,7 @@
                 android:persistent="false"
                 />
     </PreferenceCategory>
-
+<!--
     <PreferenceCategory
             android:key="restrictions_category"
             android:title="@string/user_restrictions_heading">
@@ -46,7 +46,7 @@
                 android:enabled="false"
                 />
     </PreferenceCategory>
-
+-->
     <PreferenceCategory
             android:key="system_apps_category"
             android:title="@string/user_system_apps_heading">

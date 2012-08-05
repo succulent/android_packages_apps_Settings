@@ -123,7 +123,7 @@ public class Settings extends PreferenceActivity
             getWindow().setUiOptions(0);
         }
 
-        if (android.provider.Settings.Secure.getInt(getContentResolver(), "multiuser_enabled", -1)
+        if (android.provider.Settings.Secure.getInt(getContentResolver(), "multiuser_enabled", 1)
                 > 0) {
             mEnableUserManagement = true;
         }
