@@ -44,6 +44,7 @@ public class SystemSettings extends SettingsPreferenceFragment implements
     private static final String KEY_NOTIFICATION_DRAWER_TABLET = "notification_drawer_tablet";
     private static final String KEY_NAVIGATION_BAR = "navigation_bar";
     private static final String KEY_SCREENSHOT = "power_menu_screenshot";
+    private static final String KEY_HARDWARE_KEYS = "hardware_keys";
     private static final String KEY_BAR_SETTINGS = "combined_bar_settings";
 
     private ListPreference mFontSizePref;
@@ -95,9 +96,16 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         IWindowManager windowManager =
                 IWindowManager.Stub.asInterface(ServiceManager.getService(Context.WINDOW_SERVICE));
         try {
-            Preference naviBar = findPreference(KEY_NAVIGATION_BAR);
-            if (!windowManager.hasNavigationBar() && naviBar != null) {
-                getPreferenceScreen().removePreference(naviBar);
+            if (!windowManager.hasNavigationBar()) {
+                Preference naviBar = findPreference(KEY_NAVIGATION_BAR);
+                if (naviBar != null) {
+                    getPreferenceScreen().removePreference(naviBar);
+                }
+            } else {
+                Preference hardKeys = findPreference(KEY_HARDWARE_KEYS);
+                if (hardKeys != null) {
+                    getPreferenceScreen().removePreference(hardKeys);
+                }
             }
         } catch (RemoteException e) {
         }
@@ -115,7 +123,7 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         }
         return indices.length-1;
     }
-    
+
     public void readFontSizePreference(ListPreference pref) {
         try {
             mCurConfig.updateFrom(ActivityManagerNative.getDefault().getConfiguration());
@@ -133,7 +141,7 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         pref.setSummary(String.format(res.getString(R.string.summary_font_size),
                 fontSizeNames[index]));
     }
-    
+
     @Override
     public void onResume() {
         super.onResume();
