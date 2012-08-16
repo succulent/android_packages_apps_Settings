@@ -43,14 +43,12 @@ public class SystemSettings extends SettingsPreferenceFragment implements
     private static final String KEY_NOTIFICATION_DRAWER = "notification_drawer";
     private static final String KEY_NOTIFICATION_DRAWER_TABLET = "notification_drawer_tablet";
     private static final String KEY_NAVIGATION_BAR = "navigation_bar";
-    private static final String KEY_SCREENSHOT = "power_menu_screenshot";
     private static final String KEY_HARDWARE_KEYS = "hardware_keys";
     private static final String KEY_BAR_SETTINGS = "combined_bar_settings";
 
     private ListPreference mFontSizePref;
     private PreferenceScreen mPhoneDrawer;
     private PreferenceScreen mTabletDrawer;
-    private CheckBoxPreference mScreenshotPref;
     private PreferenceScreen mBarSettings;
 
     private Context mContext;
@@ -67,34 +65,19 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         mFontSizePref.setOnPreferenceChangeListener(this);
         mPhoneDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER);
         mTabletDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER_TABLET);
-        mScreenshotPref = (CheckBoxPreference) findPreference(KEY_SCREENSHOT);
-        mBarSettings = (PreferenceScreen) findPreference(KEY_BAR_SETTINGS);
-        mScreenshotPref.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_MENU_SCREENSHOT_ENABLED, 0) == 1));
 
-        mContext = getActivity().getApplicationContext();
-
-        boolean tabletMode = Settings.System.getInt(mContext
-                .getContentResolver(), Settings.System.TABLET_MODE, 0) == 1;
-
-        if (Utils.isPhone(mContext)) {
-            getPreferenceScreen().removePreference(mBarSettings);
-        } else if (Utils.isTablet(mContext)) {
-            getPreferenceScreen().removePreference(mPhoneDrawer);
-        } else if (Utils.isHybrid(mContext)) {
-            if (!tabletMode) {
-                getPreferenceScreen().removePreference(mBarSettings);
-            } else {
+        if (Utils.isTablet(getActivity())) {
+            if (mPhoneDrawer != null) {
                 getPreferenceScreen().removePreference(mPhoneDrawer);
+            }
+        } else {
+            if (mTabletDrawer != null) {
+                getPreferenceScreen().removePreference(mTabletDrawer);
             }
         }
 
-        if (mTabletDrawer != null) {
-            getPreferenceScreen().removePreference(mTabletDrawer);
-        }
-
-        IWindowManager windowManager =
-                IWindowManager.Stub.asInterface(ServiceManager.getService(Context.WINDOW_SERVICE));
+        IWindowManager windowManager = IWindowManager.Stub.asInterface(
+                ServiceManager.getService(Context.WINDOW_SERVICE));
         try {
             if (!windowManager.hasNavigationBar()) {
                 Preference naviBar = findPreference(KEY_NAVIGATION_BAR);
@@ -165,22 +148,6 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         } catch (RemoteException e) {
             Log.w(TAG, "Unable to save font size");
         }
-    }
-
-    @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        boolean value;
-
-        if (preference == mScreenshotPref) {
-            value = mScreenshotPref.isChecked();
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.POWER_MENU_SCREENSHOT_ENABLED,
-                    value ? 1 : 0);
-        } else {
-            return super.onPreferenceTreeClick(preferenceScreen, preference);
-        }
-
-        return true;
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
