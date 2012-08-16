@@ -65,15 +65,27 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         mFontSizePref.setOnPreferenceChangeListener(this);
         mPhoneDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER);
         mTabletDrawer = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER_TABLET);
+        mBarSettings = (PreferenceScreen) findPreference(KEY_BAR_SETTINGS);
 
-        if (Utils.isTablet(getActivity())) {
-            if (mPhoneDrawer != null) {
+        mContext = getActivity().getApplicationContext();
+
+        boolean tabletMode = Settings.System.getInt(mContext
+                .getContentResolver(), Settings.System.TABLET_MODE, 0) == 1;
+
+        if (Utils.isPhone(mContext)) {
+            getPreferenceScreen().removePreference(mBarSettings);
+        } else if (Utils.isTablet(mContext)) {
+            getPreferenceScreen().removePreference(mPhoneDrawer);
+        } else if (Utils.isHybrid(mContext)) {
+            if (!tabletMode) {
+                getPreferenceScreen().removePreference(mBarSettings);
+            } else {
                 getPreferenceScreen().removePreference(mPhoneDrawer);
             }
-        } else {
-            if (mTabletDrawer != null) {
-                getPreferenceScreen().removePreference(mTabletDrawer);
-            }
+        }
+
+        if (mTabletDrawer != null) {
+            getPreferenceScreen().removePreference(mTabletDrawer);
         }
 
         IWindowManager windowManager = IWindowManager.Stub.asInterface(
