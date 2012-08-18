@@ -16,9 +16,11 @@
 
 package com.android.settings.cyanogenmod;
 
+import android.app.ActivityManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.ServiceManager;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -28,6 +30,7 @@ import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
+import android.view.IWindowManager;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -107,6 +110,21 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 (Preference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_GLOW_COLOR);
         mCombinedBarNavigationColor =
                 (Preference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_COLOR);
+        mStatusBarNotifCount = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NOTIF_COUNT);
+        mTabletMode = (CheckBoxPreference) findPreference(KEY_TABLET_MODE);
+        mTabletFlipped = (CheckBoxPreference) findPreference(KEY_TABLET_FLIPPED);
+        mNavigationControls = (CheckBoxPreference) findPreference(KEY_NAVIGATION_CONTROLS);
+        mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
+
+        mStatusBarAmPm.setOnPreferenceChangeListener(this);
+        mStatusBarBattery.setOnPreferenceChangeListener(this);
+        mStatusBarCmSignal.setOnPreferenceChangeListener(this);
+    }
+
+    public void onResume() {
+        super.onResume();
+
+        PreferenceScreen prefSet = getPreferenceScreen();
 
         mStatusBarClock.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_CLOCK, 1) == 1));
@@ -135,36 +153,29 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 Settings.System.STATUS_BAR_AM_PM, 2);
         mStatusBarAmPm.setValue(String.valueOf(statusBarAmPm));
         mStatusBarAmPm.setSummary(mStatusBarAmPm.getEntry());
-        mStatusBarAmPm.setOnPreferenceChangeListener(this);
 
         int statusBarBattery = Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_BATTERY, 0);
         mStatusBarBattery.setValue(String.valueOf(statusBarBattery));
         mStatusBarBattery.setSummary(mStatusBarBattery.getEntry());
-        mStatusBarBattery.setOnPreferenceChangeListener(this);
 
         int signalStyle = Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_SIGNAL_TEXT, 0);
         mStatusBarCmSignal.setValue(String.valueOf(signalStyle));
         mStatusBarCmSignal.setSummary(mStatusBarCmSignal.getEntry());
-        mStatusBarCmSignal.setOnPreferenceChangeListener(this);
 
         mCombinedBarAutoHide.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.COMBINED_BAR_AUTO_HIDE, 0) == 1));
 
-        mStatusBarNotifCount = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NOTIF_COUNT);
         mStatusBarNotifCount.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_NOTIF_COUNT, 0) == 1));
 
-        mTabletMode = (CheckBoxPreference) findPreference(KEY_TABLET_MODE);
         mTabletMode.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.TABLET_MODE, 0) == 1);
 
-        mTabletFlipped = (CheckBoxPreference) findPreference(KEY_TABLET_FLIPPED);
         mTabletFlipped.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.TABLET_FLIPPED, 0) == 1);
 
-        mNavigationControls = (CheckBoxPreference) findPreference(KEY_NAVIGATION_CONTROLS);
         mNavigationControls.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.NAVIGATION_CONTROLS, 1) == 1);
 
@@ -176,17 +187,9 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mCombinedBarNavigationQuickGlow.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.COMBINED_BAR_NAVIGATION_GLOW_TIME, 0) == 1));
 
-        mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
-
-        if (!Utils.isHybrid(mContext)) {
-            mPrefCategoryGeneral.removePreference(mTabletMode);
-        } else {
+        if (Utils.isHybrid(mContext)) {
             mTabletFlipped.setEnabled(mTabletMode.isChecked());
             mStatusBarBrightnessControl.setEnabled(!mTabletMode.isChecked());
-        }
-        if (Utils.isPhone(mContext)) {
-            mPrefCategoryGeneral.removePreference(mTabletMode);
-            mPrefCategoryGeneral.removePreference(mTabletFlipped);
         }
 
         if (Utils.isTablet(mContext)) {
@@ -256,6 +259,12 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             mStatusBarBrightnessControl.setEnabled(!value);
             mStatusBarCmSignal.setEnabled(!value);
             mCombinedBarAutoHide.setEnabled(value);
+            IWindowManager wm = IWindowManager.Stub.asInterface(ServiceManager.checkService(
+                    Context.WINDOW_SERVICE));
+            try {
+                wm.clearForcedDisplaySize();
+            } catch (Exception e) {
+            }
             return true;
         } else if (preference == mTabletFlipped) {
             value = mTabletFlipped.isChecked();
