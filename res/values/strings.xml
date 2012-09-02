@@ -4869,6 +4869,10 @@
     <string name="power_menu_reboot_title">Reboot menu</string>
     <string name="power_menu_screenshot_title">Screenshot</string>
     <string name="power_menu_profiles_title">Profile switcher</string>
+    <string name="power_menu_airplane_title">Airplane mode</string>
+    <string name="power_menu_silent_title">Silent mode toggle</string>
+    <string name="power_menu_systembar_title">Toggle system bar</string>
+    <string name="power_menu_multiuser_title">Multi-user switcher</string>
 
     <!-- Launches Dev Tools -->
     <string name="development_tools_title">Launch tools</string>

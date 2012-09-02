@@ -31,10 +31,18 @@ public class PowerMenu extends SettingsPreferenceFragment {
     private static final String KEY_REBOOT = "power_menu_reboot";
     private static final String KEY_SCREENSHOT = "power_menu_screenshot";
     private static final String KEY_PROFILES = "power_menu_profiles";
+    private static final String KEY_AIRPLANE = "power_menu_airplane";
+    private static final String KEY_SILENT = "power_menu_silent";
+    private static final String KEY_SYSTEMBAR = "power_menu_systembar";
+    private static final String KEY_MULTIUSER = "power_menu_multiuser";
 
     private CheckBoxPreference mRebootPref;
     private CheckBoxPreference mScreenshotPref;
     private CheckBoxPreference mProfilesPref;
+    private CheckBoxPreference mAirplanePref;
+    private CheckBoxPreference mSilentPref;
+    private CheckBoxPreference mSystembarPref;
+    private CheckBoxPreference mMultiuserPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,17 +50,35 @@ public class PowerMenu extends SettingsPreferenceFragment {
 
         addPreferencesFromResource(R.xml.power_menu_settings);
 
-        mRebootPref = (CheckBoxPreference) findPreference(KEY_REBOOT);
+        PreferenceScreen prefSet = getPreferenceScreen();
+
+        mRebootPref = (CheckBoxPreference) prefSet.findPreference(KEY_REBOOT);
         mRebootPref.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.POWER_MENU_REBOOT_ENABLED, 1) == 1));
 
-        mScreenshotPref = (CheckBoxPreference) findPreference(KEY_SCREENSHOT);
+        mScreenshotPref = (CheckBoxPreference) prefSet.findPreference(KEY_SCREENSHOT);
         mScreenshotPref.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.POWER_MENU_SCREENSHOT_ENABLED, 0) == 1));
 
-        mProfilesPref = (CheckBoxPreference) findPreference(KEY_PROFILES);
+        mProfilesPref = (CheckBoxPreference) prefSet.findPreference(KEY_PROFILES);
         mProfilesPref.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.POWER_MENU_PROFILES_ENABLED, 1) == 1));
+
+        mAirplanePref = (CheckBoxPreference) prefSet.findPreference(KEY_AIRPLANE);
+        mAirplanePref.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_MENU_AIRPLANE_MODE_ENABLED, 1) == 1));
+
+        mSilentPref = (CheckBoxPreference) prefSet.findPreference(KEY_SILENT);
+        mSilentPref.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_MENU_SILENT_MODE_ENABLED, 1) == 1));
+
+        mSystembarPref = (CheckBoxPreference) prefSet.findPreference(KEY_SYSTEMBAR);
+        mSystembarPref.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_MENU_SYSTEMBAR_TOGGLE_ENABLED, 1) == 1));
+
+        mMultiuserPref = (CheckBoxPreference) prefSet.findPreference(KEY_MULTIUSER);
+        mMultiuserPref.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_MENU_MULTIUSER_MODE_ENABLED, 1) == 1));
 
         // Only enable if System Profiles are also enabled
         boolean enabled = Settings.System.getInt(getContentResolver(),
@@ -79,6 +105,26 @@ public class PowerMenu extends SettingsPreferenceFragment {
             value = mProfilesPref.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.POWER_MENU_PROFILES_ENABLED,
+                    value ? 1 : 0);
+        } else if (preference == mAirplanePref) {
+            value = mAirplanePref.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.POWER_MENU_AIRPLANE_MODE_ENABLED,
+                    value ? 1 : 0);
+        } else if (preference == mSilentPref) {
+            value = mSilentPref.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.POWER_MENU_SILENT_MODE_ENABLED,
+                    value ? 1 : 0);
+        } else if (preference == mSystembarPref) {
+            value = mSystembarPref.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.POWER_MENU_SYSTEMBAR_TOGGLE_ENABLED,
+                    value ? 1 : 0);
+        } else if (preference == mMultiuserPref) {
+            value = mMultiuserPref.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.POWER_MENU_MULTIUSER_MODE_ENABLED,
                     value ? 1 : 0);
         } else {
             return super.onPreferenceTreeClick(preferenceScreen, preference);
