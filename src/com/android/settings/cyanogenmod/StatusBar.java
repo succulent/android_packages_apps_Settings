@@ -48,6 +48,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
 
     private static final String KEY_TABLET_MODE = "tablet_mode";
+    private static final String KEY_TABLET_UI = "tablet_ui";
     private static final String KEY_TABLET_FLIPPED = "tablet_flipped";
     private static final String KEY_NAVIGATION_CONTROLS = "navigation_controls";
     private static final String COMBINED_BAR_NAVIGATION_FORCE_MENU =
@@ -70,6 +71,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private PreferenceCategory mPrefCategoryGeneral;
 
     private CheckBoxPreference mTabletMode;
+    private CheckBoxPreference mTabletUI;
     private CheckBoxPreference mTabletFlipped;
     private CheckBoxPreference mNavigationControls;
     private CheckBoxPreference mCombinedBarNavigationForceMenu;
@@ -112,6 +114,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 (Preference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_COLOR);
         mStatusBarNotifCount = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NOTIF_COUNT);
         mTabletMode = (CheckBoxPreference) findPreference(KEY_TABLET_MODE);
+        mTabletUI = (CheckBoxPreference) findPreference(KEY_TABLET_UI);
         mTabletFlipped = (CheckBoxPreference) findPreference(KEY_TABLET_FLIPPED);
         mNavigationControls = (CheckBoxPreference) findPreference(KEY_NAVIGATION_CONTROLS);
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
@@ -171,7 +174,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 Settings.System.STATUS_BAR_NOTIF_COUNT, 0) == 1));
 
         mTabletMode.setChecked(Settings.System.getInt(mContentResolver,
-                        Settings.System.TABLET_MODE, 0) == 1);
+                        Settings.System.TABLET_MODE, 0) > 0);
+
+        mTabletUI.setChecked(Settings.System.getInt(mContentResolver,
+                        Settings.System.TABLET_MODE, 0) == 2);
 
         mTabletFlipped.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.TABLET_FLIPPED, 0) == 1);
@@ -188,6 +194,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 Settings.System.COMBINED_BAR_NAVIGATION_GLOW_TIME, 0) == 1));
 
         if (Utils.isHybrid(mContext)) {
+            mTabletUI.setEnabled(mTabletMode.isChecked());
             mTabletFlipped.setEnabled(mTabletMode.isChecked());
             mStatusBarBrightnessControl.setEnabled(!mTabletMode.isChecked());
         }
@@ -195,6 +202,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         if (Utils.isTablet(mContext)) {
             mPrefCategoryGeneral.removePreference(mStatusBarBrightnessControl);
             mPrefCategoryGeneral.removePreference(mTabletMode);
+            mPrefCategoryGeneral.removePreference(mTabletUI);
             mTabletFlipped.setEnabled(true);
         }
 
@@ -254,11 +262,17 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         } else if (preference == mTabletMode) {
             value = mTabletMode.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.TABLET_MODE,
-                    value ? 1 : 0);
+                    value ? (mTabletUI.isChecked() ? 2 : 1) : 0);
+            mTabletUI.setEnabled(value);
             mTabletFlipped.setEnabled(value);
             mStatusBarBrightnessControl.setEnabled(!value);
             mStatusBarCmSignal.setEnabled(!value);
             mCombinedBarAutoHide.setEnabled(value);
+            return true;
+        } else if (preference == mTabletUI) {
+            value = mTabletUI.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.TABLET_MODE,
+                    value ? 2 : (mTabletMode.isChecked() ? 1 : 0));
             IWindowManager wm = IWindowManager.Stub.asInterface(ServiceManager.checkService(
                     Context.WINDOW_SERVICE));
             try {
