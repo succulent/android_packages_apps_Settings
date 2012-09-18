@@ -70,7 +70,7 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         mContext = getActivity().getApplicationContext();
 
         boolean tabletMode = Settings.System.getInt(mContext
-                .getContentResolver(), Settings.System.TABLET_MODE, 0) == 1;
+                .getContentResolver(), Settings.System.TABLET_MODE, 0) > 0;
 
         if (Utils.isPhone(mContext)) {
             getPreferenceScreen().removePreference(mBarSettings);

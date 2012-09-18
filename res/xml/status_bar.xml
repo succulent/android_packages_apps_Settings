@@ -51,6 +51,11 @@
             android:persistent="false" />
 
         <CheckBoxPreference
+            android:key="tablet_ui"
+            android:title="@string/tablet_ui_title"
+            android:persistent="false" />
+
+        <CheckBoxPreference
             android:key="tablet_flipped"
             android:title="@string/tablet_flipped_title"
             android:persistent="false" />
