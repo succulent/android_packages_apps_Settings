@@ -20,6 +20,7 @@ import android.app.ActivityManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -44,6 +45,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
     private static final String STATUS_BAR_SIGNAL = "status_bar_signal";
     private static final String COMBINED_BAR_AUTO_HIDE = "combined_bar_auto_hide";
+    private static final String COMBINED_BAR_AUTO_HIDE_TIMEOUT = "combined_bar_auto_hide_timeout";
     private static final String STATUS_BAR_NOTIF_COUNT = "status_bar_notif_count";
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
 
@@ -80,6 +82,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mCombinedBarNavigationQuickGlow;
     private Preference mCombinedBarNavigationGlowColor;
     private Preference mCombinedBarNavigationColor;
+    private SeekBarPreference mCombinedBarTimeout;
 
     private ContentResolver mContentResolver;
     private Context mContext;
@@ -122,6 +125,12 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarAmPm.setOnPreferenceChangeListener(this);
         mStatusBarBattery.setOnPreferenceChangeListener(this);
         mStatusBarCmSignal.setOnPreferenceChangeListener(this);
+
+        mCombinedBarTimeout = (SeekBarPreference) prefSet.findPreference(COMBINED_BAR_AUTO_HIDE_TIMEOUT);
+        mCombinedBarTimeout.setDefault(Settings.System.getInt(getActivity().getApplicationContext()
+                .getContentResolver(), Settings.System.FULLSCREEN_TIMEOUT, 2));
+        mCombinedBarTimeout.setOnPreferenceChangeListener(this);
+
     }
 
     public void onResume() {
@@ -168,7 +177,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarCmSignal.setSummary(mStatusBarCmSignal.getEntry());
 
         mCombinedBarAutoHide.setChecked((Settings.System.getInt(mContentResolver,
-                Settings.System.COMBINED_BAR_AUTO_HIDE, 0) == 1));
+                Settings.System.FULLSCREEN_MODE, 0) == 1));
 
         mStatusBarNotifCount.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_NOTIF_COUNT, 0) == 1));
@@ -206,8 +215,17 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             mTabletFlipped.setEnabled(true);
         }
 
+        IWindowManager windowManager = IWindowManager.Stub.asInterface(
+                ServiceManager.getService(Context.WINDOW_SERVICE));
+        try {
+            if (windowManager.hasNavigationBar()) {
+                mCombinedBarNavigationForceMenu.setEnabled(false);
+            }
+        } catch (RemoteException e) {
+        }
+
         mStatusBarCmSignal.setEnabled(!mTabletMode.isChecked());
-        mCombinedBarAutoHide.setEnabled(mTabletMode.isChecked());
+        mCombinedBarTimeout.setSummary(String.valueOf(mCombinedBarTimeout.getDefault()));
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -232,6 +250,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                     Settings.System.STATUS_BAR_SIGNAL_TEXT, signalStyle);
             mStatusBarCmSignal.setSummary(mStatusBarCmSignal.getEntries()[index]);
             return true;
+        } else if (preference == mCombinedBarTimeout) {
+            int value = (Integer) newValue;
+            Settings.System.putInt(mContentResolver, Settings.System.FULLSCREEN_TIMEOUT, value);
+            mCombinedBarTimeout.setSummary(String.valueOf(value));
         }
         return false;
     }
@@ -252,7 +274,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         } else if (preference == mCombinedBarAutoHide) {
             value = mCombinedBarAutoHide.isChecked();
             Settings.System.putInt(mContentResolver,
-                    Settings.System.COMBINED_BAR_AUTO_HIDE, value ? 1 : 0);
+                    Settings.System.FULLSCREEN_MODE, value ? 1 : 0);
             return true;
         } else if (preference == mStatusBarNotifCount) {
             value = mStatusBarNotifCount.isChecked();
@@ -268,6 +290,12 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             mStatusBarBrightnessControl.setEnabled(!value);
             mStatusBarCmSignal.setEnabled(!value);
             mCombinedBarAutoHide.setEnabled(value);
+            IWindowManager windowManager = IWindowManager.Stub.asInterface(
+                    ServiceManager.getService(Context.WINDOW_SERVICE));
+            try {
+                mCombinedBarNavigationForceMenu.setEnabled(!windowManager.hasNavigationBar());
+            } catch (RemoteException e) {
+            }
             return true;
         } else if (preference == mTabletUI) {
             value = mTabletUI.isChecked();

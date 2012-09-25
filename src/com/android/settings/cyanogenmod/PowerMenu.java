@@ -35,6 +35,7 @@ public class PowerMenu extends SettingsPreferenceFragment {
     private static final String KEY_SILENT = "power_menu_silent";
     private static final String KEY_SYSTEMBAR = "power_menu_systembar";
     private static final String KEY_MULTIUSER = "power_menu_multiuser";
+    private static final String KEY_NAV = "power_menu_nav";
 
     private CheckBoxPreference mRebootPref;
     private CheckBoxPreference mScreenshotPref;
@@ -43,6 +44,7 @@ public class PowerMenu extends SettingsPreferenceFragment {
     private CheckBoxPreference mSilentPref;
     private CheckBoxPreference mSystembarPref;
     private CheckBoxPreference mMultiuserPref;
+    private CheckBoxPreference mNavPref;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,10 @@ public class PowerMenu extends SettingsPreferenceFragment {
         mMultiuserPref = (CheckBoxPreference) prefSet.findPreference(KEY_MULTIUSER);
         mMultiuserPref.setChecked((Settings.System.getInt(getContentResolver(),
                 Settings.System.POWER_MENU_MULTIUSER_MODE_ENABLED, 1) == 1));
+
+        mNavPref = (CheckBoxPreference) prefSet.findPreference(KEY_NAV);
+        mNavPref.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.POWER_MENU_NAV_CONTROLS_ENABLED, 0) == 1));
 
         // Only enable if System Profiles are also enabled
         boolean enabled = Settings.System.getInt(getContentResolver(),
@@ -125,6 +131,11 @@ public class PowerMenu extends SettingsPreferenceFragment {
             value = mMultiuserPref.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.POWER_MENU_MULTIUSER_MODE_ENABLED,
+                    value ? 1 : 0);
+        } else if (preference == mNavPref) {
+            value = mNavPref.isChecked();
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.POWER_MENU_NAV_CONTROLS_ENABLED,
                     value ? 1 : 0);
         } else {
             return super.onPreferenceTreeClick(preferenceScreen, preference);
