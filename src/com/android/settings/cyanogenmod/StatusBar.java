@@ -17,6 +17,7 @@
 package com.android.settings.cyanogenmod;
 
 import android.app.ActivityManager;
+import android.app.StatusBarManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
@@ -275,6 +276,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mCombinedBarAutoHide.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.FULLSCREEN_MODE, value ? 1 : 0);
+            StatusBarManager sbm = (StatusBarManager) getSystemService(Context.STATUS_BAR_SERVICE);
+            sbm.toggleVisibility();
             return true;
         } else if (preference == mStatusBarNotifCount) {
             value = mStatusBarNotifCount.isChecked();
