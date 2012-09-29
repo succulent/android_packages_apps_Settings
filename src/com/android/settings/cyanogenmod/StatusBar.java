@@ -289,7 +289,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             mTabletFlipped.setEnabled(value);
             mStatusBarBrightnessControl.setEnabled(!value);
             mStatusBarCmSignal.setEnabled(!value);
-            mCombinedBarAutoHide.setEnabled(value);
             IWindowManager windowManager = IWindowManager.Stub.asInterface(
                     ServiceManager.getService(Context.WINDOW_SERVICE));
             try {

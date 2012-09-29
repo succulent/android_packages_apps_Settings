@@ -4289,9 +4289,9 @@
 
     <!-- Combined Bar  -->
     <string name="combined_bar_title">Combined bar</string>
-    <string name="combined_bar_auto_hide_title">Auto hide mode</string>
-    <string name="combined_bar_auto_hide_summary">Show status bar through edge swipe</string>
-    <string name="combined_bar_auto_hide_timeout_title">Fullscreen statusbar timeout</string>
+    <string name="combined_bar_auto_hide_title">Fullscreen with auto hide mode</string>
+    <string name="combined_bar_auto_hide_summary">Status bar shown only through edge swipe or power menu</string>
+    <string name="combined_bar_auto_hide_timeout_title">Fullscreen auto hide timeout</string>
 
     <!-- Navigation Bar  -->
     <string name="navigation_bar_title">Navigation bar</string>
