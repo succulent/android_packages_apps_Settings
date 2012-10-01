@@ -1330,6 +1330,18 @@
         <item>6</item>
     </string-array>
 
+    <string-array name="gesture_type_entries">
+        <item>@string/gesture_tap</item>
+        <item>@string/gesture_long_press</item>
+        <item>@string/gesture_swipe</item>
+    </string-array>
+
+    <string-array name="gesture_type_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
     <string-array name="lockscreen_background_entries" translatable="false">
         <item>@string/lockscreen_background_color_fill</item>
         <item>@string/lockscreen_background_custom_image</item>
