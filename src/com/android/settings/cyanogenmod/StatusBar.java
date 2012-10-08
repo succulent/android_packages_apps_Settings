@@ -49,6 +49,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String COMBINED_BAR_AUTO_HIDE_TIMEOUT = "combined_bar_auto_hide_timeout";
     private static final String STATUS_BAR_NOTIF_COUNT = "status_bar_notif_count";
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
+    private static final String STATUS_BAR_COLOR = "status_bar_color";
+    private static final String NOTIFICATION_PANEL_COLOR = "notification_panel_color";
 
     private static final String KEY_TABLET_MODE = "tablet_mode";
     private static final String KEY_TABLET_UI = "tablet_ui";
@@ -84,6 +86,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private Preference mCombinedBarNavigationGlowColor;
     private Preference mCombinedBarNavigationColor;
     private SeekBarPreference mCombinedBarTimeout;
+    private Preference mStatusBarColor;
+    private Preference mNotificationPanelColor;
 
     private ContentResolver mContentResolver;
     private Context mContext;
@@ -132,6 +136,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 .getContentResolver(), Settings.System.FULLSCREEN_TIMEOUT, 2));
         mCombinedBarTimeout.setOnPreferenceChangeListener(this);
 
+        mStatusBarColor = (Preference) prefSet.findPreference(STATUS_BAR_COLOR);
+        mNotificationPanelColor = (Preference) prefSet.findPreference(NOTIFICATION_PANEL_COLOR);
     }
 
     public void onResume() {
@@ -360,6 +366,22 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             cp.setDefaultColor(0x00000000);
             cp.show();
             return true;
+        } else if (preference == mStatusBarColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mStatusBarColorListener, Settings.System.getInt(getActivity()
+                    .getApplicationContext()
+                    .getContentResolver(), Settings.System.STATUS_BAR_COLOR, 0xFF000000));
+            cp.setDefaultColor(0xFF000000);
+            cp.show();
+            return true;
+        } else if (preference == mNotificationPanelColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mNotificationPanelColorListener, Settings.System.getInt(getActivity()
+                    .getApplicationContext()
+                    .getContentResolver(), Settings.System.NOTIFICATION_PANEL_COLOR, 0xFF000000));
+            cp.setDefaultColor(0xFF000000);
+            cp.show();
+            return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -389,6 +411,26 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             public void colorChanged(int color) {
                 Settings.System.putInt(getContentResolver(),
                         Settings.System.COMBINED_BAR_NAVIGATION_GLOW_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
+
+    ColorPickerDialog.OnColorChangedListener mStatusBarColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.STATUS_BAR_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
+
+    ColorPickerDialog.OnColorChangedListener mNotificationPanelColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.NOTIFICATION_PANEL_COLOR, color);
             }
             public void colorUpdate(int color) {
             }

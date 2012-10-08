@@ -4290,7 +4290,7 @@
     <string name="system_interface_title">System interface</string>
 
     <!-- Notification Drawer  -->
-    <string name="notification_drawer_title">Notification drawer</string>
+    <string name="notification_drawer_title">Notification panel</string>
 
     <!-- Combined Bar  -->
     <string name="combined_bar_title">Combined bar</string>
@@ -4940,9 +4940,9 @@
     <string name="dialog_indicator_color_title">Select color</string>
 
     <!-- Combined Bar #CM -->
-    <string name="combined_bar_settings_title">Tablet bar settings view</string>
-    <string name="combined_bar_settings_picker_title">Settings view entries</string>
-    <string name="combined_bar_settings_order_title">Settings view order</string>
+    <string name="combined_bar_settings_title">Notification panel settings</string>
+    <string name="combined_bar_settings_picker_title">Settings entries</string>
+    <string name="combined_bar_settings_order_title">Settings order</string>
     <string name="combined_bar_settings_wifi">Wi-Fi switch</string>
     <string name="combined_bar_settings_bluetooth">Bluetooth switch</string>
     <string name="combined_bar_settings_volume">Volume slider</string>
@@ -4967,4 +4967,8 @@
     <string name="gesture_swipe">Swipe out of zone</string>
 
     <string name="gesture_swipe_distance">Swipe distance</string>
+
+
+    <string name="status_bar_color_title">Status bar color</string>
+    <string name="notification_panel_color_title">Notification panel color</string>
 </resources>
