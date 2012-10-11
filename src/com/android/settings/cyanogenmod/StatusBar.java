@@ -201,9 +201,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mTabletFlipped.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.TABLET_FLIPPED, 0) == 1);
 
-        mNavigationControls.setChecked(Settings.System.getInt(mContentResolver,
-                        Settings.System.NAVIGATION_CONTROLS, 1) == 1);
-
         mCombinedBarNavigationForceMenu.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.FORCE_SOFT_MENU_BUTTON, 0) == 1));
 
@@ -225,17 +222,22 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             mTabletFlipped.setEnabled(true);
         }
 
+        if (Utils.isPhone(mContext) || !mTabletMode.isChecked()) {
+            mCombinedBarNavigationForceMenu.setEnabled(false);
+        }
+
         IWindowManager windowManager = IWindowManager.Stub.asInterface(
                 ServiceManager.getService(Context.WINDOW_SERVICE));
         try {
-            if (windowManager.hasNavigationBar()) {
-                mCombinedBarNavigationForceMenu.setEnabled(false);
-            } else {
+            if (!windowManager.hasNavigationBar()) {
                 mNavigationBarColor.setEnabled(false);
             }
         } catch (RemoteException e) {
         }
 
+        mNavigationControls.setChecked(Settings.System.getInt(mContentResolver,
+                Settings.System.NAVIGATION_CONTROLS, (Utils.isTablet(mContext) ||
+                mTabletMode.isChecked()) ? 1 : 0) == 1);
         mStatusBarCmSignal.setEnabled(!mTabletMode.isChecked());
         mCombinedBarTimeout.setSummary(String.valueOf(mCombinedBarTimeout.getDefault()));
     }
@@ -307,6 +309,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                     ServiceManager.getService(Context.WINDOW_SERVICE));
             try {
                 mCombinedBarNavigationForceMenu.setEnabled(!windowManager.hasNavigationBar());
+                mNavigationBarColor.setEnabled(windowManager.hasNavigationBar());
             } catch (RemoteException e) {
             }
             return true;
