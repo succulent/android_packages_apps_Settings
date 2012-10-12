@@ -4985,4 +4985,9 @@
     <string name="notification_panel_color_title">Notification panel color</string>
     <string name="navigation_bar_color_title">Navigation bar color</string>
     <string name="title_expanded_volume">Volume slider</string>
+    <string name="navigation_control_title">Navigation control options</string>
+    <string name="status_bar_shared_title">Shared settings</string>
+    <string name="status_bar_phone_title">Phone status bar settings</string>
+    <string name="status_bar_tablet_title">Tablet status bar settings</string>
+
 </resources>
