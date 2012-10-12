@@ -4311,7 +4311,7 @@
     <string name="combined_bar_auto_hide_timeout_title">Fullscreen auto hide timeout</string>
 
     <!-- Navigation Bar  -->
-    <string name="navigation_bar_title">Navigation bar</string>
+    <string name="navigation_bar_title">Navigation bar editor</string>
 
     <string name="navigation_bar_help_text">1 - To begin editing, tap the lock icon\n\n2 - Tap any button to assign or change functionality\n\n3 - Long press any button to rearrange the order\n\n4 - To save, tap the lock icon again\n\n5 - To restore system default, tap the reset button\n\n</string>
     <string name="navigation_bar_tips">&#8226; Actions can only be assigned to one button at a time\n\n&#8226; The home button cannot be re-assigned\n\n&#8226; Side buttons cannot be rearranged</string>
@@ -4930,7 +4930,7 @@
     <string name="tablet_mode_title">Tablet status bar</string>
     <string name="tablet_ui_title">Force tablet UI</string>
     <string name="tablet_flipped_title">Flip status bar</string>
-    <string name="navigation_controls_title">Navigation controls</string>
+    <string name="navigation_controls_title">Navigation buttons</string>
 
     <string name="edge_swipe_title">Gesture navigation</string>
     <string name="edge_swipe_right_title">Zone 3 Action</string>
@@ -4985,7 +4985,7 @@
     <string name="notification_panel_color_title">Notification panel color</string>
     <string name="navigation_bar_color_title">Navigation bar color</string>
     <string name="title_expanded_volume">Volume slider</string>
-    <string name="navigation_control_title">Navigation control options</string>
+    <string name="navigation_control_title">Navigation buttons</string>
     <string name="status_bar_shared_title">Shared settings</string>
     <string name="status_bar_phone_title">Phone status bar settings</string>
     <string name="status_bar_tablet_title">Tablet status bar settings</string>

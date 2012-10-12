@@ -43,11 +43,6 @@
         android:title="@string/hardware_keys_title" />
 
     <PreferenceScreen
-        android:key="navigation_bar"
-        android:fragment="com.android.settings.cyanogenmod.NavBar"
-        android:title="@string/navigation_bar_title" />
-
-    <PreferenceScreen
         android:key="navigation_control"
         android:fragment="com.android.settings.cyanogenmod.NavControl"
         android:title="@string/navigation_control_title" />

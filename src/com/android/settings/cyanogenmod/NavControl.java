@@ -46,6 +46,8 @@ public class NavControl extends SettingsPreferenceFragment {
     private static final String COMBINED_BAR_NAVIGATION_QUICK_GLOW =
             "combined_bar_navigation_quick_glow";
 
+    private static final String KEY_NAVIGATION_BAR = "navigation_bar";
+
     private CheckBoxPreference mNavigationControls;
     private CheckBoxPreference mCombinedBarNavigationForceMenu;
     private CheckBoxPreference mCombinedBarNavigationGlow;
@@ -80,10 +82,6 @@ public class NavControl extends SettingsPreferenceFragment {
                 (Preference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_COLOR);
         mNavigationControls = (CheckBoxPreference) findPreference(KEY_NAVIGATION_CONTROLS);
         mNavigationBarColor = (Preference) prefSet.findPreference(NAVIGATION_BAR_COLOR);
-    }
-
-    public void onResume() {
-        super.onResume();
 
         mCombinedBarNavigationForceMenu.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.FORCE_SOFT_MENU_BUTTON, 0) == 1));
@@ -94,18 +92,21 @@ public class NavControl extends SettingsPreferenceFragment {
         mCombinedBarNavigationQuickGlow.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.COMBINED_BAR_NAVIGATION_GLOW_TIME, 0) == 1));
 
+
         boolean tabletMode = Settings.System.getInt(mContentResolver,
                         Settings.System.TABLET_MODE, 0) > 0;
-
-        if (Utils.isPhone(mContext) || !tabletMode) {
-            mCombinedBarNavigationForceMenu.setEnabled(false);
-        } else {
-            mNavigationBarColor.setEnabled(false);
-        }
 
         mNavigationControls.setChecked(Settings.System.getInt(mContentResolver,
                 Settings.System.NAVIGATION_CONTROLS, (Utils.isTablet(mContext) ||
                 tabletMode) ? 1 : 0) == 1);
+
+        if (Utils.isPhone(mContext) || !tabletMode) {
+            prefSet.removePreference(mCombinedBarNavigationForceMenu);
+        } else {
+            Preference naviBar = findPreference(KEY_NAVIGATION_BAR);
+            prefSet.removePreference(naviBar);
+            prefSet.removePreference(mNavigationBarColor);
+        }
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
