@@ -4989,5 +4989,6 @@
     <string name="status_bar_shared_title">Shared settings</string>
     <string name="status_bar_phone_title">Phone status bar settings</string>
     <string name="status_bar_tablet_title">Tablet status bar settings</string>
+    <string name="gesture_area_too_large">The selected gesture area is too large and will not be set.</string>
 
 </resources>
