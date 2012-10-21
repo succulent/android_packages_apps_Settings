@@ -4629,6 +4629,8 @@
     <string name="additional_options_title">Additional options</string>
     <string name="unlock_menu_unlock_title">Menu unlock</string>
     <string name="unlock_menu_unlock_summary">Pressing the menu button unlocks the device</string>
+    <string name="unlock_home_unlock_title">Home unlock</string>
+    <string name="unlock_home_unlock_summary">Pressing the home button unlocks the device</string>
     <string name="unlock_quick_unlock_control_title">Quick unlock</string>
     <string name="unlock_quick_unlock_control_summary">Unlock automatically when the correct PIN/password is entered</string>
 
@@ -4999,5 +5001,8 @@
     <string name="status_bar_phone_title">Phone status bar settings</string>
     <string name="status_bar_tablet_title">Tablet status bar settings</string>
     <string name="gesture_area_too_large">The selected gesture area is too large and will not be set.</string>
+    <string name="status_bar_clock_click_title">Expanded clock and date on click</string>
+    <string name="status_bar_clock_click_summary">Click clock for alarms and date for calendar</string>
+    <string name="phone_style_recents_title">Phone style recent apps</string>
 
 </resources>
