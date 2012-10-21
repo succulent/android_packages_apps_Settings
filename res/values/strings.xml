@@ -5003,5 +5003,6 @@
     <string name="gesture_area_too_large">The selected gesture area is too large and will not be set.</string>
     <string name="status_bar_clock_click_title">Expanded clock and date on click</string>
     <string name="status_bar_clock_click_summary">Click clock for alarms and date for calendar</string>
+    <string name="phone_style_recents_title">Phone style recent apps</string>
 
 </resources>

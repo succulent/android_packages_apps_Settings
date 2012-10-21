@@ -112,6 +112,10 @@
             android:key="tablet_ui"
             android:title="@string/tablet_ui_title" />
 
+        <CheckBoxPreference
+            android:key="phone_style_recents"
+            android:title="@string/phone_style_recents_title" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

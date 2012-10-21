@@ -55,6 +55,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String KEY_TABLET_FLIPPED = "tablet_flipped";
     private static final String STATUS_BAR_CLOCK_COLOR = "status_bar_clock_color";
     private static final String STATUS_BAR_CLOCK_CLICK = "status_bar_clock_click";
+    private static final String PHONE_STYLE_RECENTS = "phone_style_recents";
 
     private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarBattery;
@@ -72,6 +73,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private Preference mStatusBarColor;
     private Preference mNotificationPanelColor;
     private CheckBoxPreference mClockClick;
+    private CheckBoxPreference mPhoneStyleRecents;
 
     private ContentResolver mContentResolver;
     private Context mContext;
@@ -99,6 +101,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mTabletUI = (CheckBoxPreference) findPreference(KEY_TABLET_UI);
         mTabletFlipped = (CheckBoxPreference) findPreference(KEY_TABLET_FLIPPED);
         mClockClick = (CheckBoxPreference) findPreference(STATUS_BAR_CLOCK_CLICK);
+        mPhoneStyleRecents = (CheckBoxPreference) findPreference(PHONE_STYLE_RECENTS);
 
         mStatusBarAmPm.setOnPreferenceChangeListener(this);
         mStatusBarBattery.setOnPreferenceChangeListener(this);
@@ -174,11 +177,15 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mClockClick.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.EXPANDED_CLOCK_ONCLICK, 0) == 1);
 
+        mPhoneStyleRecents.setChecked(Settings.System.getInt(mContentResolver,
+                        Settings.System.PHONE_STYLE_RECENTS, 0) == 1);
+
         if (Utils.isHybrid(mContext)) {
             mTabletUI.setEnabled(mTabletMode.isChecked());
             mTabletFlipped.setEnabled(mTabletMode.isChecked());
             mStatusBarBrightnessControl.setEnabled(!mTabletMode.isChecked());
             mStatusBarCmSignal.setEnabled(!mTabletMode.isChecked());
+            mPhoneStyleRecents.setEnabled(mTabletMode.isChecked());
         } else if (Utils.isTablet(mContext)) {
             mStatusBarBrightnessControl.setEnabled(false);
             mStatusBarCmSignal.setEnabled(false);
@@ -295,6 +302,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mClockClick.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.EXPANDED_CLOCK_ONCLICK, value ? 1 : 0);
+            return true;
+        } else if (preference == mPhoneStyleRecents) {
+            value = mPhoneStyleRecents.isChecked();
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.PHONE_STYLE_RECENTS, value ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
