@@ -256,6 +256,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                     value ? (mTabletUI.isChecked() ? 2 : 1) : 0);
             mTabletUI.setEnabled(value);
             mTabletFlipped.setEnabled(value);
+            mPhoneStyleRecents.setEnabled(value);
             mStatusBarBrightnessControl.setEnabled(!value);
             mStatusBarCmSignal.setEnabled(!value);
             return true;
