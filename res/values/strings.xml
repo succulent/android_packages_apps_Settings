@@ -5004,5 +5004,7 @@
     <string name="status_bar_clock_click_title">Expanded clock and date on click</string>
     <string name="status_bar_clock_click_summary">Click clock for alarms and date for calendar</string>
     <string name="phone_style_recents_title">Phone style recent apps</string>
+    <string name="ums_notification_connect_title">USB mass storage notification</string>
+    <string name="ums_notification_connect_summary">Click notification to open or close connection</string>
 
 </resources>

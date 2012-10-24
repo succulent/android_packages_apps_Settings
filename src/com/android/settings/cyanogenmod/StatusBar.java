@@ -56,6 +56,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_CLOCK_COLOR = "status_bar_clock_color";
     private static final String STATUS_BAR_CLOCK_CLICK = "status_bar_clock_click";
     private static final String PHONE_STYLE_RECENTS = "phone_style_recents";
+    private static final String UMS_NOTIFICATION_CONNECT = "ums_notification_connect";
 
     private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarBattery;
@@ -74,6 +75,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private Preference mNotificationPanelColor;
     private CheckBoxPreference mClockClick;
     private CheckBoxPreference mPhoneStyleRecents;
+    private CheckBoxPreference mUmsNotification;
 
     private ContentResolver mContentResolver;
     private Context mContext;
@@ -102,6 +104,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mTabletFlipped = (CheckBoxPreference) findPreference(KEY_TABLET_FLIPPED);
         mClockClick = (CheckBoxPreference) findPreference(STATUS_BAR_CLOCK_CLICK);
         mPhoneStyleRecents = (CheckBoxPreference) findPreference(PHONE_STYLE_RECENTS);
+        mUmsNotification = (CheckBoxPreference) findPreference(UMS_NOTIFICATION_CONNECT);
 
         mStatusBarAmPm.setOnPreferenceChangeListener(this);
         mStatusBarBattery.setOnPreferenceChangeListener(this);
@@ -179,6 +182,9 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
         mPhoneStyleRecents.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.PHONE_STYLE_RECENTS, 0) == 1);
+
+        mUmsNotification.setChecked(Settings.System.getInt(mContentResolver,
+                        Settings.System.UMS_NOTIFICATION_CONNECT, 0) == 1);
 
         if (Utils.isHybrid(mContext)) {
             mTabletUI.setEnabled(mTabletMode.isChecked());
@@ -308,6 +314,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mPhoneStyleRecents.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.PHONE_STYLE_RECENTS, value ? 1 : 0);
+            return true;
+        } else if (preference == mUmsNotification) {
+            value = mUmsNotification.isChecked();
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.UMS_NOTIFICATION_CONNECT, value ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);

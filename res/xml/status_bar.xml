@@ -80,6 +80,11 @@
             android:title="@string/status_bar_clock_click_title"
             android:summary="@string/status_bar_clock_click_summary" />
 
+       <CheckBoxPreference
+            android:key="ums_notification_connect"
+            android:title="@string/ums_notification_connect_title"
+            android:summary="@string/ums_notification_connect_summary" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
