@@ -68,11 +68,11 @@ public class PowerMenu extends SettingsPreferenceFragment {
 
         mAirplanePref = (CheckBoxPreference) prefSet.findPreference(KEY_AIRPLANE);
         mAirplanePref.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_MENU_AIRPLANE_MODE_ENABLED, 1) == 1));
+                Settings.System.POWER_MENU_AIRPLANE_ENABLED, 1) == 1));
 
         mSilentPref = (CheckBoxPreference) prefSet.findPreference(KEY_SILENT);
         mSilentPref.setChecked((Settings.System.getInt(getContentResolver(),
-                Settings.System.POWER_MENU_SILENT_MODE_ENABLED, 1) == 1));
+                Settings.System.POWER_MENU_SILENT_ENABLED, 1) == 1));
 
         mSystembarPref = (CheckBoxPreference) prefSet.findPreference(KEY_SYSTEMBAR);
         mSystembarPref.setChecked((Settings.System.getInt(getContentResolver(),
@@ -115,12 +115,12 @@ public class PowerMenu extends SettingsPreferenceFragment {
         } else if (preference == mAirplanePref) {
             value = mAirplanePref.isChecked();
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.POWER_MENU_AIRPLANE_MODE_ENABLED,
+                    Settings.System.POWER_MENU_AIRPLANE_ENABLED,
                     value ? 1 : 0);
         } else if (preference == mSilentPref) {
             value = mSilentPref.isChecked();
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.POWER_MENU_SILENT_MODE_ENABLED,
+                    Settings.System.POWER_MENU_SILENT_ENABLED,
                     value ? 1 : 0);
         } else if (preference == mSystembarPref) {
             value = mSystembarPref.isChecked();
