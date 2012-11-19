@@ -5050,4 +5050,6 @@
 
     <string name="edge_swipe_app">Launch application ...</string>
 
+    <string name="recents_panel_color_title">Recents panel color</string>
+
 </resources>
