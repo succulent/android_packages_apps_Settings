@@ -27,6 +27,11 @@
         android:title="@string/status_bar_shared_title">
 
         <CheckBoxPreference
+            android:key="hide_lights_out"
+            android:title="@string/combined_bar_hide_lights_out_title"
+            android:summary="@string/combined_bar_hide_lights_out_summary" />
+
+        <CheckBoxPreference
             android:key="combined_bar_auto_hide"
             android:title="@string/combined_bar_auto_hide_title"
             android:summary="@string/combined_bar_auto_hide_summary" />

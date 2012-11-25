@@ -5062,4 +5062,8 @@
 
     <string name="recents_panel_color_title">Recents panel color</string>
 
+    <string name="combined_bar_hide_lights_out_title">Hide in shadow mode</string>
+    <string name="combined_bar_hide_lights_out_summary">Status bar hidden in shadow mode</string>
+
+    <string name="home_button_search_title">Home button search</string>
 </resources>

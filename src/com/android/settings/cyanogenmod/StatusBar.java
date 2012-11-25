@@ -58,6 +58,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String PHONE_STYLE_RECENTS = "phone_style_recents";
     private static final String UMS_NOTIFICATION_CONNECT = "ums_notification_connect";
     private static final String RECENTS_PANEL_COLOR = "recents_panel_color";
+    private static final String HIDE_LIGHTS_OUT = "hide_lights_out";
 
     private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarBattery;
@@ -78,6 +79,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mPhoneStyleRecents;
     private CheckBoxPreference mUmsNotification;
     private Preference mRecentsPanelColor;
+
+    private CheckBoxPreference mHideLightsOut;
 
     private ContentResolver mContentResolver;
     private Context mContext;
@@ -120,6 +123,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarColor = (Preference) prefSet.findPreference(STATUS_BAR_COLOR);
         mNotificationPanelColor = (Preference) prefSet.findPreference(NOTIFICATION_PANEL_COLOR);
         mRecentsPanelColor = (Preference) prefSet.findPreference(RECENTS_PANEL_COLOR);
+        mHideLightsOut = (CheckBoxPreference) prefSet.findPreference(HIDE_LIGHTS_OUT);
     }
 
     public void onResume() {
@@ -202,6 +206,9 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         }
 
         mCombinedBarTimeout.setSummary(String.valueOf(mCombinedBarTimeout.getDefault()));
+
+        mHideLightsOut.setChecked(Settings.System.getInt(mContentResolver,
+                Settings.System.SB_HIDE_LOW_PROFILE, 0) == 1);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -330,6 +337,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                     .getContentResolver(), Settings.System.RECENTS_PANEL_COLOR, 0xC0000000));
             cp.setDefaultColor(0xC0000000);
             cp.show();
+            return true;
+        } else if (preference == mHideLightsOut) {
+            value = mHideLightsOut.isChecked();
+            Settings.System.putInt(mContentResolver,
+                    Settings.System.SB_HIDE_LOW_PROFILE, value ? 1 : 0);
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
