@@ -5060,10 +5060,14 @@
 
     <string name="edge_swipe_app">Launch application ...</string>
 
-    <string name="recents_panel_color_title">Recents panel color</string>
+    <string name="recents_panel_color_title">Recent apps panel color</string>
 
     <string name="combined_bar_hide_lights_out_title">Hide in shadow mode</string>
     <string name="combined_bar_hide_lights_out_summary">Status bar hidden in shadow mode</string>
 
     <string name="home_button_search_title">Home button search</string>
+
+    <string name="recent_apps_title">Recent apps panel</string>
+    <string name="recent_apps_clear_all_title">Recent apps clear all button</string>
+
 </resources>

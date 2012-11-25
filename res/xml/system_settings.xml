@@ -68,6 +68,11 @@
         android:fragment="com.android.settings.cyanogenmod.PowerMenu" />
 
     <PreferenceScreen
+        android:key="recent_apps"
+        android:title="@string/recent_apps_title"
+        android:fragment="com.android.settings.cyanogenmod.RecentApps" />
+
+    <PreferenceScreen
         android:key="wallpaper"
         android:title="@string/wallpaper_settings_title"
         android:fragment="com.android.settings.WallpaperTypeSettings" />
