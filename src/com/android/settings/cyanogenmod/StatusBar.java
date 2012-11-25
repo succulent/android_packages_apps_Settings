@@ -40,9 +40,7 @@ import com.android.settings.Utils;
 
 public class StatusBar extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
-    private static final String STATUS_BAR_AM_PM = "status_bar_am_pm";
     private static final String STATUS_BAR_BATTERY = "status_bar_battery";
-    private static final String STATUS_BAR_CLOCK = "status_bar_show_clock";
     private static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
     private static final String STATUS_BAR_SIGNAL = "status_bar_signal";
     private static final String COMBINED_BAR_AUTO_HIDE = "combined_bar_auto_hide";
@@ -53,15 +51,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String KEY_TABLET_MODE = "tablet_mode";
     private static final String KEY_TABLET_UI = "tablet_ui";
     private static final String KEY_TABLET_FLIPPED = "tablet_flipped";
-    private static final String STATUS_BAR_CLOCK_COLOR = "status_bar_clock_color";
-    private static final String STATUS_BAR_CLOCK_CLICK = "status_bar_clock_click";
     private static final String UMS_NOTIFICATION_CONNECT = "ums_notification_connect";
     private static final String HIDE_LIGHTS_OUT = "hide_lights_out";
 
-    private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarBattery;
     private ListPreference mStatusBarCmSignal;
-    private CheckBoxPreference mStatusBarClock;
     private CheckBoxPreference mStatusBarBrightnessControl;
     private CheckBoxPreference mCombinedBarAutoHide;
     private CheckBoxPreference mStatusBarNotifCount;
@@ -69,11 +63,9 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mTabletMode;
     private CheckBoxPreference mTabletUI;
     private CheckBoxPreference mTabletFlipped;
-    private Preference mStatusBarClockColor;
     private SeekBarPreference mCombinedBarTimeout;
     private Preference mStatusBarColor;
     private Preference mNotificationPanelColor;
-    private CheckBoxPreference mClockClick;
     private CheckBoxPreference mUmsNotification;
 
     private CheckBoxPreference mHideLightsOut;
@@ -92,21 +84,16 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mContext = getActivity().getApplicationContext();
         mContentResolver = mContext.getContentResolver();
 
-        mStatusBarClock = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_CLOCK);
         mStatusBarBrightnessControl = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_BRIGHTNESS_CONTROL);
-        mStatusBarAmPm = (ListPreference) prefSet.findPreference(STATUS_BAR_AM_PM);
         mStatusBarBattery = (ListPreference) prefSet.findPreference(STATUS_BAR_BATTERY);
         mCombinedBarAutoHide = (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_AUTO_HIDE);
         mStatusBarCmSignal = (ListPreference) prefSet.findPreference(STATUS_BAR_SIGNAL);
-        mStatusBarClockColor = (Preference) prefSet.findPreference(STATUS_BAR_CLOCK_COLOR);
         mStatusBarNotifCount = (CheckBoxPreference) prefSet.findPreference(STATUS_BAR_NOTIF_COUNT);
         mTabletMode = (CheckBoxPreference) findPreference(KEY_TABLET_MODE);
         mTabletUI = (CheckBoxPreference) findPreference(KEY_TABLET_UI);
         mTabletFlipped = (CheckBoxPreference) findPreference(KEY_TABLET_FLIPPED);
-        mClockClick = (CheckBoxPreference) findPreference(STATUS_BAR_CLOCK_CLICK);
         mUmsNotification = (CheckBoxPreference) findPreference(UMS_NOTIFICATION_CONNECT);
 
-        mStatusBarAmPm.setOnPreferenceChangeListener(this);
         mStatusBarBattery.setOnPreferenceChangeListener(this);
         mStatusBarCmSignal.setOnPreferenceChangeListener(this);
 
@@ -125,8 +112,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
 
         PreferenceScreen prefSet = getPreferenceScreen();
 
-        mStatusBarClock.setChecked((Settings.System.getInt(mContentResolver,
-                Settings.System.STATUS_BAR_CLOCK, 1) == 1));
         mStatusBarBrightnessControl.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, 0) == 1));
 
@@ -138,20 +123,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             }
         } catch (SettingNotFoundException e) {
         }
-
-        try {
-            if (Settings.System.getInt(mContentResolver,
-                    Settings.System.TIME_12_24) == 24) {
-                mStatusBarAmPm.setEnabled(false);
-                mStatusBarAmPm.setSummary(R.string.status_bar_am_pm_info);
-            }
-        } catch (SettingNotFoundException e ) {
-        }
-
-        int statusBarAmPm = Settings.System.getInt(mContentResolver,
-                Settings.System.STATUS_BAR_AM_PM, 2);
-        mStatusBarAmPm.setValue(String.valueOf(statusBarAmPm));
-        mStatusBarAmPm.setSummary(mStatusBarAmPm.getEntry());
 
         int statusBarBattery = Settings.System.getInt(mContentResolver,
                 Settings.System.STATUS_BAR_BATTERY, 0);
@@ -178,9 +149,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mTabletFlipped.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.TABLET_FLIPPED, 0) == 1);
 
-        mClockClick.setChecked(Settings.System.getInt(mContentResolver,
-                        Settings.System.EXPANDED_CLOCK_ONCLICK, 0) == 1);
-
         mUmsNotification.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.UMS_NOTIFICATION_CONNECT, 0) == 1);
 
@@ -202,14 +170,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mStatusBarAmPm) {
-            int statusBarAmPm = Integer.valueOf((String) newValue);
-            int index = mStatusBarAmPm.findIndexOfValue((String) newValue);
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.STATUS_BAR_AM_PM, statusBarAmPm);
-            mStatusBarAmPm.setSummary(mStatusBarAmPm.getEntries()[index]);
-            return true;
-        } else if (preference == mStatusBarBattery) {
+        if (preference == mStatusBarBattery) {
             int statusBarBattery = Integer.valueOf((String) newValue);
             int index = mStatusBarBattery.findIndexOfValue((String) newValue);
             Settings.System.putInt(mContentResolver,
@@ -234,12 +195,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         boolean value;
 
-        if (preference == mStatusBarClock) {
-            value = mStatusBarClock.isChecked();
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.STATUS_BAR_CLOCK, value ? 1 : 0);
-            return true;
-        } else if (preference == mStatusBarBrightnessControl) {
+        if (preference == mStatusBarBrightnessControl) {
             value = mStatusBarBrightnessControl.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.STATUS_BAR_BRIGHTNESS_CONTROL, value ? 1 : 0);
@@ -281,13 +237,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             Settings.System.putInt(getContentResolver(), Settings.System.TABLET_FLIPPED,
                     value ? 1 : 0);
             return true;
-        } else if (preference == mStatusBarClockColor) {
-            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
-                    mColorListener, Settings.System.getInt(mContentResolver,
-                    Settings.System.STATUS_BAR_CLOCK_COLOR, 0xFF33B5E5));
-            cp.setDefaultColor(0xFF33B5E5);
-            cp.show();
-            return true;
         } else if (preference == mStatusBarColor) {
             ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
                     mStatusBarColorListener, Settings.System.getInt(getActivity()
@@ -304,11 +253,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             cp.setDefaultColor(0xFF000000);
             cp.show();
             return true;
-        } else if (preference == mClockClick) {
-            value = mClockClick.isChecked();
-            Settings.System.putInt(mContentResolver,
-                    Settings.System.EXPANDED_CLOCK_ONCLICK, value ? 1 : 0);
-            return true;
         } else if (preference == mUmsNotification) {
             value = mUmsNotification.isChecked();
             Settings.System.putInt(mContentResolver,
@@ -322,16 +266,6 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
-
-    ColorPickerDialog.OnColorChangedListener mColorListener =
-        new ColorPickerDialog.OnColorChangedListener() {
-            public void colorChanged(int color) {
-                Settings.System.putInt(getContentResolver(),
-                        Settings.System.STATUS_BAR_CLOCK_COLOR, color);
-            }
-            public void colorUpdate(int color) {
-            }
-    };
 
     ColorPickerDialog.OnColorChangedListener mStatusBarColorListener =
         new ColorPickerDialog.OnColorChangedListener() {
