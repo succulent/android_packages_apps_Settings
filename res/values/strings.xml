@@ -4875,4 +4875,6 @@
     <string name="adb_notify_summary">Display a notification when USB debugging is connected</string>
 
     <!-- **** CYANOGENMOD ADDITIONS END **** -->
+
+    <string name="navigation_controls_title">Navigation buttons</string>
 </resources>
