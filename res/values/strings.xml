@@ -5082,4 +5082,5 @@
     <!-- **** CYANOGENMOD ADDITIONS END **** -->
 
     <string name="navigation_controls_title">Navigation buttons</string>
+    <string name="lockscreen_camera_widget_title">Camera widget</string>
 </resources>

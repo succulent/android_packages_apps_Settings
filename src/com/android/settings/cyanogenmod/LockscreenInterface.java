@@ -16,6 +16,7 @@
 package com.android.settings.cyanogenmod;
 
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -30,9 +31,11 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
 
     private static final String KEY_ALWAYS_BATTERY_PREF = "lockscreen_battery_status";
     private static final String KEY_LOCKSCREEN_BUTTONS = "lockscreen_buttons";
+    private static final String KEY_LOCKSCREEN_CAMERA_WIDGET = "lockscreen_camera_widget";
 
     private PreferenceScreen mLockscreenButtons;
     private ListPreference mBatteryStatus;
+    private CheckBoxPreference mCameraWidget;
 
     public boolean hasButtons() {
         return !getResources().getBoolean(com.android.internal.R.bool.config_showNavigationBar);
@@ -58,10 +61,19 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         if (!hasButtons()) {
             getPreferenceScreen().removePreference(mLockscreenButtons);
         }
+
+        mCameraWidget = (CheckBoxPreference) findPreference(KEY_LOCKSCREEN_CAMERA_WIDGET);
+        mCameraWidget.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.KG_CAMERA_WIDGET, 0) == 1);
     }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        if (preference == mCameraWidget) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.KG_CAMERA_WIDGET, mCameraWidget.isChecked() ? 1 : 0);
+            return true;
+        }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
