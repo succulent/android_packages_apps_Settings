@@ -4931,8 +4931,7 @@
 
     <!-- Change Log strings -->
     <string name="changelog_title">View changelog</string>
-    <string name="changelog_summary">Changelog</string>
-    <string name="changelog_loading">Loading changelog...</string>
+    <string name="changelog_loading">Loading changelog\u2026</string>
     <string name="changelog_error">Unable to load changelog</string>
     <string name="changelog_unknown">Unknown</string>
     <string name="changelog_version">Version</string>
@@ -5041,6 +5040,7 @@
     <string name="title_tile_user">User switcher</string>
     <string name="title_tile_networkmode">Network mode</string>
     <string name="title_tile_nfc">NFC</string>
+    <string name="title_tile_screen_timeout">Screen timeout</string>
 
     <string name="title_dynamic_tiles">Dynamic tiles</string>
     <string name="dynamic_tiles_note_title">Note</string>
