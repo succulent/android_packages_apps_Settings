@@ -67,4 +67,14 @@
             android:defaultValue="false" />
     </PreferenceCategory>
 
+    <!-- Status bar tweaks -->
+    <PreferenceCategory
+        android:title="@string/status_bar_tablet_title">
+
+        <CheckBoxPreference
+            android:key="tablet_ui"
+            android:title="@string/tablet_ui_title" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

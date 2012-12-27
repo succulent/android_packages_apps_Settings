@@ -16,7 +16,10 @@
 
 package com.android.settings.cyanogenmod;
 
+import android.content.ContentResolver;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.ServiceManager;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -26,6 +29,8 @@ import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
+import android.view.Display;
+import android.view.IWindowManager;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -40,6 +45,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_SIGNAL = "status_bar_signal";
     private static final String STATUS_BAR_NOTIF_COUNT = "status_bar_notif_count";
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
+    private static final String KEY_TABLET_UI = "tablet_ui";
 
     private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarBattery;
@@ -48,6 +54,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mStatusBarBrightnessControl;
     private CheckBoxPreference mStatusBarNotifCount;
     private PreferenceCategory mPrefCategoryGeneral;
+    private CheckBoxPreference mTabletUI;
+
+    private ContentResolver mContentResolver;
+    private Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,6 +118,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mStatusBarNotifCount.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.STATUS_BAR_NOTIF_COUNT, 0) == 1));
 
+        mTabletUI = (CheckBoxPreference) findPreference(KEY_TABLET_UI);
+        mTabletUI.setChecked(Settings.System.getInt(mContentResolver,
+                        Settings.System.TABLET_MODE, 0) == 1);
+
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
         if (Utils.isWifiOnly(getActivity())) {
@@ -163,6 +177,17 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             value = mStatusBarNotifCount.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.STATUS_BAR_NOTIF_COUNT, value ? 1 : 0);
+            return true;
+        } else if (preference == mTabletUI) {
+            value = mTabletUI.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.TABLET_MODE,
+                    value ? 1 : 0);
+            IWindowManager wm = IWindowManager.Stub.asInterface(ServiceManager.checkService(
+                    Context.WINDOW_SERVICE));
+            try {
+                wm.clearForcedDisplaySize(Display.DEFAULT_DISPLAY);
+            } catch (Exception e) {
+            }
             return true;
         }
         return false;

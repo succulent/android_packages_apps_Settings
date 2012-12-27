@@ -5085,4 +5085,7 @@
 
     <string name="navigation_controls_title">Navigation buttons</string>
     <string name="lockscreen_camera_widget_title">Camera widget</string>
+
+    <string name="status_bar_tablet_title">Tablet Tweaks</string>
+    <string name="tablet_ui_title">Tablet UI</string>
 </resources>
