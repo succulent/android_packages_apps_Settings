@@ -188,6 +188,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 wm.clearForcedDisplaySize(Display.DEFAULT_DISPLAY);
             } catch (Exception e) {
             }
+            getActivity().recreate();
             return true;
         }
         return false;

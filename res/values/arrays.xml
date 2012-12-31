@@ -1255,4 +1255,17 @@
     </string-array>
 
     <!-- **** CYANOGENMOD EDITS END **** -->
+
+    <!-- Dual Pane Prefs -->
+    <string-array name="entries_dual_pane_prefs" translatable="false">
+        <item>@string/dual_pane_prefs_off</item>
+        <item>@string/dual_pane_prefs_on</item>
+        <item>@string/dual_pane_prefs_landscape</item>
+    </string-array>
+
+    <string-array name="values_dual_pane_prefs" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

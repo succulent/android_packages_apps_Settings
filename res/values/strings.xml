@@ -5089,4 +5089,13 @@
 
     <string name="status_bar_tablet_title">Tablet Tweaks</string>
     <string name="tablet_ui_title">Tablet UI</string>
+
+    <string name="user_interface_title">User interface</string>
+    <string name="dual_pane_prefs_title">Dual pane preferences</string>
+    <string name="dual_pane_prefs_summary">Choose when to use dual pane preferences</string>
+    <string name="dual_pane_prefs_on">Always</string>
+    <string name="dual_pane_prefs_off">Never</string>
+    <string name="dual_pane_prefs_landscape">Only in landscape</string>
+    <string name="ums_notification_connect_title">USB notification connect</string>
+    <string name="ums_notification_connect_summary">Activate or deactivate USB storage by clicking notification</string>
 </resources>
