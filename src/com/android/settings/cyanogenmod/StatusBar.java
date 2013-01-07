@@ -46,6 +46,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_NOTIF_COUNT = "status_bar_notif_count";
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
     private static final String KEY_TABLET_UI = "tablet_ui";
+    private static final String KEY_TABLET_FLIPPED = "tablet_flipped";
 
     private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarBattery;
@@ -55,6 +56,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private CheckBoxPreference mStatusBarNotifCount;
     private PreferenceCategory mPrefCategoryGeneral;
     private CheckBoxPreference mTabletUI;
+    private CheckBoxPreference mTabletFlipped;
 
     private ContentResolver mContentResolver;
     private Context mContext;
@@ -121,6 +123,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mTabletUI = (CheckBoxPreference) findPreference(KEY_TABLET_UI);
         mTabletUI.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.TABLET_MODE, 0) == 1);
+
+        mTabletFlipped = (CheckBoxPreference) findPreference(KEY_TABLET_FLIPPED);
+        mTabletFlipped.setChecked(Settings.System.getInt(mContentResolver,
+                        Settings.System.TABLET_FLIPPED, 0) == 1);
 
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
@@ -189,6 +195,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             } catch (Exception e) {
             }
             getActivity().recreate();
+            return true;
+        } else if (preference == mTabletFlipped) {
+            value = mTabletFlipped.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.TABLET_FLIPPED,
+                    value ? 1 : 0);
             return true;
         }
         return false;

@@ -5105,6 +5105,8 @@
 
     <string name="status_bar_tablet_title">Tablet Tweaks</string>
     <string name="tablet_ui_title">Tablet UI</string>
+    <string name="tablet_flipped_title">Flip status bar</string>
+    <string name="tablet_flipped_summary">Flip position of buttons and notifications</string>
 
     <string name="user_interface_title">User interface</string>
     <string name="dual_pane_prefs_title">Dual pane preferences</string>

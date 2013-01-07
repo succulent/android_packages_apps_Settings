@@ -75,6 +75,12 @@
             android:key="tablet_ui"
             android:title="@string/tablet_ui_title" />
 
+        <CheckBoxPreference
+            android:key="tablet_flipped"
+            android:dependency="tablet_ui"
+            android:title="@string/tablet_flipped_title"
+            android:summary="@string/tablet_flipped_summary" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
