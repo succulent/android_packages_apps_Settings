@@ -45,11 +45,10 @@ public class NavControl extends SettingsPreferenceFragment {
             "combined_bar_navigation_glow_color";
     private static final String COMBINED_BAR_NAVIGATION_QUICK_GLOW =
             "combined_bar_navigation_quick_glow";
-
-    private static final String KEY_NAVIGATION_BAR = "navigation_bar";
-
     private static final String HOME_BUTTON_SEARCH = "home_button_search";
 */
+    private static final String KEY_NAVIGATION_BAR = "navigation_bar";
+
     private CheckBoxPreference mNavigationControls;
 /*    private CheckBoxPreference mCombinedBarNavigationForceMenu;
     private CheckBoxPreference mCombinedBarNavigationGlow;
@@ -99,21 +98,20 @@ public class NavControl extends SettingsPreferenceFragment {
 
         mHomeButtonSearch.setChecked(Settings.System.getInt(mContentResolver,
                 Settings.System.HOME_BUTTON_SEARCH, 1) == 1);
-
+*/
         boolean tabletMode = Settings.System.getInt(mContentResolver,
                         Settings.System.TABLET_MODE, 0) > 0;
-*/
+
         mNavigationControls.setChecked(Settings.System.getInt(mContentResolver,
                 Settings.System.NAVIGATION_CONTROLS, mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_showNavigationBar) ? 1 : 0) == 1);
-/*
+
         if (Utils.isPhone(mContext) || !tabletMode) {
-            prefSet.removePreference(mCombinedBarNavigationForceMenu);
+            //prefSet.removePreference(mCombinedBarNavigationForceMenu);
         } else {
             Preference naviBar = findPreference(KEY_NAVIGATION_BAR);
             prefSet.removePreference(naviBar);
-            prefSet.removePreference(mNavigationBarColor);
-        }*/
+        }
     }
 
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {

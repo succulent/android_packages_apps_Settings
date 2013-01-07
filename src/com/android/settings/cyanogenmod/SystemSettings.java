@@ -97,7 +97,7 @@ public class SystemSettings extends SettingsPreferenceFragment {
             getPreferenceScreen().removePreference(findPreference(KEY_HARDWARE_KEYS));
         }
         if (removeNavbar) {
-            getPreferenceScreen().removePreference(findPreference(KEY_NAVIGATION_BAR));
+            //getPreferenceScreen().removePreference(findPreference(KEY_NAVIGATION_BAR));
         }
     }
 
