@@ -5108,9 +5108,12 @@
     <string name="stylus_icon_enabled_title">Show icon when using stylus</string>
     <string name="stylus_icon_enabled_summary">Show the pointer icon when hovering or drawing with the stylus</string>
 
-    <string name="keyguard_picker_all_widgets_title">Show all widgets</string>
+    <string name="lockscreen_maximize_widgets_title">Maximize widgets</string>
+    <string name="lockscreen_maximize_widgets_summary">Show widgets maximized and the unlock minimized when the screen is turned on</string>
+
     <!-- **** CYANOGENMOD ADDITIONS END **** -->
 
+    <string name="keyguard_picker_all_widgets_title">Show all widgets</string>
     <string name="navigation_controls_title">Navigation buttons</string>
     <string name="lockscreen_camera_widget_title">Camera widget</string>
 
