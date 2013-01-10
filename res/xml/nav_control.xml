@@ -28,15 +28,15 @@
             android:dependency="navigation_controls"
             android:title="@string/navigation_bar_title" />
 
-<!--
-        <CheckBoxPreference
-            android:key="home_button_search"
-            android:title="@string/home_button_search_title" />
-
         <CheckBoxPreference
             android:key="combined_bar_navigation_force_menu"
             android:title="@string/combined_bar_navigation_force_menu_title"
             android:dependency="navigation_controls" />
+
+<!--
+        <CheckBoxPreference
+            android:key="home_button_search"
+            android:title="@string/home_button_search_title" />
 
         <PreferenceScreen
             android:key="navigation_bar_color"

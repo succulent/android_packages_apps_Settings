@@ -5162,4 +5162,9 @@
 
     <!-- Section title for list of downloaded apps [CHAR LIMIT=30] -->
     <string name="user_market_apps_heading">Installed apps</string>
+
+    <string name="combined_bar_navigation_force_menu_title">Always show menu button</string>
+
+    <string name="status_bar_lights_out_title">Hide in lights out</string>
+    <string name="status_bar_lights_out_summary">Hide the status bar in lights out mode</string>
 </resources>

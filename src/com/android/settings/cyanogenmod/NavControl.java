@@ -37,9 +37,9 @@ public class NavControl extends SettingsPreferenceFragment {
 
 //    private static final String NAVIGATION_BAR_COLOR = "navigation_bar_color";
     private static final String KEY_NAVIGATION_CONTROLS = "navigation_controls";
-/*    private static final String COMBINED_BAR_NAVIGATION_FORCE_MENU =
+    private static final String COMBINED_BAR_NAVIGATION_FORCE_MENU =
             "combined_bar_navigation_force_menu";
-    private static final String COMBINED_BAR_NAVIGATION_COLOR = "combined_bar_navigation_color";
+/*    private static final String COMBINED_BAR_NAVIGATION_COLOR = "combined_bar_navigation_color";
     private static final String COMBINED_BAR_NAVIGATION_GLOW = "combined_bar_navigation_glow";
     private static final String COMBINED_BAR_NAVIGATION_GLOW_COLOR =
             "combined_bar_navigation_glow_color";
@@ -50,8 +50,8 @@ public class NavControl extends SettingsPreferenceFragment {
     private static final String KEY_NAVIGATION_BAR = "navigation_bar";
 
     private CheckBoxPreference mNavigationControls;
-/*    private CheckBoxPreference mCombinedBarNavigationForceMenu;
-    private CheckBoxPreference mCombinedBarNavigationGlow;
+    private CheckBoxPreference mCombinedBarNavigationForceMenu;
+/*    private CheckBoxPreference mCombinedBarNavigationGlow;
     private CheckBoxPreference mCombinedBarNavigationQuickGlow;
     private Preference mCombinedBarNavigationGlowColor;
     private Preference mCombinedBarNavigationColor;
@@ -72,10 +72,10 @@ public class NavControl extends SettingsPreferenceFragment {
 
         mContext = getActivity().getApplicationContext();
         mContentResolver = mContext.getContentResolver();
-/*
+
         mCombinedBarNavigationForceMenu =
                 (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_FORCE_MENU);
-        mCombinedBarNavigationGlow =
+/*        mCombinedBarNavigationGlow =
                 (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_GLOW);
         mCombinedBarNavigationQuickGlow =
                 (CheckBoxPreference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_QUICK_GLOW);
@@ -84,11 +84,10 @@ public class NavControl extends SettingsPreferenceFragment {
         mCombinedBarNavigationColor =
                 (Preference) prefSet.findPreference(COMBINED_BAR_NAVIGATION_COLOR);*/
         mNavigationControls = (CheckBoxPreference) findPreference(KEY_NAVIGATION_CONTROLS);
+        mCombinedBarNavigationForceMenu.setChecked((Settings.System.getInt(mContentResolver,
+                Settings.System.TABLET_FORCE_MENU, 0) == 1));
 /*        mNavigationBarColor = (Preference) prefSet.findPreference(NAVIGATION_BAR_COLOR);
         mHomeButtonSearch = (CheckBoxPreference) prefSet.findPreference(HOME_BUTTON_SEARCH);
-
-        mCombinedBarNavigationForceMenu.setChecked((Settings.System.getInt(mContentResolver,
-                Settings.System.FORCE_SOFT_MENU_BUTTON, 0) == 1));
 
         mCombinedBarNavigationGlow.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.COMBINED_BAR_NAVIGATION_GLOW, 1) == 1));
@@ -107,7 +106,7 @@ public class NavControl extends SettingsPreferenceFragment {
                 com.android.internal.R.bool.config_showNavigationBar) ? 1 : 0) == 1);
 
         if (Utils.isPhone(mContext) || !tabletMode) {
-            //prefSet.removePreference(mCombinedBarNavigationForceMenu);
+            prefSet.removePreference(mCombinedBarNavigationForceMenu);
         } else {
             Preference naviBar = findPreference(KEY_NAVIGATION_BAR);
             prefSet.removePreference(naviBar);
@@ -122,12 +121,12 @@ public class NavControl extends SettingsPreferenceFragment {
             Settings.System.putInt(getContentResolver(), Settings.System.NAVIGATION_CONTROLS,
                     value ? 1 : 0);
             return true;
-        }/* else if (preference == mCombinedBarNavigationForceMenu) {
+        } else if (preference == mCombinedBarNavigationForceMenu) {
             value = mCombinedBarNavigationForceMenu.isChecked();
             Settings.System.putInt(getContentResolver(),
-                    Settings.System.FORCE_SOFT_MENU_BUTTON, value ? 1 : 0);
+                    Settings.System.TABLET_FORCE_MENU, value ? 1 : 0);
             return true;
-        } else if (preference == mCombinedBarNavigationGlow) {
+        }/* else if (preference == mCombinedBarNavigationGlow) {
             value = mCombinedBarNavigationGlow.isChecked();
             Settings.System.putInt(mContentResolver,
                     Settings.System.COMBINED_BAR_NAVIGATION_GLOW, value ? 1 : 0);

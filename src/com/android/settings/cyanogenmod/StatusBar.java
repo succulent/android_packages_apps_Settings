@@ -47,6 +47,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String STATUS_BAR_CATEGORY_GENERAL = "status_bar_general";
     private static final String KEY_TABLET_UI = "tablet_ui";
     private static final String KEY_TABLET_FLIPPED = "tablet_flipped";
+    private static final String KEY_STATUS_BAR_LIGHTS_OUT = "status_bar_lights_out";
 
     private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarBattery;
@@ -57,6 +58,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private PreferenceCategory mPrefCategoryGeneral;
     private CheckBoxPreference mTabletUI;
     private CheckBoxPreference mTabletFlipped;
+    private CheckBoxPreference mStatusBarLightsOut;
 
     private ContentResolver mContentResolver;
     private Context mContext;
@@ -127,6 +129,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         mTabletFlipped = (CheckBoxPreference) findPreference(KEY_TABLET_FLIPPED);
         mTabletFlipped.setChecked(Settings.System.getInt(mContentResolver,
                         Settings.System.TABLET_FLIPPED, 0) == 1);
+
+        mStatusBarLightsOut = (CheckBoxPreference) prefSet.findPreference(KEY_STATUS_BAR_LIGHTS_OUT);
+        mStatusBarLightsOut.setChecked(Settings.System.getInt(mContentResolver,
+                        Settings.System.HIDE_SB_LIGHTS_OUT, 0) == 1);
 
         mPrefCategoryGeneral = (PreferenceCategory) findPreference(STATUS_BAR_CATEGORY_GENERAL);
 
@@ -199,6 +205,11 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
         } else if (preference == mTabletFlipped) {
             value = mTabletFlipped.isChecked();
             Settings.System.putInt(getContentResolver(), Settings.System.TABLET_FLIPPED,
+                    value ? 1 : 0);
+            return true;
+        } else if (preference == mStatusBarLightsOut) {
+            value = mStatusBarLightsOut.isChecked();
+            Settings.System.putInt(getContentResolver(), Settings.System.HIDE_SB_LIGHTS_OUT,
                     value ? 1 : 0);
             return true;
         }

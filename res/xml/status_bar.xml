@@ -65,6 +65,12 @@
             android:title="@string/status_bar_notif_count_title"
             android:summary="@string/status_bar_notif_count_summary"
             android:defaultValue="false" />
+
+        <CheckBoxPreference
+            android:key="status_bar_lights_out"
+            android:title="@string/status_bar_lights_out_title"
+            android:summary="@string/status_bar_lights_out_summary"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
     <!-- Status bar tweaks -->
