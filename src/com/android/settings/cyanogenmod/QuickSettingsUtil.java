@@ -68,6 +68,7 @@ public class QuickSettingsUtil {
     static {
         TILES_DEFAULT.add(TILE_USER);
         TILES_DEFAULT.add(TILE_BRIGHTNESS);
+        TILES_DEFAULT.add(TILE_VOLUME);
         TILES_DEFAULT.add(TILE_SETTINGS);
         TILES_DEFAULT.add(TILE_WIFI);
         TILES_DEFAULT.add(TILE_MOBILEDATA);
