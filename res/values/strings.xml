@@ -5167,4 +5167,7 @@
 
     <string name="status_bar_lights_out_title">Hide in lights out</string>
     <string name="status_bar_lights_out_summary">Hide the status bar in lights out mode</string>
+
+    <string name="large_recent_thumbs_title">Large recent thumbnails</string>
+    <string name="large_recent_thumbs_summary">Show larger recent application thumbnails</string>
 </resources>

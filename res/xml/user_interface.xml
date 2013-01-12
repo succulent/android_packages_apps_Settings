@@ -27,6 +27,11 @@
         android:entryValues="@array/values_dual_pane_prefs" />
 
     <CheckBoxPreference
+        android:key="large_recent_thumbs"
+        android:title="@string/large_recent_thumbs_title"
+        android:summary="@string/large_recent_thumbs_summary" />
+
+    <CheckBoxPreference
         android:key="ums_notification_connect"
         android:title="@string/ums_notification_connect_title"
         android:summary="@string/ums_notification_connect_summary" />

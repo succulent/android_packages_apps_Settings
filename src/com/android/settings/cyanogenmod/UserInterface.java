@@ -34,9 +34,11 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
 
     private static final String DUAL_PANE_PREFS = "dual_pane_prefs";
     private static final String UMS_NOTIFICATION_CONNECT = "ums_notification_connect";
+    private static final String LARGE_RECENT_THUMBS = "large_recent_thumbs";
 
     private ListPreference mDualPanePrefs;
     private CheckBoxPreference mUmsNotificationConnect;
+    private CheckBoxPreference mLargeRecentThumbs;
 
     private ContentResolver mContentResolver;
     private Context mContext;
@@ -56,6 +58,11 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
 
         mUmsNotificationConnect.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.UMS_NOTIFICATION_CONNECT, 0) == 1));
+
+        mLargeRecentThumbs = (CheckBoxPreference) prefSet.findPreference(LARGE_RECENT_THUMBS);
+
+        mLargeRecentThumbs.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.LARGE_RECENT_THUMBS, 0) == 1));
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -76,6 +83,11 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
             value = mUmsNotificationConnect.isChecked();
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.UMS_NOTIFICATION_CONNECT, value ? 1 : 0);
+            return true;
+        } else if (preference == mLargeRecentThumbs) {
+            value = mLargeRecentThumbs.isChecked();
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.LARGE_RECENT_THUMBS, value ? 1 : 0);
             return true;
         }
         return false;
