@@ -182,10 +182,12 @@ public class SystemSettings extends SettingsPreferenceFragment {
         super.onResume();
 
         // All users
-        updateLightPulseDescription();
+        if (mNotificationPulse != null) {
+            updateLightPulseDescription();
+        }
 
         // Primary user only
-        if (mIsPrimary) {
+        if (mIsPrimary && mBatteryPulse != null) {
             updateBatteryPulseDescription();
         }
     }
