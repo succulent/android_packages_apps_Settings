@@ -37,7 +37,7 @@ import com.android.settings.Utils;
 
 public class NavControl extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
-//    private static final String NAVIGATION_BAR_COLOR = "navigation_bar_color";
+    private static final String NAVIGATION_BUTTON_COLOR = "navigation_button_color";
     private static final String KEY_NAVIGATION_CONTROLS = "navigation_controls";
     private static final String COMBINED_BAR_NAVIGATION_FORCE_MENU =
             "combined_bar_navigation_force_menu";
@@ -55,6 +55,7 @@ public class NavControl extends SettingsPreferenceFragment implements OnPreferen
     private CheckBoxPreference mNavigationControls;
     private CheckBoxPreference mCombinedBarNavigationForceMenu;
     private ListPreference mNavigationAlignment;
+    private Preference mNavigationButtonColor;
 
 /*    private CheckBoxPreference mCombinedBarNavigationGlow;
     private CheckBoxPreference mCombinedBarNavigationQuickGlow;
@@ -110,6 +111,9 @@ public class NavControl extends SettingsPreferenceFragment implements OnPreferen
                 Settings.System.NAVIGATION_ALIGNMENT, 0);
         mNavigationAlignment.setValue(String.valueOf(navAlign));
 
+        mNavigationButtonColor =
+                (Preference) prefSet.findPreference(NAVIGATION_BUTTON_COLOR);
+
         boolean tabletMode = Settings.System.getInt(mContentResolver,
                         Settings.System.TABLET_MODE, 0) > 0;
 
@@ -138,6 +142,15 @@ public class NavControl extends SettingsPreferenceFragment implements OnPreferen
             value = mCombinedBarNavigationForceMenu.isChecked();
             Settings.System.putInt(getContentResolver(),
                     Settings.System.TABLET_FORCE_MENU, value ? 1 : 0);
+            return true;
+        } else if (preference == mNavigationButtonColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mButtonColorListener, Settings.System.getInt(mContentResolver,
+                    Settings.System.NAVIGATION_BUTTON_COLOR,
+                    getActivity().getApplicationContext().getResources().getColor(
+                    com.android.internal.R.color.transparent)));
+            cp.setDefaultColor(0x00000000);
+            cp.show();
             return true;
         }/* else if (preference == mCombinedBarNavigationGlow) {
             value = mCombinedBarNavigationGlow.isChecked();
@@ -194,17 +207,17 @@ public class NavControl extends SettingsPreferenceFragment implements OnPreferen
         return true;
     }
 
-/*
+
     ColorPickerDialog.OnColorChangedListener mButtonColorListener =
         new ColorPickerDialog.OnColorChangedListener() {
             public void colorChanged(int color) {
                 Settings.System.putInt(getContentResolver(),
-                        Settings.System.COMBINED_BAR_NAVIGATION_COLOR, color);
+                        Settings.System.NAVIGATION_BUTTON_COLOR, color);
             }
             public void colorUpdate(int color) {
             }
     };
-
+/*
     ColorPickerDialog.OnColorChangedListener mGlowColorListener =
         new ColorPickerDialog.OnColorChangedListener() {
             public void colorChanged(int color) {

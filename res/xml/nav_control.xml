@@ -47,6 +47,12 @@
             android:dependency="navigation_controls"
             android:title="@string/navigation_ring_title" />
 
+        <PreferenceScreen
+            android:key="navigation_button_color"
+            android:dependency="navigation_controls"
+            android:title="@string/navigation_button_color_title">
+        </PreferenceScreen>
+
 <!--
         <CheckBoxPreference
             android:key="home_button_search"
