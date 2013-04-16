@@ -18,6 +18,7 @@ package com.android.settings.cyanogenmod;
 
 import static com.android.internal.util.cm.QSConstants.TILES_DEFAULT;
 import static com.android.internal.util.cm.QSConstants.TILE_AIRPLANE;
+import static com.android.internal.util.cm.QSConstants.TILE_APPDRAWER;
 import static com.android.internal.util.cm.QSConstants.TILE_AUTOROTATE;
 import static com.android.internal.util.cm.QSConstants.TILE_BATTERY;
 import static com.android.internal.util.cm.QSConstants.TILE_BLUETOOTH;
@@ -133,6 +134,9 @@ public class QuickSettingsUtil {
         TILES.put(TILE_WIFIAP, new QuickSettingsUtil.TileInfo(
                 TILE_WIFIAP, R.string.title_tile_wifiap,
                 "com.android.systemui:drawable/ic_qs_wifi_ap_neutral"));
+        TILES.put(TILE_APPDRAWER, new QuickSettingsUtil.TileInfo(
+                TILE_APPDRAWER, R.string.edge_swipe_app_drawer,
+                "com.android.systemui:drawable/ic_notify_quicksettings_normal"));
         TILES.put(TILE_DAYDREAM, new QuickSettingsUtil.TileInfo(
                 TILE_DAYDREAM, R.string.screensaver_settings_title,
                 "com.android.systemui:drawable/ic_qs_clock_circle"));
