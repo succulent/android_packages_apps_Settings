@@ -1044,6 +1044,10 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="pie_control_notifications_title">Show notifications button</string>
     <string name="pie_control_drawer_title">Show app drawer button</string>
 
+    <string name="pie_control_always_title">Always allow pie controls</string>
+    <string name="pie_control_always_summary_on">Allow pie controls with expanded desktop disabled</string>
+    <string name="pie_control_always_summary_off">Don't allow pie controls with expanded desktop disabled</string>
+
     <string name="pie_control_extra_title">Extra button</string>
     <string name="pie_color_title">PIE button color</string>
     <string name="pie_selected_color_title">PIE selected button color</string>
