@@ -1071,4 +1071,9 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="slide_right">Slide right</string>
     <string name="slide_left">Slide left</string>
 
+    <string name="tablet_compat_button_title">Compatibility mode button</string>
+    <string name="tablet_compat_button_summary_on">Show the compatibility mode button when it is available</string>
+    <string name="tablet_compat_button_summary_off">Always hide the compatibility mode button</string>
+    <string name="tablet_notifications_title">Number of tablet notifications</string>
+
 </resources>
