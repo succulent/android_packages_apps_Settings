@@ -66,7 +66,6 @@ public class SystemSettings extends SettingsPreferenceFragment implements
     private ListPreference mExpandedDesktopPref;
     private PreferenceScreen mBarSettings;
     private PreferenceScreen mQuickSettings;
-    private PreferenceScreen mNotificationPanel;
 
     private boolean mIsPrimary;
 
@@ -100,7 +99,6 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         } else {
             // Secondary user is logged in, remove all primary user specific preferences
             prefScreen.removePreference(findPreference(KEY_BATTERY_LIGHT));
-            prefScreen.removePreference(findPreference(KEY_NOTIFICATION_DRAWER));
         }
 
         // Preferences that applies to all users
@@ -140,9 +138,6 @@ public class SystemSettings extends SettingsPreferenceFragment implements
         mBarSettings = (PreferenceScreen) findPreference(KEY_BAR_SETTINGS);
         mQuickSettings = (PreferenceScreen) findPreference(KEY_QUICK_SETTINGS);
 
-        if (mIsPrimary) {
-            mNotificationPanel = (PreferenceScreen) findPreference(KEY_NOTIFICATION_DRAWER);
-        }
         boolean tabletMode = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
                 Settings.System.TABLET_MODE,
                 getActivity().getApplicationContext().getResources().getBoolean(
@@ -150,13 +145,8 @@ public class SystemSettings extends SettingsPreferenceFragment implements
 
         if (!tabletMode && mBarSettings != null) {
             getPreferenceScreen().removePreference(mBarSettings);
-        } else if (tabletMode) {
-            if (mQuickSettings != null) {
-                getPreferenceScreen().removePreference(mQuickSettings);
-            }
-            if (mIsPrimary && mNotificationPanel != null) {
-                getPreferenceScreen().removePreference(mNotificationPanel);
-            }
+        } else if (tabletMode && mQuickSettings != null) {
+            getPreferenceScreen().removePreference(mQuickSettings);
         }
 
         // Expanded desktop
