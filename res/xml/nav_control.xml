@@ -72,4 +72,11 @@
             android:title="@string/navigation_bar_color_title">
         </PreferenceScreen>
 
+        <com.android.settings.cyanogenmod.SeekBarPreference
+            android:key="navigation_height"
+            android:dependency="navigation_controls"
+            android:title="@string/navigation_height_title"
+            android:max="120"
+            android:defaultValue="100" />
+
 </PreferenceScreen>

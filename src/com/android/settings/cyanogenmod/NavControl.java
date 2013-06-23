@@ -47,6 +47,7 @@ public class NavControl extends SettingsPreferenceFragment implements OnPreferen
     private static final String NAVIGATION_BAR_COLOR = "navigation_bar_color";
     private static final String KEY_NAVIGATION_BAR = "navigation_bar";
     private static final String KEY_NAVIGATION_ALIGNMENT = "nav_alignment";
+    private static final String KEY_NAVIGATION_HEIGHT = "navigation_height";
 
     private CheckBoxPreference mNavigationControls;
     private CheckBoxPreference mCombinedBarNavigationForceMenu;
@@ -55,6 +56,7 @@ public class NavControl extends SettingsPreferenceFragment implements OnPreferen
     private Preference mNavigationButtonGlowColor;
     private SeekBarPreference mNavigationButtonGlowTime;
     private Preference mNavigationBarColor;
+    private SeekBarPreference mNavigationHeight;
 
     private ContentResolver mContentResolver;
     private Context mContext;
@@ -99,6 +101,12 @@ public class NavControl extends SettingsPreferenceFragment implements OnPreferen
                 .getContentResolver(), Settings.System.NAVIGATION_BUTTON_GLOW_TIME, 500));
         mNavigationButtonGlowTime.setOnPreferenceChangeListener(this);
 
+        mNavigationHeight =
+                (SeekBarPreference) prefSet.findPreference(KEY_NAVIGATION_HEIGHT);
+        mNavigationHeight.setDefault(Settings.System.getInt(getActivity().getApplicationContext()
+                .getContentResolver(), Settings.System.NAVIGATION_HEIGHT, 100));
+        mNavigationHeight.setOnPreferenceChangeListener(this);
+
         boolean tabletMode = Settings.System.getInt(mContentResolver,
                 Settings.System.TABLET_MODE, mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_showTabletNavigationBar) ? 1 : 0) == 1;
@@ -113,6 +121,7 @@ public class NavControl extends SettingsPreferenceFragment implements OnPreferen
             Preference naviBar = findPreference(KEY_NAVIGATION_BAR);
             prefSet.removePreference(naviBar);
             prefSet.removePreference(mNavigationAlignment);
+            prefSet.removePreference(mNavigationHeight);
         }
     }
 
@@ -169,6 +178,10 @@ public class NavControl extends SettingsPreferenceFragment implements OnPreferen
             int value = (Integer) newValue;
             Settings.System.putInt(getContentResolver(),
                     Settings.System.NAVIGATION_BUTTON_GLOW_TIME, value);
+        } else if (preference == mNavigationHeight) {
+            int value = (Integer) newValue;
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.NAVIGATION_HEIGHT, value);
         }
         return true;
     }
