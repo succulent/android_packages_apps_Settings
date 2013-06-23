@@ -136,6 +136,13 @@
             android:max="10"
             android:defaultValue="5" />
 
+        <com.android.settings.cyanogenmod.SeekBarPreference
+            android:key="tablet_height"
+            android:dependency="tablet_ui"
+            android:title="@string/tablet_height_title"
+            android:max="120"
+            android:defaultValue="100" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>

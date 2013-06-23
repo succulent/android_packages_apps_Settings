@@ -51,6 +51,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private static final String KEY_STATUS_BAR_LIGHTS_OUT = "status_bar_lights_out";
     private static final String KEY_TABLET_COMPAT_BUTTON = "tablet_compat_button";
     private static final String KEY_TABLET_NOTIFICATIONS = "tablet_notifications";
+    private static final String KEY_TABLET_HEIGHT = "tablet_height";
 
     private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarBattery;
@@ -67,6 +68,7 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
     private SeekBarPreference mFullscreenTimeout;
     private CheckBoxPreference mTabletCompatButton;
     private SeekBarPreference mTabletNotifications;
+    private SeekBarPreference mTabletHeight;
 
     private Preference mClockColor;
     private Preference mBarColor;
@@ -209,6 +211,12 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 .getContentResolver(), Settings.System.TABLET_NOTIFICATIONS, count));
         mTabletNotifications.setOnPreferenceChangeListener(this);
         mTabletNotifications.setSummary(String.valueOf(mTabletNotifications.getDefault()));
+
+        mTabletHeight = (SeekBarPreference) prefSet.findPreference(KEY_TABLET_HEIGHT);
+        mTabletHeight.setDefault(Settings.System.getInt(getActivity().getApplicationContext()
+                .getContentResolver(), Settings.System.TABLET_HEIGHT, 100));
+        mTabletHeight.setOnPreferenceChangeListener(this);
+        mTabletHeight.setSummary(String.valueOf(mTabletHeight.getDefault()));
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -241,6 +249,10 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
             int value = (Integer) newValue;
             Settings.System.putInt(mContentResolver, Settings.System.TABLET_NOTIFICATIONS, value);
             mTabletNotifications.setSummary(String.valueOf(value));
+        } else if (preference == mTabletHeight) {
+            int value = (Integer) newValue;
+            Settings.System.putInt(mContentResolver, Settings.System.TABLET_HEIGHT, value);
+            mTabletHeight.setSummary(String.valueOf(value));
         }
         return false;
     }
