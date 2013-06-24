@@ -106,6 +106,7 @@ public class NavControl extends SettingsPreferenceFragment implements OnPreferen
         mNavigationHeight.setDefault(Settings.System.getInt(getActivity().getApplicationContext()
                 .getContentResolver(), Settings.System.NAVIGATION_HEIGHT, 100));
         mNavigationHeight.setOnPreferenceChangeListener(this);
+        mNavigationHeight.setSummary(String.valueOf(mNavigationHeight.getDefault()));
 
         boolean tabletMode = Settings.System.getInt(mContentResolver,
                 Settings.System.TABLET_MODE, mContext.getResources().getBoolean(
