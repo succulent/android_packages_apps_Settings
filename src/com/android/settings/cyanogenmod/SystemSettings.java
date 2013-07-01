@@ -194,9 +194,12 @@ public class SystemSettings extends SettingsPreferenceFragment implements
      }
 
     private void updatePieControlDescription() {
-        if (Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.PIE_CONTROLS, 0) == 1) {
+        int value = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.PIE_CONTROLS, 0);
+        if (value == 1) {
             mPieControl.setSummary(getString(R.string.pie_control_enabled));
+        } else if (value == 2) {
+            mPieControl.setSummary(getString(R.string.pie_control_enabled_always));
         } else {
             mPieControl.setSummary(getString(R.string.pie_control_disabled));
         }

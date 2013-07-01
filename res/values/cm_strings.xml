@@ -893,7 +893,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
 
     <!-- Pie controls -->
     <string name="pie_control_title">Pie controls</string>
-    <string name="pie_control_enabled">Floating controls enabled</string>
+    <string name="pie_control_enabled">Floating controls when Expanded desktop is enabled</string>
+    <string name="pie_control_enabled_always">Floating controls enabled</string>
     <string name="pie_control_disabled">Floating controls disabled</string>
     <string name="pie_control_sensitivity_title">Responsiveness</string>
     <string name="pie_control_sensitivity_low">Low</string>
