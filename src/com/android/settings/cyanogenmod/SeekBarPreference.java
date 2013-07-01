@@ -65,8 +65,6 @@ public class SeekBarPreference extends DialogPreference implements SeekBar.OnSee
 
     mSeekBar.setMax(mMax);
     mSeekBar.setProgress(mValue);
-    setPositiveButtonText("");
-    setNegativeButtonText("");
     return layout;
   }
   @Override 

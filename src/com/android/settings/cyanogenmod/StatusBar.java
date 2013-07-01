@@ -189,6 +189,8 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 .getContentResolver(), Settings.System.FULLSCREEN_TIMEOUT, 0));
         mFullscreenTimeout.setOnPreferenceChangeListener(this);
         mFullscreenTimeout.setSummary(String.valueOf(mFullscreenTimeout.getDefault()));
+        mFullscreenTimeout.setPositiveButtonText("");
+        mFullscreenTimeout.setNegativeButtonText("");
 
         mTabletCompatButton =
                 (CheckBoxPreference) prefSet.findPreference(KEY_TABLET_COMPAT_BUTTON);
@@ -211,12 +213,16 @@ public class StatusBar extends SettingsPreferenceFragment implements OnPreferenc
                 .getContentResolver(), Settings.System.TABLET_NOTIFICATIONS, count));
         mTabletNotifications.setOnPreferenceChangeListener(this);
         mTabletNotifications.setSummary(String.valueOf(mTabletNotifications.getDefault()));
+        mTabletNotifications.setPositiveButtonText("");
+        mTabletNotifications.setNegativeButtonText("");
 
         mTabletHeight = (SeekBarPreference) prefSet.findPreference(KEY_TABLET_HEIGHT);
         mTabletHeight.setDefault(Settings.System.getInt(getActivity().getApplicationContext()
                 .getContentResolver(), Settings.System.TABLET_HEIGHT, 100));
         mTabletHeight.setOnPreferenceChangeListener(this);
         mTabletHeight.setSummary(String.valueOf(mTabletHeight.getDefault()));
+        mTabletHeight.setPositiveButtonText("");
+        mTabletHeight.setNegativeButtonText("");
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {

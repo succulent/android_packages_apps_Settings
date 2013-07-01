@@ -1103,4 +1103,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="tablet_notifications_title">Number of tablet notifications</string>
     <string name="tablet_height_title">Tablet status bar height percentage</string>
     <string name="navigation_height_title">Navigation bar height percentage</string>
+
+    <string name="tablet_bar_settings_title">Buttons</string>
+    <string name="tablet_bar_settings_picker_title">Button picker</string>
+    <string name="tablet_bar_settings_order_title">Button order</string>
 </resources>
