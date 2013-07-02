@@ -4334,9 +4334,6 @@
 
     <!-- Label for are-notifications-enabled checkbox in app details [CHAR LIMIT=20] -->
     <string name="app_notifications_switch_label">Show notifications</string>
-    <!-- Label for are-notifications-enabled checkbox in app details [CHAR LIMIT=20] -->
-    <string name="app_halo_label_black">Blacklist from HALO</string>
-    <string name="app_halo_label_white">Whitelist from HALO</string>
 
     <!--  Help URLs for some screens. Not specified here. Specified in product overlays --><skip/>
     <!-- Help menu label [CHAR LIMIT=20] -->
@@ -4382,17 +4379,4 @@
     <!-- Cell Broadcast settings description [CHAR LIMIT=100] -->
     <string name="cell_broadcast_settings_summary">Select the types of emergency alerts to display.</string>
 
-    <!-- HALO -->
-    <string name="halo_settings_title">HALO</string>
-    <string name="halo_hide_title">Hide HALO after activity</string>
-    <string name="halo_hide_summary">HALO will appear for incoming tasks and scroll out of sight after a while</string>
-    <string name="halo_reversed_title">Reverse HALO</string>
-    <string name="halo_reversed_summary">Applies for task switching and moving gestures</string>
-    <string name="halo_state_title">HALO policy</string>
-    <string name="halo_state_summary">Enables black/white listing notifications</string>
-    <string name="halo_state_black">Black list</string>
-    <string name="halo_state_white">White list</string>
-    <string name="halo_pause_title">Pause active app</string>
-    <string name="halo_pause_summary">When opening an app with HALO the underlying app will get paused</string>
-    <string name="halo_active_title">Activate HALO</string>
 </resources>

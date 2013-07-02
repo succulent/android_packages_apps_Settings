@@ -48,12 +48,18 @@ public class Halo extends SettingsPreferenceFragment
     private static final String KEY_HALO_HIDE = "halo_hide";
     private static final String KEY_HALO_REVERSED = "halo_reversed";
     private static final String KEY_HALO_PAUSE = "halo_pause";
+    private static final String KEY_HALO_BUTTON_COLOR = "halo_button_color";
+    private static final String KEY_HALO_TEXT_BUBBLE_COLOR = "halo_text_bubble_color";
+    private static final String KEY_HALO_PING_COLOR = "halo_ping_color";
 
     private CheckBoxPreference mHaloActive;
     private ListPreference mHaloState;
     private CheckBoxPreference mHaloHide;
     private CheckBoxPreference mHaloReversed;
     private CheckBoxPreference mHaloPause;
+    private Preference mHaloButtonColor;
+    private Preference mHaloTextBubbleColor;
+    private Preference mHaloPingColor;
 
     private Context mContext;
     private INotificationManager mNotificationManager;
@@ -89,6 +95,13 @@ public class Halo extends SettingsPreferenceFragment
         mHaloPause = (CheckBoxPreference) prefSet.findPreference(KEY_HALO_PAUSE);
         mHaloPause.setChecked(Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.HALO_PAUSE, isLowRAM) == 1);
+
+        mHaloButtonColor =
+                (Preference) prefSet.findPreference(KEY_HALO_BUTTON_COLOR);
+        mHaloTextBubbleColor =
+                (Preference) prefSet.findPreference(KEY_HALO_TEXT_BUBBLE_COLOR);
+        mHaloPingColor =
+                (Preference) prefSet.findPreference(KEY_HALO_PING_COLOR);
     }
 
     private boolean isHaloPolicyBlack() {
@@ -118,6 +131,27 @@ public class Halo extends SettingsPreferenceFragment
             Settings.System.putInt(mContext.getContentResolver(),
                     Settings.System.HALO_PAUSE, mHaloPause.isChecked()
                     ? 1 : 0);
+        } else if (preference == mHaloButtonColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mButtonColorListener, Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.HALO_BUTTON_COLOR, 0x00000000));
+            cp.setDefaultColor(0x00000000);
+            cp.show();
+            return true;
+        } else if (preference == mHaloTextBubbleColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mTextBubbleColorListener, Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.HALO_TEXT_BUBBLE_COLOR, 0x00000000));
+            cp.setDefaultColor(0x00000000);
+            cp.show();
+            return true;
+        } else if (preference == mHaloPingColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mPingColorListener, Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.HALO_PING_COLOR, 0xff33b5e5));
+            cp.setDefaultColor(0xff33b5e5);
+            cp.show();
+            return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -134,4 +168,34 @@ public class Halo extends SettingsPreferenceFragment
         }
         return false;
     }
+
+    ColorPickerDialog.OnColorChangedListener mButtonColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.HALO_BUTTON_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
+
+    ColorPickerDialog.OnColorChangedListener mTextBubbleColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.HALO_TEXT_BUBBLE_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
+
+    ColorPickerDialog.OnColorChangedListener mPingColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.HALO_PING_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
 }

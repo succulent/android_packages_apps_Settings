@@ -1108,4 +1108,26 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="tablet_bar_settings_title">Buttons</string>
     <string name="tablet_bar_settings_picker_title">Button picker</string>
     <string name="tablet_bar_settings_order_title">Button order</string>
+
+    <!-- Label for are-notifications-enabled checkbox in app details [CHAR LIMIT=20] -->
+    <string name="app_halo_label_black">Blacklist from HALO</string>
+    <string name="app_halo_label_white">Whitelist from HALO</string>
+    <!-- HALO -->
+    <string name="halo_settings_title">HALO</string>
+    <string name="halo_hide_title">Hide HALO after activity</string>
+    <string name="halo_hide_summary">HALO will appear for incoming tasks and scroll out of sight after a while</string>
+    <string name="halo_reversed_title">Reverse HALO</string>
+    <string name="halo_reversed_summary">Applies for task switching and moving gestures</string>
+    <string name="halo_state_title">HALO policy</string>
+    <string name="halo_state_summary">Enables black/white listing notifications</string>
+    <string name="halo_state_black">Black list</string>
+    <string name="halo_state_white">White list</string>
+    <string name="halo_pause_title">Pause active app</string>
+    <string name="halo_pause_summary">When opening an app with HALO the underlying app will get paused</string>
+    <string name="halo_active_title">Activate HALO</string>
+    <string name="halo_color_title">HALO color</string>
+    <string name="halo_button_color_title">HALO button color</string>
+    <string name="halo_text_bubble_color_title">HALO text bubble color</string>
+    <string name="halo_ping_color_title">HALO ping color</string>
+
 </resources>
