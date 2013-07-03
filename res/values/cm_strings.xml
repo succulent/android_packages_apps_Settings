@@ -995,6 +995,8 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="dual_pane_prefs_landscape">Only in landscape</string>
     <string name="ums_notification_connect_title">USB notification connect</string>
     <string name="ums_notification_connect_summary">Activate or deactivate USB storage by clicking notification</string>
+    <string name="hide_usb_notification_title">Hide USB notification</string>
+    <string name="hide_usb_notification_summary">Hide the USB storage notification</string>
 
     <string name="edge_swipe_title">Gesture navigation</string>
     <string name="edge_swipe_right_title">Zone 3 Action</string>
@@ -1129,5 +1131,4 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="halo_button_color_title">HALO button color</string>
     <string name="halo_text_bubble_color_title">HALO text bubble color</string>
     <string name="halo_ping_color_title">HALO ping color</string>
-
 </resources>
