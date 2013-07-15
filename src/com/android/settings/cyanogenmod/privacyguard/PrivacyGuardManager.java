@@ -110,7 +110,7 @@ public class PrivacyGuardManager extends Fragment
     public void onDestroyView() {
         super.onDestroyView();
         Fragment f = getFragmentManager().findFragmentById(R.id.privacy_guard_prefs);
-        if (f != null && !getFragmentManager().beginTransaction().isEmpty()) {
+        if (f != null && !getFragmentManager().isDestroyed()) {
             getFragmentManager().beginTransaction().remove(f).commit();
         }
     }
