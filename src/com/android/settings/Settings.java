@@ -423,9 +423,9 @@ public class Settings extends PreferenceActivity
     }
 
     private void updateHeaderList(List<Header> target) {
-        final boolean showDev = mDevelopmentPreferences.getBoolean(
-                DevelopmentSettings.PREF_SHOW,
-                android.os.Build.TYPE.equals("eng"));
+        final boolean showDev = true;//mDevelopmentPreferences.getBoolean(
+                //DevelopmentSettings.PREF_SHOW,
+                //android.os.Build.TYPE.equals("eng"));
         int i = 0;
 
         final UserManager um = (UserManager) getSystemService(Context.USER_SERVICE);
@@ -493,27 +493,26 @@ public class Settings extends PreferenceActivity
                 if (!DevelopmentSettings.isRootForAppsEnabled()) {
                     target.remove(i);
                 }
-            } else if (id == R.id.account_add) {
-                if (um.hasUserRestriction(UserManager.DISALLOW_MODIFY_ACCOUNTS)) {
+            }
+
+            try {
+                if (target.get(i) == header
+                        && UserHandle.MU_ENABLED && UserHandle.myUserId() != 0
+                        && !ArrayUtils.contains(SETTINGS_FOR_RESTRICTED, id)) {
                     target.remove(i);
                 }
-            }
 
-            if (i < target.size() && target.get(i) == header
-                    && UserHandle.MU_ENABLED && UserHandle.myUserId() != 0
-                    && !ArrayUtils.contains(SETTINGS_FOR_RESTRICTED, id)) {
-                target.remove(i);
-            }
-
-            // Increment if the current one wasn't removed by the Utils code.
-            if (i < target.size() && target.get(i) == header) {
-                // Hold on to the first header, when we need to reset to the top-level
-                if (mFirstHeader == null &&
-                        HeaderAdapter.getHeaderType(header) != HeaderAdapter.HEADER_TYPE_CATEGORY) {
-                    mFirstHeader = header;
+                // Increment if the current one wasn't removed by the Utils code.
+                if (target.get(i) == header) {
+                    // Hold on to the first header, when we need to reset to the top-level
+                    if (mFirstHeader == null &&
+                            HeaderAdapter.getHeaderType(header) != HeaderAdapter.HEADER_TYPE_CATEGORY) {
+                        mFirstHeader = header;
+                    }
+                    mHeaderIndexMap.put(id, i);
+                    i++;
                 }
-                mHeaderIndexMap.put(id, i);
-                i++;
+            } catch (Exception e) {
             }
         }
     }

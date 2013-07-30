@@ -18,11 +18,13 @@ package com.android.settings.cyanogenmod;
 
 import static com.android.internal.util.cm.QSConstants.TILES_DEFAULT;
 import static com.android.internal.util.cm.QSConstants.TILE_AIRPLANE;
+import static com.android.internal.util.cm.QSConstants.TILE_APPDRAWER;
 import static com.android.internal.util.cm.QSConstants.TILE_AUTOROTATE;
 import static com.android.internal.util.cm.QSConstants.TILE_BATTERY;
 import static com.android.internal.util.cm.QSConstants.TILE_BLUETOOTH;
 import static com.android.internal.util.cm.QSConstants.TILE_BRIGHTNESS;
 import static com.android.internal.util.cm.QSConstants.TILE_CAMERA;
+import static com.android.internal.util.cm.QSConstants.TILE_DAYDREAM;
 import static com.android.internal.util.cm.QSConstants.TILE_DELIMITER;
 import static com.android.internal.util.cm.QSConstants.TILE_EXPANDEDDESKTOP;
 import static com.android.internal.util.cm.QSConstants.TILE_GPS;
@@ -145,6 +147,12 @@ public class QuickSettingsUtil {
         registerTile(new QuickSettingsUtil.TileInfo(
                 TILE_WIFIAP, R.string.title_tile_wifiap,
                 "com.android.systemui:drawable/ic_qs_wifi_ap_neutral"));
+        registerTile(new QuickSettingsUtil.TileInfo(
+                TILE_APPDRAWER, R.string.edge_swipe_app_drawer,
+                "com.android.systemui:drawable/ic_notify_quicksettings_normal"));
+        registerTile(new QuickSettingsUtil.TileInfo(
+                TILE_DAYDREAM, R.string.screensaver_settings_title,
+                "com.android.systemui:drawable/ic_qs_clock_circle"));
     }
 
     private static void registerTile(QuickSettingsUtil.TileInfo info) {

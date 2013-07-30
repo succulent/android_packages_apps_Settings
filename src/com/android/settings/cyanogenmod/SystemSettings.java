@@ -18,6 +18,7 @@ package com.android.settings.cyanogenmod;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -26,7 +27,6 @@ import android.os.UserHandle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.util.Log;
@@ -36,7 +36,10 @@ import android.view.WindowManagerGlobal;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
-public class SystemSettings extends SettingsPreferenceFragment  implements
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class SystemSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
     private static final String TAG = "SystemSettings";
 
@@ -53,13 +56,16 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
     private static final String KEY_POWER_MENU = "power_menu";
     private static final String KEY_PIE_CONTROL = "pie_control";
     private static final String KEY_EXPANDED_DESKTOP = "expanded_desktop";
-    private static final String KEY_EXPANDED_DESKTOP_NO_NAVBAR = "expanded_desktop_no_navbar";
+    private static final String KEY_NAVIGATION_CONTROL = "navigation_control";
+    private static final String KEY_USER_INTERFACE = "user_interface";
+    private static final String KEY_BAR_SETTINGS = "combined_bar_settings";
 
     private PreferenceScreen mNotificationPulse;
     private PreferenceScreen mBatteryPulse;
     private PreferenceScreen mPieControl;
     private ListPreference mExpandedDesktopPref;
-    private CheckBoxPreference mExpandedDesktopNoNavbarPref;
+    private PreferenceScreen mBarSettings;
+    private PreferenceScreen mQuickSettings;
 
     private boolean mIsPrimary;
 
@@ -72,29 +78,9 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
 
         // Only show the hardware keys config on a device that does not have a navbar
         // and the navigation bar config on phones that has a navigation bar
-        boolean removeKeys = false;
-        boolean removeNavbar = false;
-
-        PreferenceCategory navbarCategory =
-                (PreferenceCategory) findPreference(KEY_NAVIGATION_BAR_CATEGORY);
-
-        IWindowManager windowManager = IWindowManager.Stub.asInterface(
-                ServiceManager.getService(Context.WINDOW_SERVICE));
-        try {
-            if (windowManager.hasNavigationBar()) {
-                removeKeys = true;
-            } else {
-                removeNavbar = true;
-            }
-        } catch (RemoteException e) {
-            // Do nothing
-        }
-
-        if (removeKeys) {
+        if (getResources().getInteger(
+                com.android.internal.R.integer.config_deviceHardwareKeys) == 0) {
             prefScreen.removePreference(findPreference(KEY_HARDWARE_KEYS));
-        }
-        if (removeNavbar) {
-            prefScreen.removePreference(navbarCategory);
         }
 
         // Determine which user is logged in
@@ -127,34 +113,6 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
 
         // Pie controls
         mPieControl = (PreferenceScreen) findPreference(KEY_PIE_CONTROL);
-        if (mPieControl != null && removeNavbar) {
-            // Remove on devices without a navbar to start with
-            prefScreen.removePreference(mPieControl);
-            mPieControl = null;
-        }
-
-        // Expanded desktop
-        mExpandedDesktopPref = (ListPreference) findPreference(KEY_EXPANDED_DESKTOP);
-        mExpandedDesktopNoNavbarPref = (CheckBoxPreference) findPreference(KEY_EXPANDED_DESKTOP_NO_NAVBAR);
-
-        int expandedDesktopValue = Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_DESKTOP_STYLE, 0);
-
-        // Hide no-op "Status bar visible" mode on devices without navbar
-        try {
-            if (WindowManagerGlobal.getWindowManagerService().hasNavigationBar()) {
-                mExpandedDesktopPref.setOnPreferenceChangeListener(this);
-                mExpandedDesktopPref.setValue(String.valueOf(expandedDesktopValue));
-                updateExpandedDesktop(expandedDesktopValue);
-                prefScreen.removePreference(mExpandedDesktopNoNavbarPref);
-            } else {
-                mExpandedDesktopNoNavbarPref.setOnPreferenceChangeListener(this);
-                mExpandedDesktopNoNavbarPref.setChecked(expandedDesktopValue > 0);
-                prefScreen.removePreference(mExpandedDesktopPref);
-            }
-        } catch (RemoteException e) {
-            Log.e(TAG, "Error getting navigation bar status");
-        }
 
         // Don't display the lock clock preference if its not installed
         removePreferenceIfPackageNotInstalled(findPreference(KEY_LOCK_CLOCK));
@@ -176,6 +134,30 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
         if (mIsPrimary && mBatteryPulse != null) {
             updateBatteryPulseDescription();
         }
+
+        mBarSettings = (PreferenceScreen) findPreference(KEY_BAR_SETTINGS);
+        mQuickSettings = (PreferenceScreen) findPreference(KEY_QUICK_SETTINGS);
+
+        boolean tabletMode = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.TABLET_MODE,
+                getActivity().getApplicationContext().getResources().getBoolean(
+                com.android.internal.R.bool.config_showTabletNavigationBar) ? 1 : 0) == 1;
+
+        if (!tabletMode && mBarSettings != null) {
+            getPreferenceScreen().removePreference(mBarSettings);
+        } else if (tabletMode && mQuickSettings != null) {
+            getPreferenceScreen().removePreference(mQuickSettings);
+        }
+
+        // Expanded desktop
+        mExpandedDesktopPref = (ListPreference) findPreference(KEY_EXPANDED_DESKTOP);
+
+        int expandedDesktopValue = Settings.System.getInt(getContentResolver(),
+                Settings.System.EXPANDED_DESKTOP_STYLE, 0);
+
+        mExpandedDesktopPref.setOnPreferenceChangeListener(this);
+        mExpandedDesktopPref.setValue(String.valueOf(expandedDesktopValue));
+        updateExpandedDesktop(expandedDesktopValue);
     }
 
     @Override
@@ -187,10 +169,6 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
         if (preference == mExpandedDesktopPref) {
             int expandedDesktopValue = Integer.valueOf((String) objValue);
             updateExpandedDesktop(expandedDesktopValue);
-            return true;
-        } else if (preference == mExpandedDesktopNoNavbarPref) {
-            boolean value = (Boolean) objValue;
-            updateExpandedDesktop(value ? 2 : 0);
             return true;
         }
 
@@ -216,9 +194,12 @@ public class SystemSettings extends SettingsPreferenceFragment  implements
      }
 
     private void updatePieControlDescription() {
-        if (Settings.System.getInt(getActivity().getContentResolver(),
-                Settings.System.PIE_CONTROLS, 0) == 1) {
+        int value = Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.PIE_CONTROLS, 0);
+        if (value == 1) {
             mPieControl.setSummary(getString(R.string.pie_control_enabled));
+        } else if (value == 2) {
+            mPieControl.setSummary(getString(R.string.pie_control_enabled_always));
         } else {
             mPieControl.setSummary(getString(R.string.pie_control_disabled));
         }

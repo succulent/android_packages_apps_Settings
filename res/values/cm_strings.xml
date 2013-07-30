@@ -909,6 +909,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <!-- Pie controls -->
     <string name="pie_control_title">Pie controls</string>
     <string name="pie_control_enabled">Floating controls when Expanded desktop is enabled</string>
+    <string name="pie_control_enabled_always">Floating controls enabled</string>
     <string name="pie_control_disabled">Floating controls disabled</string>
     <string name="pie_control_sensitivity_title">Responsiveness</string>
     <string name="pie_control_sensitivity_low">Low</string>
@@ -997,4 +998,166 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="privacy_guard_manager_show_system_apps">Show built-in apps</string>
     <string name="privacy_guard_manager_filter_permissions">Permission filter</string>
 
+    <string name="navigation_controls_title">Navigation buttons</string>
+
+    <string name="lockscreen_all_widgets_title">Show all widgets in lockscreen</string>
+    <string name="lockscreen_widget_frame_title">Show widget frame in lockscreen</string>
+    <string name="lockscreen_camera_widget_title">Camera widget</string>
+
+    <string name="status_bar_tablet_title">Tablet Tweaks</string>
+    <string name="tablet_ui_title">Tablet status bar</string>
+    <string name="tablet_ui_summary">Navigation buttons and notifications on the bottom of the screen</string>
+    <string name="tablet_flipped_title">Flip status bar</string>
+    <string name="tablet_flipped_summary">Flip position of buttons and notifications</string>
+    <string name="tablet_scaled_icons_title">Scale status bar icons</string>
+    <string name="tablet_scaled_icons_summary">Use larger icons for notifications</string>
+
+    <string name="user_interface_title">User interface</string>
+    <string name="dual_pane_prefs_title">Dual pane preferences</string>
+    <string name="dual_pane_prefs_summary">Choose when to use dual pane preferences</string>
+    <string name="dual_pane_prefs_on">Always</string>
+    <string name="dual_pane_prefs_off">Never</string>
+    <string name="dual_pane_prefs_landscape">Only in landscape</string>
+    <string name="ums_notification_connect_title">USB notification connect</string>
+    <string name="ums_notification_connect_summary">Activate or deactivate USB storage by clicking notification</string>
+    <string name="hide_usb_notification_title">Hide USB notification</string>
+    <string name="hide_usb_notification_summary">Hide the USB storage notification</string>
+
+    <string name="edge_swipe_title">Gesture navigation</string>
+    <string name="edge_swipe_right_title">Zone 3 Action</string>
+    <string name="edge_swipe_left_title">Zone 1 Action</string>
+    <string name="edge_swipe_top_title">Zone 2 Action</string>
+    <string name="edge_swipe_bottom_title">Zone 4 Action</string>
+    <string name="edge_swipe_move_title">Capture touch events</string>
+    <string name="edge_swipe_move_summary">Stop touches in zones from reaching the application</string>
+    <string name="edge_swipe_none">No action</string>
+    <string name="edge_swipe_expand">Expand notifications</string>
+    <string name="edge_swipe_recents">Recent apps</string>
+    <string name="edge_swipe_hide">Toggle status bar</string>
+    <string name="edge_swipe_expand_qs">Expand quick settings</string>
+    <string name="edge_swipe_back">Back</string>
+    <string name="edge_swipe_home">Home</string>
+    <string name="edge_swipe_menu">Menu</string>
+    <string name="edge_swipe_app">Launch application ...</string>
+    <string name="edge_swipe_blacklist_title">Gesture app blacklist</string>
+    <string name="gesture_area_too_large">The selected gesture area is too large and will not be set.</string>
+    <string name="gesture_tap">Single tap</string>
+    <string name="gesture_long_press">Long press</string>
+    <string name="gesture_swipe">Swipe out of zone</string>
+    <string name="gesture_swipe_distance">Swipe distance</string>
+    <string name="edge_swipe_app_drawer">Trebuchet app drawer</string>
+    <string name="edge_swipe_app_switch">Quick app switch</string>
+
+    <!-- Section title for list of downloaded apps [CHAR LIMIT=30] -->
+    <string name="user_market_apps_heading">Installed apps</string>
+
+    <string name="combined_bar_navigation_force_menu_title">Always show menu button</string>
+
+    <string name="status_bar_lights_out_title">Hide in lights out</string>
+    <string name="status_bar_lights_out_summary">Hide the navigation bar or tablet status bar in lights out mode</string>
+
+    <string name="large_recent_thumbs_title">Large recent thumbnails</string>
+    <string name="large_recent_thumbs_summary">Show larger recent application thumbnails</string>
+
+    <string name="center">Center</string>
+    <string name="right">Right</string>
+    <string name="left">Left</string>
+
+    <string name="nav_alignment">Navigation alignment</string>
+    <string name="nav_alignment_summary">Align the navigation buttons to the center, right, or left</string>
+
+    <string name="navigation_button_color_title">Navigation button color</string>
+    <string name="dialog_indicator_color_title">Select color</string>
+    <string name="navigation_button_glow_color_title">Navigation button glow color</string>
+    <string name="navigation_button_glow_time_title">Navigation button glow time</string>
+
+    <!-- Settings panel  -->
+    <string name="settings_panel_title">Settings panel</string>
+
+    <!-- Combined Bar #CM -->
+    <string name="combined_bar_settings_title">Notification panel settings</string>
+    <string name="combined_bar_settings_picker_title">Settings entries</string>
+    <string name="combined_bar_settings_order_title">Settings order</string>
+    <string name="combined_bar_settings_wifi">Wi-Fi switch</string>
+    <string name="combined_bar_settings_bluetooth">Bluetooth switch</string>
+    <string name="combined_bar_settings_volume">Volume slider</string>
+    <string name="combined_bar_settings_brightness">Brightness slider</string>
+    <string name="combined_bar_settings_notifications">Notifications switch</string>
+    <string name="combined_bar_settings_shortcut">Settings shortcut</string>
+    <string name="combined_bar_settings_autorotate">Auto-rotate screen switch</string>
+    <string name="combined_bar_settings_airplane">Airplane mode switch</string>
+    <string name="combined_bar_settings_media">Media control</string>
+    <string name="combined_bar_settings_sleep">Sleep selector</string>
+    <string name="combined_bar_settings_location">GPS selector</string>
+    <string name="combined_bar_settings_flashlight">LED flashlight selector</string>
+
+    <string name="clock_color_title">Clock color</string>
+    <string name="status_bar_color_title">Status bar color</string>
+    <string name="navigation_bar_color_title">Navigation bar color</string>
+    <string name="status_bar_fullscreen_title">Fullscreen mode</string>
+    <string name="status_bar_fullscreen_summary">Draw status bar over window content</string>
+    <string name="status_bar_timeout_title">Status bar timeout</string>
+    <string name="status_bar_timeout_summary">Hide the status bar after this many seconds</string>
+    <string name="status_bar_notification_color_title">Notification panel color</string>
+    <string name="recents_panel_color_title">Recents panel color</string>
+    <string name="tile_color_title">Tile color</string>
+
+    <string name="pie_control_settings_title">Show quick settings button</string>
+    <string name="pie_control_notifications_title">Show notifications button</string>
+    <string name="pie_control_drawer_title">Show app drawer button</string>
+
+    <string name="pie_control_always_title">Always allow pie controls</string>
+    <string name="pie_control_always_summary_on">Allow pie controls with expanded desktop disabled</string>
+    <string name="pie_control_always_summary_off">Do not allow pie controls with expanded desktop disabled</string>
+
+    <string name="pie_control_extra_title">Extra button</string>
+    <string name="pie_color_title">PIE button color</string>
+    <string name="pie_selected_color_title">PIE selected button color</string>
+    <string name="pie_outline_color_title">PIE button color outline</string>
+
+    <string name="pie_start_title">PIE trigger height</string>
+    <string name="pie_distance_title">PIE trigger distance</string>
+    <string name="pref_disable_bootanimation_title">Disable boot animation</string>
+    <string name="pref_disable_wallpaperservice_title">Disable wallpaper service</string>
+    <string name="pref_disable_wallpaperservice_summary">Disable wallpaper to reduce SystemUI memory usage (requires reboot)</string>
+
+    <string name="drawer_transition_title">Drawer gesture animation</string>
+    <string name="app_switch_transition_title">Quick app switch gesture animation</string>
+    <string name="default_transition">Normal animation</string>
+    <string name="slide_right">Slide right</string>
+    <string name="slide_left">Slide left</string>
+
+    <string name="tablet_compat_button_title">Compatibility mode button</string>
+    <string name="tablet_compat_button_summary_on">Show the compatibility mode button when it is available</string>
+    <string name="tablet_compat_button_summary_off">Always hide the compatibility mode button</string>
+    <string name="tablet_notifications_title">Number of tablet notifications</string>
+    <string name="tablet_height_title">Tablet status bar height percentage</string>
+    <string name="navigation_height_title">Navigation bar height percentage</string>
+
+    <string name="tablet_bar_settings_title">Buttons</string>
+    <string name="tablet_bar_settings_picker_title">Button picker</string>
+    <string name="tablet_bar_settings_order_title">Button order</string>
+
+    <!-- Label for are-notifications-enabled checkbox in app details [CHAR LIMIT=20] -->
+    <string name="app_halo_label_black">Blacklist from HALO</string>
+    <string name="app_halo_label_white">Whitelist from HALO</string>
+    <!-- HALO -->
+    <string name="halo_settings_title">HALO</string>
+    <string name="halo_hide_title">Hide HALO after activity</string>
+    <string name="halo_hide_summary">HALO will appear for incoming tasks and scroll out of sight after a while</string>
+    <string name="halo_reversed_title">Reverse HALO</string>
+    <string name="halo_reversed_summary">Applies for task switching and moving gestures</string>
+    <string name="halo_state_title">HALO policy</string>
+    <string name="halo_state_summary">Enables black/white listing notifications</string>
+    <string name="halo_state_black">Black list</string>
+    <string name="halo_state_white">White list</string>
+    <string name="halo_pause_title">Pause active app</string>
+    <string name="halo_pause_summary">When opening an app with HALO the underlying app will get paused</string>
+    <string name="halo_active_title">Activate HALO</string>
+    <string name="halo_color_title">HALO color</string>
+    <string name="halo_button_color_title">HALO button color</string>
+    <string name="halo_text_bubble_color_title">HALO text bubble color</string>
+    <string name="halo_ping_color_title">HALO ping color</string>
+    <string name="halo_gone_title">HALO notification visibility</string>
+    <string name="halo_gone_summary">Completely hide HALO when there are no notifications</string>
 </resources>

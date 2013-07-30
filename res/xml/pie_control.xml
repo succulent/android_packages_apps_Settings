@@ -24,6 +24,15 @@
         android:persistent="false"
         android:defaultValue="false" />
 
+    <CheckBoxPreference
+        android:key="pie_control_always_checkbox"
+        android:title="@string/pie_control_always_title"
+        android:summaryOn="@string/pie_control_always_summary_on"
+        android:summaryOff="@string/pie_control_always_summary_off"
+        android:persistent="false"
+        android:dependency="pie_control_checkbox"
+        android:defaultValue="false" />
+
     <ListPreference
         android:key="pie_control_sensitivity"
         android:title="@string/pie_control_sensitivity_title"
@@ -36,6 +45,21 @@
         android:key="pie_control_size"
         android:title="@string/pie_control_size"
         android:dialogTitle="@string/pie_control_size" />
+
+    <PreferenceScreen
+        android:key="pie_color"
+        android:title="@string/pie_color_title">
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:key="pie_outline_color"
+        android:title="@string/pie_outline_color_title">
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:key="pie_selected_color"
+        android:title="@string/pie_selected_color_title">
+    </PreferenceScreen>
 
     <PreferenceCategory
         android:title="@string/pie_control_trigger_positions">

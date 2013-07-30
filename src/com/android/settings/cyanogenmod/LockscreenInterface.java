@@ -73,12 +73,16 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private static final String LOCKSCREEN_WIDGETS_CATEGORY = "lockscreen_widgets_category";
     private static final String KEY_LOCKSCREEN_ENABLE_WIDGETS = "lockscreen_enable_widgets";
     private static final String KEY_LOCKSCREEN_ENABLE_CAMERA = "lockscreen_enable_camera";
+    private static final String KEY_LOCKSCREEN_ALL_WIDGETS = "lockscreen_all_widgets";
+    private static final String KEY_LOCKSCREEN_WIDGET_FRAME = "lockscreen_widget_frame";
 
     private ListPreference mCustomBackground;
     private ListPreference mBatteryStatus;
     private CheckBoxPreference mMaximizeWidgets;
     private CheckBoxPreference mEnableWidgets;
     private CheckBoxPreference mEnableCamera;
+    private CheckBoxPreference mAllWidgets;
+    private CheckBoxPreference mWidgetFrame;
 
     private File mWallpaperImage;
     private File mWallpaperTemporary;
@@ -165,6 +169,12 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
             mCustomBackground.setValueIndex(LOCKSCREEN_BACKGROUND_COLOR_FILL);
         }
         mCustomBackground.setSummary(getResources().getString(resId));
+        mAllWidgets = (CheckBoxPreference) findPreference(KEY_LOCKSCREEN_ALL_WIDGETS);
+        mAllWidgets.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.KG_ALL_WIDGETS, 0) == 1);
+        mWidgetFrame = (CheckBoxPreference) findPreference(KEY_LOCKSCREEN_WIDGET_FRAME);
+        mWidgetFrame.setChecked(Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+                Settings.System.KG_HIDE_OUTLINE, 0) == 0);
     }
 
     @Override
@@ -238,6 +248,20 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         }
 
         return false;
+    }
+
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        if (preference == mAllWidgets) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.KG_ALL_WIDGETS, mAllWidgets.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mWidgetFrame) {
+            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+                    Settings.System.KG_HIDE_OUTLINE, mWidgetFrame.isChecked() ? 0 : 1);
+            return true;
+        }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
     private void updateKeyguardState(boolean enableCamera, boolean enableWidgets) {

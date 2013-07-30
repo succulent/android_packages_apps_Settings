@@ -99,5 +99,13 @@
             android:title="@string/lockscreen_music_controls_title"
             android:summary="@string/lockscreen_music_controls_summary" />
 
+	    <CheckBoxPreference
+    	    android:key="lockscreen_all_widgets"
+    	    android:title="@string/lockscreen_all_widgets_title" />
+
+    	<CheckBoxPreference
+    	    android:key="lockscreen_widget_frame"
+    	    android:title="@string/lockscreen_widget_frame_title" />
+
     </PreferenceCategory>
 </PreferenceScreen>

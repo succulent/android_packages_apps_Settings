@@ -597,5 +597,92 @@
         <item>50</item>
         <item>25</item>
     </integer-array>
+
+    <!-- Dual Pane Prefs -->
+    <string-array name="entries_dual_pane_prefs" translatable="false">
+        <item>@string/dual_pane_prefs_off</item>
+        <item>@string/dual_pane_prefs_on</item>
+        <item>@string/dual_pane_prefs_landscape</item>
+    </string-array>
+
+    <string-array name="values_dual_pane_prefs" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="edge_swipe_entries">
+        <item>@string/edge_swipe_none</item>
+        <item>@string/edge_swipe_expand</item>
+        <item>@string/edge_swipe_hide</item>
+        <item>@string/edge_swipe_expand_qs</item>
+        <item>@string/edge_swipe_back</item>
+        <item>@string/edge_swipe_home</item>
+        <item>@string/edge_swipe_menu</item>
+        <item>@string/edge_swipe_app</item>
+        <item>@string/edge_swipe_recents</item>
+        <item>@string/edge_swipe_app_drawer</item>
+        <item>@string/edge_swipe_app_switch</item>
+    </string-array>
+
+    <string-array name="edge_swipe_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <string-array name="gesture_type_entries">
+        <item>@string/gesture_tap</item>
+        <item>@string/gesture_long_press</item>
+        <item>@string/gesture_swipe</item>
+    </string-array>
+
+    <string-array name="gesture_type_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="nav_alignment_entries">
+        <item>@string/center</item>
+        <item>@string/right</item>
+        <item>@string/left</item>
+    </string-array>
+
+    <string-array name="nav_alignment_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="transition_entries">
+        <item>@string/default_transition</item>
+        <item>@string/slide_right</item>
+        <item>@string/slide_left</item>
+    </string-array>
+
+    <string-array name="transition_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="entries_halo_state">
+        <item>@string/halo_state_black</item>
+        <item>@string/halo_state_white</item>
+    </string-array>
+
+    <string-array name="values_halo_state" translatable="false">
+        <item>1</item>
+        <item>0</item>
+    </string-array>
 </resources>
 

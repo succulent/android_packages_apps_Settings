@@ -75,6 +75,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
     PreferenceCategory mGeneralSettings;
     PreferenceCategory mStaticTiles;
     PreferenceCategory mDynamicTiles;
+    Preference mTileColor;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -169,6 +170,8 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
                 mDynamicWifi = null;
             }
         }
+
+        mTileColor = findPreference("tile_color");
     }
 
     @Override
@@ -214,6 +217,13 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
         } else if (preference == mCollapsePanel) {
             Settings.System.putInt(resolver, Settings.System.QS_COLLAPSE_PANEL,
                     mCollapsePanel.isChecked() ? 1 : 0);
+            return true;
+        } else if (preference == mTileColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mTileColorListener, Settings.System.getInt(getContentResolver(),
+                    Settings.System.SETTINGS_TILE_COLOR, 0xFF161616));
+            cp.setDefaultColor(0xFF161616);
+            cp.show();
             return true;
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
@@ -308,4 +318,14 @@ public class QuickSettings extends SettingsPreferenceFragment implements OnPrefe
             return val.toString().split(SEPARATOR);
         }
     }
+
+    ColorPickerDialog.OnColorChangedListener mTileColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.SETTINGS_TILE_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
 }

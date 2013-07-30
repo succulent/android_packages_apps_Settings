@@ -20,6 +20,7 @@ public class PieControl extends SettingsPreferenceFragment
     private static final int DEFAULT_POSITION = 1 << 1; // this equals Position.BOTTOM.FLAG
 
     private static final String PIE_CONTROL = "pie_control_checkbox";
+    private static final String PIE_CONTROL_ALWAYS = "pie_control_always_checkbox";
     private static final String PIE_SENSITIVITY = "pie_control_sensitivity";
     private static final String PIE_SIZE = "pie_control_size";
     private static final String[] TRIGGER = {
@@ -30,9 +31,13 @@ public class PieControl extends SettingsPreferenceFragment
     };
 
     private CheckBoxPreference mPieControl;
+    private CheckBoxPreference mPieControlAlways;
     private ListPreference mPieSensitivity;
     private SeekBarDialogPreference mPieSize;
     private CheckBoxPreference[] mTrigger = new CheckBoxPreference[4];
+    private Preference mPieColor;
+    private Preference mPieSelectedColor;
+    private Preference mPieOutlineColor;
 
     private ContentObserver mPieTriggerObserver = new ContentObserver(new Handler()) {
         @Override
@@ -50,9 +55,14 @@ public class PieControl extends SettingsPreferenceFragment
         PreferenceScreen prefSet = getPreferenceScreen();
         mPieControl = (CheckBoxPreference) prefSet.findPreference(PIE_CONTROL);
         mPieControl.setOnPreferenceChangeListener(this);
+        mPieControlAlways = (CheckBoxPreference) prefSet.findPreference(PIE_CONTROL_ALWAYS);
+        mPieControlAlways.setOnPreferenceChangeListener(this);
         mPieSensitivity = (ListPreference) prefSet.findPreference(PIE_SENSITIVITY);
         mPieSensitivity.setOnPreferenceChangeListener(this);
         mPieSize = (SeekBarDialogPreference) prefSet.findPreference(PIE_SIZE);
+        mPieColor = prefSet.findPreference("pie_color");
+        mPieSelectedColor = prefSet.findPreference("pie_selected_color");
+        mPieOutlineColor = prefSet.findPreference("pie_outline_color");
 
         for (int i = 0; i < TRIGGER.length; i++) {
             mTrigger[i] = (CheckBoxPreference) prefSet.findPreference(TRIGGER[i]);
@@ -60,15 +70,83 @@ public class PieControl extends SettingsPreferenceFragment
         }
     }
 
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        boolean value;
+
+        if (preference == mPieColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mPieColorListener, Settings.System.getInt(getContentResolver(),
+                    Settings.System.PIE_COLOR, 0xdd0099cc));
+            cp.setDefaultColor(0xdd0099cc);
+            cp.show();
+            return true;
+        } else if (preference == mPieSelectedColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mPieSelectedColorListener, Settings.System.getInt(getContentResolver(),
+                    Settings.System.PIE_SELECTED_COLOR, 0xff33b5e5));
+            cp.setDefaultColor(0xff33b5e5);
+            cp.show();
+            return true;
+        } else if (preference == mPieOutlineColor) {
+            ColorPickerDialog cp = new ColorPickerDialog(getActivity(),
+                    mPieOutlineColorListener, Settings.System.getInt(getContentResolver(),
+                    Settings.System.PIE_OUTLINE_COLOR, 0xdd0099cc));
+            cp.setDefaultColor(0xdd0099cc);
+            cp.show();
+            return true;
+        }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    ColorPickerDialog.OnColorChangedListener mPieColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.PIE_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
+
+    ColorPickerDialog.OnColorChangedListener mPieSelectedColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.PIE_SELECTED_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
+
+    ColorPickerDialog.OnColorChangedListener mPieOutlineColorListener =
+        new ColorPickerDialog.OnColorChangedListener() {
+            public void colorChanged(int color) {
+                Settings.System.putInt(getContentResolver(),
+                        Settings.System.PIE_OUTLINE_COLOR, color);
+            }
+            public void colorUpdate(int color) {
+            }
+    };
+
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mPieControl) {
             boolean newState = (Boolean) newValue;
 
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.PIE_CONTROLS, newState ? 1 : 0);
-            propagatePieControl(newState);
+            boolean pieAlways = Settings.System.getInt(getContentResolver(),
+                    Settings.System.PIE_CONTROLS, 0) == 2;
 
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.PIE_CONTROLS, newState ? (pieAlways ? 2 : 1) : 0);
+            propagatePieControl(newState);
+        } else if (preference == mPieControlAlways) {
+            boolean newState = (Boolean) newValue;
+
+            boolean pie = Settings.System.getInt(getContentResolver(),
+                    Settings.System.PIE_CONTROLS, 0) > 0;
+
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.PIE_CONTROLS, newState ? 2 : (pie ? 1 : 0));
         } else if (preference == mPieSensitivity) {
             String newState = (String) newValue;
 
@@ -96,7 +174,9 @@ public class PieControl extends SettingsPreferenceFragment
         super.onResume();
 
         mPieControl.setChecked(Settings.System.getInt(getContentResolver(),
-                Settings.System.PIE_CONTROLS, 0) == 1);
+                Settings.System.PIE_CONTROLS, 0) > 0);
+        mPieControlAlways.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.PIE_CONTROLS, 0) == 2);
         propagatePieControl(mPieControl.isChecked());
 
         int sensitivity = Settings.System.getInt(getContentResolver(),
