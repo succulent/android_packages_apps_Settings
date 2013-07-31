@@ -79,6 +79,7 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
     private ListPreference mCustomBackground;
     private ListPreference mBatteryStatus;
     private CheckBoxPreference mMaximizeWidgets;
+    private CheckBoxPreference mMusicControls;
     private CheckBoxPreference mEnableWidgets;
     private CheckBoxPreference mEnableCamera;
     private CheckBoxPreference mAllWidgets;
@@ -118,6 +119,9 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
             } else {
                 mMaximizeWidgets.setOnPreferenceChangeListener(this);
             }
+
+            mMusicControls = (CheckBoxPreference) findPreference(KEY_LOCKSCREEN_MUSIC_CONTROLS);
+            mMusicControls.setOnPreferenceChangeListener(this);
 
             PreferenceScreen lockscreenButtons = (PreferenceScreen) findPreference(KEY_LOCKSCREEN_BUTTONS);
             if (!hasButtons()) {
@@ -194,6 +198,10 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
                 mMaximizeWidgets.setChecked(Settings.System.getInt(cr,
                         Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, 0) == 1);
             }
+            if (mMusicControls != null) {
+                mMusicControls.setChecked(Settings.System.getInt(cr,
+                        Settings.System.LOCKSCREEN_MUSIC_CONTROLS, 1) == 1);
+            }
         }
     }
 
@@ -235,6 +243,10 @@ public class LockscreenInterface extends SettingsPreferenceFragment implements
         } else if (preference == mMaximizeWidgets) {
             boolean value = (Boolean) objValue;
             Settings.System.putInt(cr, Settings.System.LOCKSCREEN_MAXIMIZE_WIDGETS, value ? 1 : 0);
+            return true;
+        } else if (preference == mMusicControls) {
+            boolean value = (Boolean) objValue;
+            Settings.System.putInt(cr, Settings.System.LOCKSCREEN_MUSIC_CONTROLS, value ? 1 : 0);
             return true;
         } else if (preference == mCustomBackground) {
             int selection = mCustomBackground.findIndexOfValue(objValue.toString());
