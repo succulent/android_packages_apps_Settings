@@ -23,7 +23,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.UserHandle;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -143,7 +142,7 @@ public class NavBar extends Fragment {
     private void toggleEditMode(boolean on, boolean save) {
         mIntent.putExtra("edit", on);
         mIntent.putExtra("save", save);
-        mActivity.sendBroadcastAsUser(mIntent, UserHandle.ALL);
+        mActivity.sendBroadcast(mIntent);
         if (mEditMenu != null) {
             mEditMenu.setTitle(on ? R.string.navigation_bar_menu_editable :  R.string.navigation_bar_menu_locked)
             .setIcon(on ? R.drawable.stat_navbar_edit_on : R.drawable.stat_navbar_edit_off);
