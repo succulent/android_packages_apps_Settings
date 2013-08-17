@@ -51,7 +51,6 @@ public class SystemUiSettings extends SettingsPreferenceFragment  implements
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.system_ui_settings);
-        PreferenceScreen prefScreen = getPreferenceScreen();
 
         mPieControl = (PreferenceScreen) findPreference(KEY_PIE_CONTROL);
 
@@ -59,27 +58,46 @@ public class SystemUiSettings extends SettingsPreferenceFragment  implements
         mExpandedDesktopPref = (ListPreference) findPreference(KEY_EXPANDED_DESKTOP);
         mExpandedDesktopNoNavbarPref =
                 (CheckBoxPreference) findPreference(KEY_EXPANDED_DESKTOP_NO_NAVBAR);
-
-        int expandedDesktopValue = Settings.System.getInt(getContentResolver(),
-                Settings.System.EXPANDED_DESKTOP_STYLE, 0);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        PreferenceScreen prefScreen = getPreferenceScreen();
         updatePieControlSummary();
         mBarSettings = (PreferenceScreen) findPreference("combined_bar_settings");
         mQuickSettings = (PreferenceScreen) findPreference("quick_settings_panel");
 
-        boolean tabletMode = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        boolean tabletMode = Settings.System.getInt(getContentResolver(),
                 Settings.System.TABLET_MODE,
-                getActivity().getApplicationContext().getResources().getBoolean(
+                getResources().getBoolean(
                 com.android.internal.R.bool.config_showTabletNavigationBar) ? 1 : 0) == 1;
 
         if (!tabletMode && mBarSettings != null) {
-            getPreferenceScreen().removePreference(mBarSettings);
+            prefScreen.removePreference(mBarSettings);
         } else if (tabletMode && mQuickSettings != null) {
-            getPreferenceScreen().removePreference(mQuickSettings);
+            prefScreen.removePreference(mQuickSettings);
+        }
+
+        int expandedDesktopValue = Settings.System.getInt(getContentResolver(),
+                Settings.System.EXPANDED_DESKTOP_STYLE, 0);
+
+        try {
+            boolean hasNavBar = WindowManagerGlobal.getWindowManagerService().hasNavigationBar();
+
+            // Hide no-op "Status bar visible" mode on devices without navigation bar
+            if (hasNavBar) {
+                mExpandedDesktopPref.setOnPreferenceChangeListener(this);
+                mExpandedDesktopPref.setValue(String.valueOf(expandedDesktopValue));
+                updateExpandedDesktop(expandedDesktopValue);
+                prefScreen.removePreference(mExpandedDesktopNoNavbarPref);
+            } else {
+                mExpandedDesktopNoNavbarPref.setOnPreferenceChangeListener(this);
+                mExpandedDesktopNoNavbarPref.setChecked(expandedDesktopValue > 0);
+                prefScreen.removePreference(mExpandedDesktopPref);
+            }
+        } catch (RemoteException e) {
+            Log.e(TAG, "Error getting navigation bar status");
         }
     }
 
