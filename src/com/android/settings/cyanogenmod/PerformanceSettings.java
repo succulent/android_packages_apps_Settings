@@ -71,52 +71,49 @@ public class PerformanceSettings extends SettingsPreferenceFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getPreferenceManager() != null) {
+        addPreferencesFromResource(R.xml.performance_settings);
 
-            addPreferencesFromResource(R.xml.performance_settings);
+        PreferenceScreen prefSet = getPreferenceScreen();
 
-            PreferenceScreen prefSet = getPreferenceScreen();
+        String useDithering = SystemProperties.get(USE_DITHERING_PERSIST_PROP, USE_DITHERING_DEFAULT);
+        mUseDitheringPref = (ListPreference) prefSet.findPreference(USE_DITHERING_PREF);
+        mUseDitheringPref.setOnPreferenceChangeListener(this);
+        mUseDitheringPref.setValue(useDithering);
+        mUseDitheringPref.setSummary(mUseDitheringPref.getEntry());
 
-            String useDithering = SystemProperties.get(USE_DITHERING_PERSIST_PROP, USE_DITHERING_DEFAULT);
-            mUseDitheringPref = (ListPreference) prefSet.findPreference(USE_DITHERING_PREF);
-            mUseDitheringPref.setOnPreferenceChangeListener(this);
-            mUseDitheringPref.setValue(useDithering);
-            mUseDitheringPref.setSummary(mUseDitheringPref.getEntry());
+        mUse16bppAlphaPref = (CheckBoxPreference) prefSet.findPreference(USE_16BPP_ALPHA_PREF);
+        String use16bppAlpha = SystemProperties.get(USE_16BPP_ALPHA_PROP, "0");
+        mUse16bppAlphaPref.setChecked("1".equals(use16bppAlpha));
 
-            mUse16bppAlphaPref = (CheckBoxPreference) prefSet.findPreference(USE_16BPP_ALPHA_PREF);
-            String use16bppAlpha = SystemProperties.get(USE_16BPP_ALPHA_PROP, "0");
-            mUse16bppAlphaPref.setChecked("1".equals(use16bppAlpha));
+        mDisableBootanimPref = (CheckBoxPreference) prefSet
+                .findPreference(DISABLE_BOOTANIMATION_PREF);
+        String disableBootanimation = SystemProperties.get(DISABLE_BOOTANIMATION_PERSIST_PROP,
+                DISABLE_BOOTANIMATION_DEFAULT);
+        mDisableBootanimPref.setChecked("1".equals(disableBootanimation));
 
-            mDisableBootanimPref = (CheckBoxPreference) prefSet
-                    .findPreference(DISABLE_BOOTANIMATION_PREF);
-            String disableBootanimation = SystemProperties.get(DISABLE_BOOTANIMATION_PERSIST_PROP,
-                    DISABLE_BOOTANIMATION_DEFAULT);
-            mDisableBootanimPref.setChecked("1".equals(disableBootanimation));
+        mDisableWallpaperPref = (CheckBoxPreference) prefSet
+                .findPreference(DISABLE_WALLPAPER_PREF);
+        String disableWallpaper = SystemProperties.get(DISABLE_WALLPAPER_PERSIST_PROP,
+                DISABLE_WALLPAPER_DEFAULT);
+        mDisableWallpaperPref.setChecked("0".equals(disableWallpaper));
 
-            mDisableWallpaperPref = (CheckBoxPreference) prefSet
-                    .findPreference(DISABLE_WALLPAPER_PREF);
-            String disableWallpaper = SystemProperties.get(DISABLE_WALLPAPER_PERSIST_PROP,
-                    DISABLE_WALLPAPER_DEFAULT);
-            mDisableWallpaperPref.setChecked("0".equals(disableWallpaper));
-
-            /* Display the warning dialog */
-            alertDialog = new AlertDialog.Builder(getActivity()).create();
-            alertDialog.setTitle(R.string.performance_settings_warning_title);
-            alertDialog.setMessage(getResources().getString(R.string.performance_settings_warning));
-            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                    getResources().getString(com.android.internal.R.string.ok),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            return;
-                        }
-                    });
-            alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                public void onCancel(DialogInterface dialog) {
-                    PerformanceSettings.this.finish();
-                }
-            });
-            alertDialog.show();
-        }
+        /* Display the warning dialog */
+        alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setTitle(R.string.performance_settings_warning_title);
+        alertDialog.setMessage(getResources().getString(R.string.performance_settings_warning));
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE,
+                getResources().getString(com.android.internal.R.string.ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            public void onCancel(DialogInterface dialog) {
+                PerformanceSettings.this.finish();
+            }
+        });
+        alertDialog.show();
     }
 
     @Override
