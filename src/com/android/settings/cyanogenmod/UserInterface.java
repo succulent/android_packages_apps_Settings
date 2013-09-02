@@ -57,27 +57,29 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
 
         PreferenceScreen prefSet = getPreferenceScreen();
 
+        mContentResolver = getContentResolver();
+
         mDualPanePrefs = (ListPreference) prefSet.findPreference(DUAL_PANE_PREFS);
         mDualPanePrefs.setOnPreferenceChangeListener(this);
         boolean preferMultiPane = getResources().getBoolean(
                 com.android.internal.R.bool.preferences_prefer_dual_pane);
-        int dualPane = Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        int dualPane = Settings.System.getInt(mContentResolver,
                 Settings.System.DUAL_PANE_PREFS, preferMultiPane ? 1 : 0);
         mDualPanePrefs.setValue(String.valueOf(dualPane));
 
         mUmsNotificationConnect = (CheckBoxPreference) prefSet.findPreference(UMS_NOTIFICATION_CONNECT);
 
-        mUmsNotificationConnect.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mUmsNotificationConnect.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.UMS_NOTIFICATION_CONNECT, 0) == 1));
 
         mHideUsbNotification = (CheckBoxPreference) prefSet.findPreference(HIDE_USB_NOTIFICATION);
 
-        mHideUsbNotification.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mHideUsbNotification.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.HIDE_USB_NOTIFICATION, 0) == 1));
 
         mLargeRecentThumbs = (CheckBoxPreference) prefSet.findPreference(LARGE_RECENT_THUMBS);
 
-        mLargeRecentThumbs.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mLargeRecentThumbs.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.LARGE_RECENT_THUMBS, 0) == 1));
 
         mRecentsColor =
@@ -85,14 +87,14 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
 
         mLauncherMenu = (CheckBoxPreference) prefSet.findPreference(LAUNCHER_MENU);
 
-        mLauncherMenu.setChecked((Settings.System.getInt(getActivity().getApplicationContext().getContentResolver(),
+        mLauncherMenu.setChecked((Settings.System.getInt(mContentResolver,
                 Settings.System.LAUNCHER_MENU, 1) == 1));
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mDualPanePrefs) {
             int value = Integer.valueOf((String) newValue);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentResolver,
                     Settings.System.DUAL_PANE_PREFS, value);
             getActivity().recreate();
             return true;
@@ -105,12 +107,12 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
 
         if (preference == mUmsNotificationConnect) {
             value = mUmsNotificationConnect.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentResolver,
                     Settings.System.UMS_NOTIFICATION_CONNECT, value ? 1 : 0);
             return true;
         } else if (preference == mLargeRecentThumbs) {
             value = mLargeRecentThumbs.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentResolver,
                     Settings.System.LARGE_RECENT_THUMBS, value ? 1 : 0);
             return true;
         } else if (preference == mRecentsColor) {
@@ -122,12 +124,12 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
             return true;
         } else if (preference == mHideUsbNotification) {
             value = mHideUsbNotification.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentResolver,
                     Settings.System.HIDE_USB_NOTIFICATION, value ? 1 : 0);
             return true;
         } else if (preference == mLauncherMenu) {
             value = mLauncherMenu.isChecked();
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
+            Settings.System.putInt(mContentResolver,
                     Settings.System.LAUNCHER_MENU, value ? 1 : 0);
             return true;
         }
@@ -137,7 +139,7 @@ public class UserInterface extends SettingsPreferenceFragment implements OnPrefe
     ColorPickerDialog.OnColorChangedListener mRecentsColorListener =
         new ColorPickerDialog.OnColorChangedListener() {
             public void colorChanged(int color) {
-                Settings.System.putInt(getContentResolver(),
+                Settings.System.putInt(mContentResolver,
                         Settings.System.RECENTS_PANEL_COLOR, color);
             }
             public void colorUpdate(int color) {
