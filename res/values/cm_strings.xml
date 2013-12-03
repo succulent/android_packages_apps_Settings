@@ -498,6 +498,9 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="cmupdate_settings_title">CyanogenMod updates</string>
     <string name="cmupdate_settings_summary">Check for, view or install available updates</string>
 
+    <!-- Advanced, Device specific (DeviceParts) settings  -->
+    <string name="advanced_settings_title">Advanced</string>
+
     <!-- Launches Dev Tools -->
     <string name="development_tools_title">Launch Tools</string>
 
@@ -775,6 +778,14 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <!-- Delete apn confirmation dialog message -->
     <string name="confirm_delete_apn">The APN will be deleted.</string>
 
+    <!-- Status bar  -->
+    <string name="status_bar_title">Status bar</string>
+    <string name="status_bar_battery_title">Battery status style</string>
+    <string name="status_bar_style_icon">Icon</string>
+    <string name="status_bar_style_hidden">Hidden</string>
+    <string name="status_bar_battery_status_circle">Circle</string>
+    <string name="status_bar_battery_status_circle_percentage">Circle with percentage</string>
+
     <!-- SGT7 -->
     <string name="pref_disable_bootanimation_title">Disable boot animation</string>
     <string name="pref_disable_wallpaperservice_title">Disable wallpaper service</string>
@@ -782,6 +793,5 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
 
     <string name="pref_is_high_end_gfx_title">High end gfx</string>
     <string name="pref_is_high_end_gfx_summary">Force the isHighEndGfx property on or off (requires reboot)</string>
-
 
 </resources>
