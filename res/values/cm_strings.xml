@@ -510,7 +510,6 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
 
     <!-- Change Log strings -->
     <string name="changelog_title">View changelog</string>
-    <string name="changelog_dialog">Changelog</string>
     <string name="changelog_loading">Loading changelog...</string>
     <string name="changelog_error">Unable to load changelog</string>
     <string name="changelog_unknown">Unknown</string>
@@ -811,10 +810,6 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="status_bar_style_hidden">Hidden</string>
     <string name="status_bar_battery_status_circle">Circle</string>
     <string name="status_bar_battery_status_circle_percentage">Circle with percentage</string>
-
-    <!-- AOSP dummy strings -->
-    <string name="experimental_webview"></string>
-    <string name="experimental_webview_summary"></string>
 
     <!--  development shortcut -->
     <string name="development_shortcut_title">Development shortcut</string>
