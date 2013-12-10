@@ -829,4 +829,15 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="pref_is_high_end_gfx_title">Use high end graphics</string>
     <string name="pref_is_high_end_gfx_summary">Force the isHighEndGfx property (needed for hardware accelerated translucency) on or off (requires reboot)</string>
 
+    <string name="user_interface_title">User interface</string>
+    <string name="dual_pane_prefs_title">Dual pane preferences</string>
+    <string name="dual_pane_prefs_summary">Choose when to use dual pane preferences</string>
+    <string name="dual_pane_prefs_on">Always</string>
+    <string name="dual_pane_prefs_off">Never</string>
+    <string name="dual_pane_prefs_landscape">Only in landscape</string>
+    <string name="recents_panel_color_title">Recents panel color</string>
+    <string name="large_recent_thumbs_title">Large recent thumbnails</string>
+    <string name="large_recent_thumbs_summary">Show larger recent application thumbnails</string>
+    <string name="dialog_indicator_color_title">Select color</string>
+
 </resources>
