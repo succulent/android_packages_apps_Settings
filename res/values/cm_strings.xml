@@ -922,27 +922,6 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="settings_cmlicense_activity_title">CyanogenMod Legal</string>
     <string name="settings_cmlicense_activity_unreachable">You don\'t have a data connection. To view this information now, go to %s from any computer connected to the Internet.</string>
 
-    <!-- SGT7 -->
-    <string name="pref_disable_bootanimation_title">Disable boot animation</string>
-    <string name="pref_disable_wallpaperservice_title">Disable wallpaper service</string>
-    <string name="pref_disable_wallpaperservice_summary">Disable wallpaper to reduce SystemUI memory usage (requires reboot)</string>
-
-    <string name="pref_is_high_end_gfx_title">Use high end graphics</string>
-    <string name="pref_is_high_end_gfx_summary">Force the isHighEndGfx property (needed for hardware accelerated translucency) on or off (requires reboot)</string>
-
-    <string name="user_interface_title">User interface</string>
-    <string name="dual_pane_prefs_title">Dual pane preferences</string>
-    <string name="dual_pane_prefs_summary">Choose when to use dual pane preferences</string>
-    <string name="dual_pane_prefs_on">Always</string>
-    <string name="dual_pane_prefs_off">Never</string>
-    <string name="dual_pane_prefs_landscape">Only in landscape</string>
-    <string name="status_bar_notification_color_title">Notification panel color</string>
-    <string name="recents_panel_color_title">Recents panel color</string>
-    <string name="tile_color_title">Tile color</string>
-    <string name="large_recent_thumbs_title">Large recent thumbnails</string>
-    <string name="large_recent_thumbs_summary">Show larger recent application thumbnails</string>
-    <string name="dialog_indicator_color_title">Select color</string>
-
     <!-- Stylus Icon -->
     <string name="stylus_icon_enabled_title">Show icon when using stylus</string>
     <string name="stylus_icon_enabled_summary">Show the pointer icon when hovering or drawing with the stylus</string>
@@ -971,4 +950,25 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
 
     <!-- Stylus gestures -->
     <string name="stylus_app_not_installed">%s is not installed</string>
+
+    <!-- SGT7 -->
+    <string name="pref_disable_bootanimation_title">Disable boot animation</string>
+    <string name="pref_disable_wallpaperservice_title">Disable wallpaper service</string>
+    <string name="pref_disable_wallpaperservice_summary">Disable wallpaper to reduce SystemUI memory usage (requires reboot)</string>
+
+    <string name="pref_is_high_end_gfx_title">Use high end graphics</string>
+    <string name="pref_is_high_end_gfx_summary">Force the isHighEndGfx property (needed for hardware accelerated translucency) on or off (requires reboot)</string>
+
+    <string name="user_interface_title">User interface</string>
+    <string name="dual_pane_prefs_title">Dual pane preferences</string>
+    <string name="dual_pane_prefs_summary">Choose when to use dual pane preferences</string>
+    <string name="dual_pane_prefs_on">Always</string>
+    <string name="dual_pane_prefs_off">Never</string>
+    <string name="dual_pane_prefs_landscape">Only in landscape</string>
+    <string name="status_bar_notification_color_title">Notification panel color</string>
+    <string name="recents_panel_color_title">Recents panel color</string>
+    <string name="tile_color_title">Tile color</string>
+    <string name="large_recent_thumbs_title">Large recent thumbnails</string>
+    <string name="large_recent_thumbs_summary">Show larger recent application thumbnails</string>
+    <string name="dialog_indicator_color_title">Select color</string>
 </resources>
