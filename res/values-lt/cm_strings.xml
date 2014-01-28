@@ -146,11 +146,8 @@
     <string name="pulse_speed_title">Pulsavimo trukmė ir greitis</string>
     <string name="default_time">Normalus</string>
     <string name="custom_time">Savo</string>
-    <string name="dialog_test">Bandyti</string>
     <string name="dialog_delete_title">Trinti</string>
     <string name="dialog_delete_message">Trinti pasirinktą?</string>
-    <string name="dialog_test_message">Išjunkite ekraną norėdami pamatyti pasirinktą įspėjimą arba atmeskite šį įspėjimą testo stabdymui</string>
-    <string name="dialog_test_button">Atmesti</string>
     <string name="pulse_length_always_on">Visada įjungta</string>
     <string name="pulse_length_very_short">Labai trumpas</string>
     <string name="pulse_length_short">Trumpas</string>
@@ -182,8 +179,6 @@
     <string name="volume_adjust_sounds_enable_summary">Naudojant telefono garso mygtukus skambėti, kai reguliuojamas garso lygis</string>
     <string name="lockpattern_settings_enable_error_path_title">Rodyti modelio klaidą</string>
     <string name="lockpattern_settings_enable_dots_title">Rodyti modelio taškus</string>
-    <string name="lockscreen_vibrate_enabled_title">Vibruoti</string>
-    <string name="lockscreen_vibrate_enabled_head">Vibruoti atrakinant</string>
     <string name="screen_security_category">Ekano apsauga</string>
     <string name="screen_security_title">Ekrano užraktas</string>
     <string name="screen_security_summary">Keisti ekrano užrakto nustatymus</string>
@@ -334,7 +329,6 @@ Ryškumo kreivė apskaičiuojama atliekant kubinę \„spline\“ interpoliacij�
     <string name="ok">Gerai</string>
     <string name="quiet_hours_title">Tylos laikas</string>
     <string name="quiet_hours_summary">Nustatykite kuriuo metu įrenginys bus tylus</string>
-    <string name="quiet_hours_note_summary">Pastaba: Gaunami skambučiai nebus tildomi tylos laiku</string>
     <string name="quiet_hours_enabled">Įjungti tylos laiką</string>
     <string name="quiet_hours_mute">Tildyti įspėjimus</string>
     <string name="quiet_hours_system">Išjungti sistemos garsus</string>

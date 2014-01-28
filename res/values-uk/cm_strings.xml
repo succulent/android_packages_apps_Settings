@@ -214,7 +214,6 @@
     <string name="volume_ring_only_description">Рінгтон</string>
     <string name="quiet_hours_title">Тихі години</string>
     <string name="quiet_hours_summary">Налаштувати години, коли пристрій повинен бути тихим</string>
-    <string name="quiet_hours_note_summary">Зауваження: Вхідні дзвінки будуть вести себе як звичайно у тихі години</string>
     <string name="quiet_hours_enabled">Увімкнути тихі години</string>
     <string name="quiet_hours_mute">Вимкнути звуки сповіщень</string>
     <string name="quiet_hours_system">Вимкнути звуки системи</string>
@@ -329,11 +328,8 @@
     <string name="pulse_speed_title">Тривалість та швидкість мигання</string>
     <string name="default_time">Нормально</string>
     <string name="custom_time">Користувацький</string>
-    <string name="dialog_test">Тест</string>
     <string name="dialog_delete_title">Вилучити</string>
     <string name="dialog_delete_message">Вилучити вибрані елементи?</string>
-    <string name="dialog_test_message">Вимкніть екран, щоб побачити вибрані налаштування індикатора в дії або зачиніть цей діалог для завершення тесту</string>
-    <string name="dialog_test_button">Відхилити</string>
     <string name="pulse_length_always_on">Завжди увімкнено</string>
     <string name="pulse_length_very_short">Дуже коротко</string>
     <string name="pulse_length_short">Коротко</string>
