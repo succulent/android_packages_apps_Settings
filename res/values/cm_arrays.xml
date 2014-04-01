@@ -614,6 +614,7 @@
         <item>@string/screen_recorder_bitrate_title_50000000</item>
         <item>@string/screen_recorder_bitrate_title_100000000</item>
     </string-array>
+
     <string-array name="screen_recorder_bitrate_values">
         <item>@string/screen_recorder_bitrate_100000</item>
         <item>@string/screen_recorder_bitrate_250000</item>
@@ -627,6 +628,7 @@
         <item>@string/screen_recorder_bitrate_20000000</item>
         <item>@string/screen_recorder_bitrate_50000000</item>
         <item>@string/screen_recorder_bitrate_100000000</item>
+    </string-array>
 
     <!-- Data usage settings.  Entries for cycle length. -->
     <string-array name="data_usage_cycle_length">
