@@ -71,20 +71,13 @@
         android:key="navigation_bar"
         android:title="@string/navigation_bar_category" >
 
-        <CheckBoxPreference
-            android:key="show_navigation_bar"
-            android:title="@string/navigation_bar_category"
-            android:persistent="true" />
-
         <PreferenceScreen
             android:key="navigation_bar"
-            android:dependency="show_navigation_bar"
             android:fragment="com.android.settings.cyanogenmod.NavBar"
             android:title="@string/navigation_bar_title" />
 
         <PreferenceScreen
             android:key="navigation_ring"
-            android:dependency="show_navigation_bar"
             android:fragment="com.android.settings.cyanogenmod.NavRing"
             android:title="@string/navigation_ring_title" />
 
