@@ -37,6 +37,12 @@
             android:key="tile_color"
             android:title="@string/tile_color_title" />
 
+        <com.android.settings.cyanogenmod.SystemSettingCheckBoxPreference
+            android:key="qs_small_icons"
+            android:title="@string/title_qs_small_icons"
+            android:defaultValue="false"
+            android:summary="@string/summary_qs_small_icons" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
